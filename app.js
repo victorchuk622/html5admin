@@ -8,6 +8,7 @@ var token = require('json-web-token');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
+var news = require('./routes/news');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -36,9 +37,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/auth', auth);
-app.use('/news', auth);
+app.use('/news', news);
 
-// catch 404 and forward to error handler
+// catch 404 and forward to error handl({success: false, message: 'Failed to authenticate token.'});er
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
