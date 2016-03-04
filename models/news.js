@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 module.exports = mongoose.model('News', new Schema({
-    title: String,
-    content: String,
-    create: { type: Date, default: Date.now },
-    publish: Date,
-    expire: Date,
-    author: String,
+    title: {type: String, required: true},
+    content: {type: String, required: true},
+    create: { type: Date, required: true},
+    publish: { type: Date, required: true},
+    expire: { type: Date, required: true},
+    author: {type: String, required: true},
 }));

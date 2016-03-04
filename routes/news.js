@@ -5,8 +5,37 @@ var express = require('express');
 var config = require('../config.js');
 var jwt = require('jsonwebtoken');
 var router = express.Router();
+var News = require('../models/news');
+var mongoose = require('mongoose');
+
+
+
 /* GET news */
-router.get('/', function(req, res, next) {
+router.post('/add', function (req, res, next) {
+
+    var token = req.body.token;
+
+    if (true) {
+
+        var news = new News(
+            {
+                title: req.body.title,
+                content: req.body.content,
+                create: Date.now(),
+                publish: req.body.publish,
+                expire: req.body.expire,
+                author: req.body.author,
+            }
+        );
+
+        news.save(function (err) {
+            if (err) res.json({success: false});
+            else res.json({success: true});
+        });
+    }
+});
+
+router.get('/', function (req, res, next) {
 
     var token = req.query.token;
 
@@ -16,20 +45,15 @@ router.get('/', function(req, res, next) {
         // verifies secret and checks exp
         jwt.verify(token, "test", function (err, decoded) {
             if (err) {
-                return res.json({ success: false, message: 'Authentication failed.' });
+                return res.json({success: false, message: 'Authentication failed.'});
             } else {
-
-
-
-
-
                 req.decoded = decoded;
-                return res.json({title: "test",
-                    content: "test",
-                    create: Date(),
-                    publish: Date(),
-                    expire: Date(),
-                    author: "test",});
+
+                News.find().exec(function (err, news) {
+                    if (err)  return res.json({success: false, message: 'Server Error!'});
+                    res.json(news);
+                    console.log(news);
+                });
             }
         });
 
