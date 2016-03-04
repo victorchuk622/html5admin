@@ -10,7 +10,13 @@ var mongoose = require('mongoose');
 
 
 
+
+
 /* GET news */
+
+
+
+
 router.post('/add', function (req, res, next) {
 
     var token = req.body.token;
@@ -68,5 +74,20 @@ router.get('/', function (req, res, next) {
 
     }
 });
+
+router.get('/latest', function (req, res, next) {
+
+    res.json({
+        "_id": "56d95d2663b833c33691c125",
+        "title": "Helloworld!",
+        "content": "FYP Project",
+        "create": "2016-03-04T10:02:14.686Z",
+        "publish": "2012-10-15T21:26:17.000Z",
+        "expire": "2012-10-15T21:26:17.000Z",
+        "author": "reinzwei",
+        "__v": 0
+    });
+});
+
 
 module.exports = router;
