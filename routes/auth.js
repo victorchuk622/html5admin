@@ -98,10 +98,13 @@ router.post('/modify', function (req, res, next) {
                 }, function (err, user) {
 
                     if (err) { return next(err); }
-                    user.password = req.body.password;
+                    if(req.body.password)
+                        user.password = req.body.password;
+                    if(req.body.nickname)
+                        user.nickname = req.body.nickname;
                     user.save(function(err) {
                         if (err) { return next(err); }
-                        else res.json({success: true, message: 'Password Updated.'});
+                        else res.json({success: true, message: 'Account Updated.'});
                     });
 
                 });
