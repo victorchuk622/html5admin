@@ -35,7 +35,7 @@ router.post('/', function (req, res, next) {
 
                 // if user is found and password is right
                 // create a token
-                var token = jwt.sign(user, "test", {
+                var token = jwt.sign({ id: user.id }, "test", {
                     expiresInMinutes: 1440 // expires in 24 hours
                 });
 
@@ -77,6 +77,38 @@ router.get('/add', function (req, res, next) {
             res.json({success: true});
         }
     });
+});
+
+router.post('/modify', function (req, res, next) {
+    var token = req.body.token;
+
+    if (token) {
+
+        // verifies secret and checks exp
+        jwt.verify(token, "test", function (err, decoded) {
+            if (err) {
+                return res.json({success: false, message: 'Authentication failed.'});
+            } else {
+                req.decoded = decoded;
+                var payload = jwt.decode(token, "test");
+
+
+                User.findOne({
+                    id: payload.id
+                }, function (err, user) {
+
+                    if (err) { return next(err); }
+                    user.password = req.body.password;
+                    user.save(function(err) {
+                        if (err) { return next(err); }
+                        else res.json({success: true, message: 'Password Updated.'});
+                    });
+
+                });
+
+            }
+        });
+    }
 });
 
 

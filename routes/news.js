@@ -53,7 +53,10 @@ router.get('/', function (req, res, next) {
             if (err) {
                 return res.json({success: false, message: 'Authentication failed.'});
             } else {
-                req.decoded = decoded;
+                var payload = jwt.decode(token, "test");
+
+
+                console.log(payload.id);
 
                 News.find().exec(function (err, news) {
                     if (err)  return res.json({success: false, message: 'Server Error!'});
