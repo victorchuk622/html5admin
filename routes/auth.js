@@ -17,7 +17,7 @@ mongoose.connect(config.db.development);
 router.post('/', function (req, res, next) {
 
     User.findOne({
-        name: req.body.user
+        id: req.body.id
     }, function (err, user) {
 
 
@@ -42,7 +42,8 @@ router.post('/', function (req, res, next) {
                 // return the information including token as JSON
                 res.json({
                     success: true,
-                    message: 'Enjoy your token!',
+                    nickname: user.nickname,
+                    fullname: user.fullname,
                     token: token
                 });
             }
@@ -57,15 +58,24 @@ router.post('/', function (req, res, next) {
 router.get('/add', function (req, res, next) {
 
     var user = new User({
-        name: req.query.name,
-        password: req.query.password
+        id: req.query.id,
+        fullname: req.query.fullname,
+        password: req.query.password,
     });
 
+
     user.save(function (err) {
-        if (err) throw err;
-
-
-        res.json({success: true});
+        if (err) {
+            res.json({success: false});
+            console.log('Error Inserting New Data');
+            if (err.name == 'ValidationError') {
+                for (field in err.errors) {
+                    console.log(err.errors[field].message);
+                }
+            }
+        } else {
+            res.json({success: true});
+        }
     });
 });
 
