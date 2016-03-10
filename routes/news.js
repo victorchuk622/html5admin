@@ -58,7 +58,7 @@ router.get('/', function (req, res, next) {
 
                 console.log(payload.id);
 
-                News.find().sort({publish: 1 }).exec(function (err, news) {
+                News.find().sort({publish:-1 }).exec(function (err, news) {
                     if (err)  return res.json({success: false, message: 'Server Error!'});
                     res.json(news);
                     console.log(news);
