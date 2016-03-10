@@ -1,7 +1,10 @@
 $('document').ready(function () {
     $("#login-form").submit(function (event) {
 
-            var data = $("#login-form").serialize();
+        console.log( $( this ).serialize());
+
+
+            //var data = $( this).serialize();
 
             $.ajax({
 

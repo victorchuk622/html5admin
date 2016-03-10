@@ -9,7 +9,9 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var news = require('./routes/news');
+var message = require('./routes/messages')
 var mongoose = require('mongoose');
+
 var Schema = mongoose.Schema;
 
 var app = express();
@@ -38,6 +40,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/auth', auth);
 app.use('/news', news);
+app.use('/message', message);
 
 // catch 404 and forward to error handl({success: false, message: 'Failed to authenticate token.'});er
 app.use(function (req, res, next) {
