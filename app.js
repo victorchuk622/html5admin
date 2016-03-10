@@ -77,4 +77,10 @@ app.get('/', function (req, res) {
     res.render('/views/login');
 });
 
+app.get('/portal', function (req, res) {
+
+
+    res.render('/views/login');
+});
+
 module.exports = app;

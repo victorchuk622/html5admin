@@ -4,7 +4,7 @@
 
 <h1>HTML5Learner Admin Console</h1>
 
-<form class="form-signin" method="post" action="/login">
+<form class="form-signin" method="post" id="login-form" >
     <h2 class="form-signin-heading">Please Login</h2>
     <label for="inputUser" class="sr-only">User</label>
     <input type="user" id="inputUser" class="form-control" placeholder="Username" required autofocus>
@@ -16,9 +16,13 @@
             <input type="checkbox" value="remember-me"> Remember me
         </label>
     </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" name="btn-login" id="btn-login">Sign in</button>
 </form>
 
 </div> <!-- /container -->
 
+
 <% include foot %>
+<script src="js/submit.js"></script>
+</body>
+</html>

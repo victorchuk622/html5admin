@@ -12,6 +12,9 @@ var jwt = require('jsonwebtoken');
 
 mongoose.connect(config.db.development);
 
+/*middleware to auth*/
+
+
 
 /* Login function and return Token. */
 router.post('/', function (req, res, next) {
@@ -114,5 +117,47 @@ router.post('/modify', function (req, res, next) {
     }
 });
 
+router.post('/admin', function (req, res, next) {
+
+    console.log(req.body);
+
+    User.findOne({
+        id: req.body.id
+    }, function (err, user) {
+
+
+        if (err) throw err;
+
+        if (!user) {
+
+            res.json({success: false, ge: 'Authentication failed. User not found.'});
+        } else if (user) {
+
+            // check if password matches
+            if (user.password != req.body.password) {
+                res.json({success: false, message: 'Authentication failed. Wrong password.'});
+            } else if (!user.admin) {
+                res.json({success: false, message: 'Authentication failed. You are not admin.'});
+            } else{
+
+            // if user is found and password is right
+                // create a token
+                var token = jwt.sign({ id: user.id , admin:true}, "test", {
+                    expiresIn: 22896000 // expires in 1 year
+                });
+
+                // return the information including token as JSON
+                res.json({
+                    success: true,
+                    nickname: user.nickname,
+                    fullname: user.fullname,
+                    token: token
+                })
+            }
+
+        }
+
+    });
+});
 
 module.exports = router;

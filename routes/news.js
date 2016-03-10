@@ -58,7 +58,7 @@ router.get('/', function (req, res, next) {
 
                 console.log(payload.id);
 
-                News.find().exec(function (err, news) {
+                News.find().sort({publish: 1 }).exec(function (err, news) {
                     if (err)  return res.json({success: false, message: 'Server Error!'});
                     res.json(news);
                     console.log(news);
@@ -78,6 +78,7 @@ router.get('/', function (req, res, next) {
     }
 });
 
+/*
 router.get('/latest', function (req, res, next) {
 
     res.json({
@@ -91,6 +92,6 @@ router.get('/latest', function (req, res, next) {
         "__v": 0
     });
 });
-
+*/
 
 module.exports = router;
