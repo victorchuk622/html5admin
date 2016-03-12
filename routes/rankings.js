@@ -6,7 +6,7 @@ var express = require('express');
 var config = require('../config.js');
 var jwt = require('jsonwebtoken');
 var router = express.Router();
-var Rank = require('../models/rankings');
+var Rank = require('../models/ranking');
 var mongoose = require('mongoose');
 
 //update the ranking in the database
