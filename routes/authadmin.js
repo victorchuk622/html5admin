@@ -15,7 +15,6 @@ var jwt = require('jsonwebtoken');
 mongoose.connect(config.db.development);
 
 router.use((req, res, next) => {
-
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
     // decode token
@@ -33,7 +32,10 @@ router.use((req, res, next) => {
                 req.payload = jwt.decode(token, "test");
                 if (req.payload.admin) {
                     next();
-                } else return ({success: false, message: 'Failed to authenticate token.'});
+                } else return ({
+                    success: false, 
+                    message: 'Failed to authenticate token.'
+                });
             }
         });
     } else {
