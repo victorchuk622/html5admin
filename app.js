@@ -11,7 +11,7 @@ var auth = require('./routes/auth');
 var news = require('./routes/news');
 var messages = require('./routes/messages');
 var mongoose = require('mongoose');
-
+var rankings = require('./routes/rankings');
 var Schema = mongoose.Schema;
 
 var app = express();
