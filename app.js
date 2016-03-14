@@ -41,6 +41,7 @@ app.use('/users', users);
 app.use('/auth', auth);
 app.use('/news', news);
 app.use('/messages', messages);
+app.use('/rankings',rankings);
 
 // catch 404 and forward to error handl({success: false, message: 'Failed to authenticate token.'});er
 app.use(function (req, res, next) {
