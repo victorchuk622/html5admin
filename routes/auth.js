@@ -9,23 +9,23 @@ var logger = require('morgan');
 var config = require('../config.js');
 var jwt = require('jsonwebtoken');
 
-
 mongoose.connect(config.db.development);
 
 /*middleware to auth*/
 
-
-
 /* Login function and return Token. */
-router.post('/', function (req, res, next) {
-
+router.post('/', (req, res, next) => {
     User.findOne({
         id: req.body.id
+<<<<<<< HEAD
     }, function (err, user) {
 
 
         if (err) throw err;
 
+=======
+    }).then((err, user) => {
+>>>>>>> 33f02e8f8ebe96384fcae53b3a1c9f7435954327
         if (!user) {
 
             res.json({success: false, message: 'Authentication failed. User not found.'});
@@ -52,111 +52,105 @@ router.post('/', function (req, res, next) {
             }
 
         }
+<<<<<<< HEAD
 
+=======
+    }, (err) => {
+        throw err;
+>>>>>>> 33f02e8f8ebe96384fcae53b3a1c9f7435954327
     });
 });
 
-
 /* Test function adding user*/
-router.get('/add', function (req, res, next) {
-
+router.get('/add', (req, res, next) => {
     var user = new User({
         id: req.query.id,
         fullname: req.query.fullname,
         password: req.query.password,
     });
-
-
-    user.save(function (err) {
-        if (err) {
-            res.json({success: false});
-            console.log('Error Inserting New Data');
-            if (err.name == 'ValidationError') {
-                for (field in err.errors) {
-                    console.log(err.errors[field].message);
-                }
+    user.save().then(() => {
+        res.json({
+            success: true
+        });
+    }, (err) => {
+        res.json({
+            success: false
+        });
+        console.log('Error Inserting New Data');
+        if (err.name == 'ValidationError') {
+            for (field in err.errors) {
+                console.log(err.errors[field].message);
             }
-        } else {
-            res.json({success: true});
         }
     });
 });
 
-router.post('/modify', function (req, res, next) {
+router.post('/modify', (req, res, next) => {
     var token = req.body.token;
-
     if (token) {
-
         // verifies secret and checks exp
-        jwt.verify(token, "test", function (err, decoded) {
+        jwt.verify(token, "test", (err, decoded) => {
             if (err) {
-                return res.json({success: false, message: 'Authentication failed.'});
+                return res.json({
+                    success: false, 
+                    message: 'Authentication failed.'
+                });
             } else {
                 req.decoded = decoded;
                 var payload = jwt.decode(token, "test");
-
-
                 User.findOne({
                     id: payload.id
-                }, function (err, user) {
-
-                    if (err) { return next(err); }
-                    if(req.body.password)
-                        user.password = req.body.password;
-                    if(req.body.nickname)
-                        user.nickname = req.body.nickname;
-                    user.save(function(err) {
-                        if (err) { return next(err); }
-                        else res.json({success: true, message: 'Account Updated.'});
+                }).then((user) => {
+                    if (req.body.password) user.password = req.body.password;
+                    if (req.body.nickname) user.nickname = req.body.nickname;
+                    user.save().then(() => {
+                        res.json({
+                            success: true, 
+                            message: 'Account Updated.'
+                        });
+                    }, (err) => {
+                        next(err);
                     });
-
+                }, (err) => {
+                    next(err);
                 });
-
             }
         });
     }
 });
 
-router.post('/admin', function (req, res, next) {
-
+router.post('/admin', (req, res, next) => {
     console.log(req.body);
-
     User.findOne({
         id: req.body.id
-    }, function (err, user) {
-
-
-        if (err) throw err;
-
+    }).then((user) => {
         if (!user) {
-
-            res.json({success: false, ge: 'Authentication failed. User not found.'});
-        } else if (user) {
-
+            res.json({
+                success: false,
+                message: 'Authentication failed. User not found.'
+            });
+        } else {
             // check if password matches
-            if (user.password != req.body.password) {
-                res.json({success: false, message: 'Authentication failed. Wrong password.'});
-            } else if (!user.admin) {
-                res.json({success: false, message: 'Authentication failed. You are not admin.'});
-            } else{
-
-            // if user is found and password is right
-                // create a token
-                var token = jwt.sign({ id: user.id , admin:true}, "test", {
-                    expiresIn: 22896000 // expires in 1 year
-                });
-
+            (user.password == req.body.password) ? (user.admin) ? jwt.sign({ id: user.id , admin:true}, "test", {
+                expiresIn: 22896000 // expires in 1 year
+            }, function(token){
                 // return the information including token as JSON
                 res.json({
                     success: true,
                     nickname: user.nickname,
                     fullname: user.fullname,
                     token: token
-                })
-            }
-
+                });
+            }) : res.json({
+                success: false,
+                message: 'Authentication failed. You are not admin.'
+            }) : res.json({
+                success: false,
+                message: 'Authentication failed. Wrong password.'
+            });
         }
-
+    }, (err) => {
+        throw err;
     });
 });
 
