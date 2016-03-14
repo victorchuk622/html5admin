@@ -9,7 +9,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var news = require('./routes/news');
-var messages = require('./routes/messages')
+var messages = require('./routes/messages');
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;

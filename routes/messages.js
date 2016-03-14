@@ -21,12 +21,12 @@ router.post('/sendmsg', function (req, res, next) {
 
                 //<new version
                 var criteriaA = {};
-                criteriaA["senderID"] = req.params.targetID;
-                criteriaA["receiverID"] = req.params.userID;
+                criteriaA["senderID"] = req.body.targetID;
+                criteriaA["receiverID"] = req.body.userID;
 
                 var criteriaB = {};
-                criteriaB["receiverID"] = req.params.targetID;
-                criteriaB["senderID"] = req.params.userID;
+                criteriaB["receiverID"] = req.body.targetID;
+                criteriaB["senderID"] = req.body.userID;
 
                 Message.find(criteriaA, function (err, results) {
                     if (err)
@@ -36,10 +36,10 @@ router.post('/sendmsg', function (req, res, next) {
                         Message.update(criteriaA, {$set: {content: this.content + "|*" + req.body.userID + "*|" + req.body.content}}, function (err, result) {
                             if (err) {
                                 console.log("Error: " + err.message);
-                                res.json(err);
+                                res.json({success:false, message: 'Server Error!'});
                             }
                             else {
-                                res.json({message: 'update done'});
+                                res.json({success:true, message: 'update done'});
                             }
                         });
                     else {
@@ -51,10 +51,10 @@ router.post('/sendmsg', function (req, res, next) {
                                 Message.update(criteriaB, {$set: {content: this.content + "|*" + req.body.userID + "*|" + req.body.content}}, function (err, result) {
                                     if (err) {
                                         console.log("Error: " + err.message);
-                                        res.json(err);
+                                        res.json({success:false, message: 'Server Error!'});
                                     }
                                     else {
-                                        res.json({message: 'update done'});
+                                        res.json({success:true, message: 'update done'});
                                     }
                                 });
                             }
@@ -178,7 +178,7 @@ router.get('/getAllMsg/:userID', function (req, res, next) {
                     if (results.length > 0)
                         res.json(results);
                     else
-                        res.json({message: 'Result not found!'});
+                        res.json({success: false, message: 'Result not found!'});
                 });
                 //version2>
             }
