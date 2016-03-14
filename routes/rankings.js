@@ -11,82 +11,81 @@ var mongoose = require('mongoose');
 
 //update the ranking in the database
 //:scope only accept 'CH1-3', 'CH4-6', 'CH7-9', 'CH10-12', 'Overall'
-router.put('/updateRank/:scope', function (req, res, next) {
+router.put('/updateRank/:scope', (req, res, next) => {
     var token = req.body.token;
     if (token) {
-        jwt.verify(token, "test", function (err, decoded) {
+        jwt.verify(token, "test", (err, decoded) => {
             if (err) {
                 return res.json({success: false, message: 'Authentication failed.'});
-            }
-            else {
+            }else{
                 var payload = jwt.decode(token, "test");
                 console.log(payload.id);
-
                 var criteria = {};
-                criteria['ranking'] = req.body.ranking;
-
-                Rank.find({scope: req.params.scope},function(err,results){
-                    if (err)
-                        return res.json({success: false, message: 'Server Error!'});
-
+                criteria.ranking = req.body.ranking;
+                Rank.find({scope: req.params.scope}).then((results) => {
                     if (results.length > 0){
-                        Rank.update({scope: req.params.scope}, {$set: criteria}, function(err, result) {
-                            if (err) {
-                                console.log("Error: " + err.message);
-                                res.json(err);
-                            }
-                            else {
-                                res.json({message: 'update done'});
-                            }
+                        Rank.update({scope: req.params.scope}, {$set: criteria}).then((result) => {
+                            res.json({message: 'update done'});
+                        }, (err) => {
+                            console.log("Error: " + err.message);
+                            res.json(err);
                         });
-                    }
-                    else{
+                    }else{
                         var rank = new Rank({
                             scope: req.params.scope,
                             ranking: req.body.ranking
                         });
-                        rank.save(function (err) {
-                            if (err)
-                                res.json({success: false});
-                            else
-                                res.json({success: true});
+                        rank.save().then(() => {
+                            res.json({success: true});
+                        }, (err) => {
+                            res.json({success: false});
                         });
                     }
+                }, (err) => {
+                    res.json({
+                        success: false, 
+                        message: 'Server Error!'
+                    });
                 });
             }
+        });
+    }else{
+        res.status(403).send({
+            success: false,
+            message: 'No token provided.'
         });
     }
 });
 
 //get the rank by scope
-router.get('/getRank/:scope', function (req, res, next) {
+router.get('/getRank/:scope', (req, res, next) => {
     var token = req.query.token;
     // decode token
     if (token) {
         // verifies secret and checks exp
         jwt.verify(token, "test", function (err, decoded) {
             if (err) {
-                return res.json({success: false, message: 'Authentication failed.'});
-            }
-            else {
+                return res.json({
+                    success: false, 
+                    message: 'Authentication failed.'
+                });
+            } else {
                 var payload = jwt.decode(token, "test");
                 console.log(payload.id);
-
-                Message.find({scope: req.params.scope},function(err,results){
-                    if (err)
-                        return res.json({success: false, message: 'Server Error!'});
-
-                    if (results.length > 0)
+                Message.find({scope: req.params.scope}).then((err,results) => {
+                    if (results.length > 0){
                         res.json(results);
-                    else
+                    } else {
                         res.json({message: 'Result not found!'});
+                    }
+                }, (err) => {
+                    res.json({success: false, message: 'Server Error!'});
                 });
             }
         });
-    }
-    else {
+    } else {
         // return error if there is no token,
-        return res.status(403).send({
+        res.status(403).send({
             success: false,
             message: 'No token provided.'
         });
