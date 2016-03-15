@@ -17,15 +17,7 @@ mongoose.connect(config.db.development);
 router.post('/', (req, res, next) => {
     User.findOne({
         id: req.body.id
-<<<<<<< HEAD
-    }, function (err, user) {
-
-
-        if (err) throw err;
-
-=======
     }).then((err, user) => {
->>>>>>> 33f02e8f8ebe96384fcae53b3a1c9f7435954327
         if (!user) {
 
             res.json({success: false, message: 'Authentication failed. User not found.'});
@@ -52,12 +44,8 @@ router.post('/', (req, res, next) => {
             }
 
         }
-<<<<<<< HEAD
-
-=======
     }, (err) => {
         throw err;
->>>>>>> 33f02e8f8ebe96384fcae53b3a1c9f7435954327
     });
 });
 
