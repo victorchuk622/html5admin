@@ -2,14 +2,12 @@ $('document').ready(function () {
     $("#login-form").submit(function (event) {
         event.preventDefault();
         var data = $( this).serialize();
-
+        console.log(data);
         $.ajax({
-
             type: 'POST',
             url: 'auth/admin',
             //dataType:'json',
             data: data,
-
             success: function (response) {
                 console.log(response.success);
                 if (response.success) {
