@@ -15,9 +15,11 @@ mongoose.connect(config.db.development);
 
 /* Login function and return Token. */
 router.post('/', (req, res, next) => {
+    console.log(req.body);
     User.findOne({
         id: req.body.id
     }).then((err, user) => {
+        console.log(user);
         if (!user) {
 
             res.json({success: false, message: 'Authentication failed. User not found.'});
