@@ -14,7 +14,7 @@ router.post('/sendmsg', function (req, res, next) {
             if (err) {
                 return res.json({success: false, message: 'Authentication failed.'});
             }
-            
+
             else {
                 var payload = jwt.decode(token, "test");
                 console.log(payload.id);
@@ -37,12 +37,15 @@ router.post('/sendmsg', function (req, res, next) {
                         return res.json({success: false, message: 'Server Error!'});
 
                     if (results.length > 0)
+
                         Message.update(criteriaA, {$push: theContent}, function (err, result) {
                             if (err) {
                                 console.log("Error: " + err.message);
                                 res.json(err);
                             }
                             else {
+                                result.update = Date.now();
+                                result.save();
                                 res.json({message: 'update done'});
                             }
                         });
@@ -114,7 +117,7 @@ router.get('/getAllMsg/:userID', function (req, res, next) {
                 return res.json({success: false, message: 'Authentication failed.'});
             }
             else{
-                Message.find({$or:[ {'userA':req.params.userID}, {'userB':req.params.userID}]},function (err, results) {
+                Message.find({$or:[ {'userA':req.params.userID}, {'userB':req.params.userID}]}).sort({update:-1 }).exec(function (err, results) {
                     if (err)
                         return res.json({success: false, message: 'Server Error!'});
                     if (results.length > 0)
