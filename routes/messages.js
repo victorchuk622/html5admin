@@ -109,6 +109,18 @@ router.get('/getAllMsg/:userID', function (req, res, next) {
             if (err) {
                 return res.json({success: false, message: 'Authentication failed.'});
             }
+            else{
+                Message.find({$or:[ {'userA':req.params.userID}, {'userB':req.params.userID}]},function (err, results) {
+                    if (err)
+                        return res.json({success: false, message: 'Server Error!'});
+                    if (results.length > 0)
+                        res.json(results);
+                    else
+                        res.json({message: 'Result not found!'});
+                });
+
+            }
+            /*
             else {
                 var payload = jwt.decode(token, "test");
                 console.log(payload.id);
@@ -140,6 +152,7 @@ router.get('/getAllMsg/:userID', function (req, res, next) {
                 });
                 //version2>
             }
+            */
         });
     }
     else {
