@@ -6,5 +6,5 @@ module.exports = mongoose.model('Challenge', new Schema({
     questionID: String,  //questions _id
     teamID: String,
     score: Number,
-    date: Date.now()
+    date: { type: Date, default: Date.now }
 }));
