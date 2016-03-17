@@ -153,3 +153,4 @@ router.put('/putRecord/:qid', function (req, res, next) {
     }
 });
 
+module.exports = router;

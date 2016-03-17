@@ -69,3 +69,4 @@ router.get('/getRecord/:cid', function (req, res, next) {
 //get by questionID
 
 //get by teamID
+module.exports = router;
