@@ -9,6 +9,8 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var news = require('./routes/news');
+var questions = require('./routes/questions');
+var challenges = require('./routes/challenges');
 var messages = require('./routes/messages');
 var mongoose = require('mongoose');
 var rankings = require('./routes/rankings');
@@ -42,6 +44,8 @@ app.use('/auth', auth);
 app.use('/news', news);
 app.use('/messages', messages);
 app.use('/rankings',rankings);
+app.use('/questions',questions);
+app.use('/challenges',challenges);
 
 // catch 404 and forward to error handl({success: false, message: 'Failed to authenticate token.'});er
 app.use(function (req, res, next) {
