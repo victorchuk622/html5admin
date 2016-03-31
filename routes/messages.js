@@ -45,7 +45,7 @@ router.post('/sendmsg', function (req, res, next) {
                             }
                             else {
                                 result.update = Date.now();
-                                result.save();
+                                //result.save();
                                 res.json({message: 'update done'});
                             }
                         });
@@ -62,6 +62,7 @@ router.post('/sendmsg', function (req, res, next) {
                                         res.json(err);
                                     }
                                     else {
+                                        result.update = Date.now();
                                         res.json({message: 'update done'});
                                     }
                                 });
