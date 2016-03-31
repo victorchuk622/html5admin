@@ -30,7 +30,7 @@ router.post('/sendmsg', function (req, res, next) {
                 criteriaB["userA"] = req.body.userID;
 
                 var theContent = {};
-                theContent = JSON.parse('{"conversation": {"senderID": "' + req.body.userID + '", "content": "' + req.body.content + '"}}');
+                theContent = JSON.parse('{"conversation": {"senderID": "' + req.body.userID + '", "content": "' + req.body.content +  '", "Date": "' + Date.now() + '"}}');
 
                 Message.find(criteriaA, function (err, results) {
                     if (err)
