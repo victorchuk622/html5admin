@@ -30,13 +30,13 @@ router.post('/sendmsg', function (req, res, next) {
                 criteriaB["userA"] = req.body.userID;
 
                 var theContent = {};
-                theContent = JSON.parse('{"conversation": {"senderID": "' + req.body.userID + '", "content": "' + req.body.content +  '", "Date": "' + Date.now() + '"}}');
+                theContent = JSON.parse('{"conversation": {"senderID": "' + req.body.userID + '", "content": "' + req.body.content + '", "date": "' + Date.now() + '"}}');
 
                 Message.find(criteriaA, function (err, results) {
                     if (err)
                         return res.json({success: false, message: 'Server Error!'});
 
-                    if (results.length > 0)
+                    if (results.length > 0) {
 
                         Message.update(criteriaA, {$push: theContent}, function (err, result) {
                             if (err) {
@@ -49,6 +49,7 @@ router.post('/sendmsg', function (req, res, next) {
                                 res.json({message: 'update done'});
                             }
                         });
+                    }
                     else {
                         Message.find(criteriaB, function (err, results) {
                             if (err)
@@ -99,7 +100,6 @@ router.post('/sendmsg', function (req, res, next) {
             }
 
 
-
         });
     }
 });
@@ -116,8 +116,8 @@ router.get('/getAllMsg/:userID', function (req, res, next) {
             if (err) {
                 return res.json({success: false, message: 'Authentication failed.'});
             }
-            else{
-                Message.find({$or:[ {'userA':req.params.userID}, {'userB':req.params.userID}]}).sort({update:-1 }).exec(function (err, results) {
+            else {
+                Message.find({$or: [{'userA': req.params.userID}, {'userB': req.params.userID}]}).sort({update: -1}).exec(function (err, results) {
                     if (err)
                         return res.json({success: false, message: 'Server Error!'});
                     if (results.length > 0)
@@ -128,38 +128,38 @@ router.get('/getAllMsg/:userID', function (req, res, next) {
 
             }
             /*
-            else {
-                var payload = jwt.decode(token, "test");
-                console.log(payload.id);
+             else {
+             var payload = jwt.decode(token, "test");
+             console.log(payload.id);
 
-                //<version2
-                var criteriaA = {};
-                criteriaA["userA"] = req.params.userID;
+             //<version2
+             var criteriaA = {};
+             criteriaA["userA"] = req.params.userID;
 
-                var criteriaB = {};
-                criteriaB["userB"] = req.params.userID;
+             var criteriaB = {};
+             criteriaB["userB"] = req.params.userID;
 
-                Message.find(criteriaA, function (err, results) {
-                    if (err)
-                        return res.json({success: false, message: 'Server Error!'});
+             Message.find(criteriaA, function (err, results) {
+             if (err)
+             return res.json({success: false, message: 'Server Error!'});
 
-                    if (results.length > 0)
-                        res.json(results);
-                    else {
-                        Message.find(criteriaB, function (err, results) {
-                            if (err)
-                                return res.json({success: false, message: 'Server Error!'});
+             if (results.length > 0)
+             res.json(results);
+             else {
+             Message.find(criteriaB, function (err, results) {
+             if (err)
+             return res.json({success: false, message: 'Server Error!'});
 
-                            if (results.length > 0)
-                                res.json(results);
-                            else
-                                res.json({message: 'Result not found!'});
-                        });
-                    }
-                });
-                //version2>
-            }
-            */
+             if (results.length > 0)
+             res.json(results);
+             else
+             res.json({message: 'Result not found!'});
+             });
+             }
+             });
+             //version2>
+             }
+             */
         });
     }
     else {
