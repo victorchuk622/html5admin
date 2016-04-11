@@ -21,7 +21,7 @@ router.get('/allUser', function (req, res, next) {
                 return res.json({success: false, message: 'Authentication failed.'});
             }
             else {
-                User.find().select('id fullname admin').exec(function (err, results) {
+                User.find().select('id fullname admin').sort({id:1}).exec(function (err, results) {
                     if (err)
                         return res.json({success: false, message: 'Server Error!'});
                     if (results.length > 0)
