@@ -14,7 +14,7 @@ var jwt = require('jsonwebtoken');
 
 mongoose.connect(config.db.development);
 
-router.use(function (req, res, next) {
+var authUser = function (req, res, next) {
 
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -46,4 +46,6 @@ router.use(function (req, res, next) {
     }
 });
 
-module.exports = router;
+module.exports = {
+ authUser: authUser
+};
