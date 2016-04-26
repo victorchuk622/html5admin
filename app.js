@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var token = require('json-web-token');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var admin = require('./routes/admin');
 var auth = require('./routes/auth');
 var news = require('./routes/news');
 var questions = require('./routes/questions');
@@ -14,6 +15,7 @@ var challenges = require('./routes/challenges');
 var messages = require('./routes/messages');
 var mongoose = require('mongoose');
 var rankings = require('./routes/rankings');
+var assignments = require('./routes/assignments')
 var Schema = mongoose.Schema;
 
 var app = express();
@@ -25,7 +27,7 @@ var User = require('./models/user');
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, './views'));
 app.set('view engine', 'ejs');
 
 
@@ -46,6 +48,9 @@ app.use('/messages', messages);
 app.use('/rankings',rankings);
 app.use('/questions',questions);
 app.use('/challenges',challenges);
+app.use('/admin',admin);
+app.use('/assignments',assignments);
+
 
 // catch 404 and forward to error handl({success: false, message: 'Failed to authenticate token.'});er
 app.use(function (req, res, next) {

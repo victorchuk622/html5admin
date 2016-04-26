@@ -14,6 +14,9 @@ $('document').ready(function () {
                     console.log(response.success);
                     console.log(response.token);
                     localStorage.setItem('token',response.token);
+                    window.location.href="/admin?token="+response.token;
+
+
 
                     //$("#btn-login").html('<img src="btn-ajax-loader.gif" /> &nbsp; Signing In ...');
                     //setTimeout(' window.location.href = "portal"; ', 4000);

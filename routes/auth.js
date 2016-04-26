@@ -10,7 +10,6 @@ var config = require('../config.js');
 var jwt = require('jsonwebtoken');
 
 mongoose.connect(config.db.development);
-
 /*middleware to auth*/
 
 /* Login function and return Token. */

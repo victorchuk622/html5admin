@@ -1,10 +1,13 @@
 /**
+ * Created by reinz on 12/4/2016.
+ */
+/**
  * Created by reinz on 10/3/2016.
  */
 var express = require('express');
 var router = express.Router();
 
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
 var User = require('../models/user');
 
 var logger = require('morgan');
@@ -12,9 +15,11 @@ var config = require('../config.js');
 
 var jwt = require('jsonwebtoken');
 
-mongoose.connect(config.db.development);
+//mongoose.connect(config.db.development);
 
-router.use((req, res, next) => {
+
+
+router.get('/',(req, res, next) => {
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
     // decode token
@@ -31,13 +36,13 @@ router.use((req, res, next) => {
                 req.decoded = decoded;
                 req.payload = jwt.decode(token, "test");
                 if (req.payload.admin) {
-                    next();
+                    res.render('portal');
                 } else return ({
-                    success: false, 
+                    success: false,
                     message: 'Failed to authenticate token.'
                 });
             }
-        });
+        })
     } else {
         // if there is no token return an error
         return res.status(403).send({
@@ -46,4 +51,5 @@ router.use((req, res, next) => {
         });
     }
 });
+
 module.exports = router;
