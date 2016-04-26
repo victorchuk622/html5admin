@@ -7,6 +7,9 @@ var jwt = require('jsonwebtoken');
 var router = express.Router();
 var Assignment = require('../models/question');
 var mongoose = require('mongoose');
+var authUser = require('authUser.js');
+
+router.use(authUser.authUser);
 
 router.get('/getAssignments', function (req, res, next) {
 
