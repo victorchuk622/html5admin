@@ -7,11 +7,26 @@ var jwt = require('jsonwebtoken');
 var router = express.Router();
 var Assignment = require('../models/question');
 var mongoose = require('mongoose');
-var authUser = require('authUser.js');
+//var authUser = require('../routes/authUser.js');
 
-router.use(authUser.authUser);
+//router.use(authUser.authUser);
 
 router.get('/getAssignments', function (req, res, next) {
+
+    res.json(
+        [{
+            title: 'Assignment 1',
+            create: '2016-03-16T08:23:45.079Z',
+            deadline: '2017-03-16T08:23:45.079Z',
+            content: 'mc$In HTML5, contextmenu and spellcheck are:$$HTML attributes|*Event attributes|Style attributes|HTML elements&oc$In HTML5, which method is used to get the current location of a user?$$getUserPosition()|getPosition()|*getCurrentPosition()&fitb$_____ is used to specify a header for a document or section?$$*<header>'
+
+        },{
+            title: 'Assignment 2',
+            create: '2016-03-16T08:23:45.079Z',
+            deadline: '2017-03-16T08:23:45.079Z',
+            content: 'mc$In HTML5, contextmenu and spellcheck are:$$HTML attributes|*Event attributes|Style attributes|HTML elements&oc$In HTML5, which method is used to get the current location of a user?$$getUserPosition()|getPosition()|*getCurrentPosition()&fitb$_____ is used to specify a header for a document or section?$$*<header>'
+        }]
+    )
 
 
 });

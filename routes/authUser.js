@@ -44,7 +44,7 @@ var authUser = function (req, res, next) {
         });
 
     }
-});
+};
 
 module.exports = {
  authUser: authUser
