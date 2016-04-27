@@ -7,9 +7,9 @@ var jwt = require('jsonwebtoken');
 var router = express.Router();
 var Assignment = require('../models/question');
 var mongoose = require('mongoose');
-//var authUser = require('../routes/authUser.js');
+var authUser = require('authUser.js');
 
-//router.use(authUser.authUser);
+router.use(authUser);
 
 router.get('/getAssignments', function (req, res, next) {
 
@@ -44,4 +44,5 @@ router.get('/getResult', function (req, res, next) {
 
 
 });
+
 module.exports = router;
