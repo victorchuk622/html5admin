@@ -6,6 +6,7 @@ module.exports = mongoose.model('Assignment', new Schema({
     title: {type: String, required: true},
     create: { type: Date, required: true},
     deadline: { type: Date, required: true},
+    info:{type: String, required: true},
     content: [{qType: {type: String, required: true},
         ans: [{type: String, required: true}],
         question: {type: String, required: true}}],
