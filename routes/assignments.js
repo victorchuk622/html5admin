@@ -35,13 +35,13 @@ router.get('/getAssignments', function (req, res, next) {
 
 router.post('/submitAssignment/:assid', function (req, res, next) {
 
-
-
+    console.log(req.body);
+    res.json({success: true});
 });
 
 router.get('/getResult', function (req, res, next) {
 
-    res.json({success: true});
+
 
 });
 module.exports = router;
