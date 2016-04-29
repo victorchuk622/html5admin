@@ -1,0 +1,26 @@
+<% var title = 'Accounts' %>
+<% var css = 'login.css' %>
+<% include head %>
+<% include navbar %>
+<h1><%= title %></h1>
+<div class="table-responsive">
+    <table class="table table-condensed">
+        <tr>
+            <th>Student Name</th>
+            <th>Nick Name</th>
+            <th colspan="2">Action</th>
+        </tr>
+        <% students.forEach(function(student) { %>
+        <tr>
+            <td><%= student.fullname %></td>
+            <td><%= student.nickname %></td>
+            <td><a href="./editStudent?id=<%= student.id %>"/>Change Password</a></td>
+            <td><a href="./deleteStudent?id=<%= student.id %>"/>Delete</a></td>
+        </tr>
+        <% }); %>
+    </table>
+</div>
+<% include foot %>
+</body>
+</html>
+
