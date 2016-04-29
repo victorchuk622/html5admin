@@ -1,8 +1,14 @@
 <% var title = 'Accounts' %>
 <% var css = 'login.css' %>
 <% include head %>
-<% include navbar %>
-<h1><%= title %></h1>
+<div class="container-fluid">
+    <% include navbar %>
+    <h1><%= title %></h1>
+<div class="">
+    <p>
+    <a href="./addStudent" class="btn btn-default" role="button">Create Student</a>
+    </p>
+</div>
 <div class="table-responsive">
     <table class="table table-condensed">
         <tr>
@@ -14,11 +20,12 @@
         <tr>
             <td><%= student.fullname %></td>
             <td><%= student.nickname %></td>
-            <td><a href="./editStudent?id=<%= student.id %>"/>Change Password</a></td>
-            <td><a href="./deleteStudent?id=<%= student.id %>"/>Delete</a></td>
+            <td><a href="./editStudent?id=<%= student.id %>" >Change Password</a></td>
+            <td><a href="./deleteStudent?id=<%= student.id %>" >Delete Account</a></td>
         </tr>
         <% }); %>
     </table>
+</div>
 </div>
 <% include foot %>
 </body>
