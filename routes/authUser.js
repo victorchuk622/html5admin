@@ -7,7 +7,7 @@ var config = require('../config.js');
 
 var jwt = require('jsonwebtoken');
 
-mongoose.connect(config.db.development);
+//mongoose.connect(config.db.development);
 
 var authUser = function (req, res, next) {
     // check header or url parameters or post parameters for token
