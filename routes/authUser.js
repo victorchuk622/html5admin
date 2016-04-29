@@ -5,18 +5,23 @@
 var logger = require('morgan');
 var config = require('../config.js');
 
+// Security
 var jwt = require('jsonwebtoken');
 
+<<<<<<< HEAD
 //mongoose.connect(config.db.development);
 
 var authUser = function (req, res, next) {
+=======
+var authUser = (req, res, next) => {
+>>>>>>> b4f7ef3a2a223268fa165124254044651056cfac
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
     // decode token
     if (token) {
         // verifies secret and checks exp
-        jwt.verify(token, "test", function (err, decoded) {
+        jwt.verify(token, "test", (err, decoded) => {
             if (err) {
                 return res.status(403).json({
                  success: false, 
@@ -29,7 +34,6 @@ var authUser = function (req, res, next) {
                 next();
             }
         });
-
     } else {
         // if there is no token
         // return an error

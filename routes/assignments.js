@@ -11,8 +11,19 @@ var authUser = require('./authUser.js');
 
 router.use(authUser);
 
-router.get('/getAssignments', function (req, res, next) {
-
+router.get('/getAssignments', (req, res) => {
+    /*Assignment.find({}).then((assignments) => {
+        res.status(200).json({
+            success: true,
+            payload: assignments
+        });
+    }, (err) => {
+        res.status(500).json({
+            success: false,
+            msg: err
+        })
+    });*/
+    
     res.json(
         [{
             title: 'Assignment 2',
@@ -33,13 +44,13 @@ router.get('/getAssignments', function (req, res, next) {
 
 });
 
-router.post('/submitAssignment/:assid', function (req, res, next) {
+router.post('/submitAssignment/:assid', (req, res) => {
 
     console.log(req.body);
     res.json({success: true});
 });
 
-router.get('/getResult', function (req, res, next) {
+router.get('/getResult', (req, res) => {
 
 
 
