@@ -7,6 +7,10 @@ var mongoose = require('mongoose');
 
 //post
 // --data "questionID=XXX&teamID=XXX&score=XXX"
+router.get('/addQuestion', (req, res) => {
+    res.render('addquestion');
+});
+
 router.post('/postRecord', function (req, res, next) {
     var token = req.body.token;
     if (true) {

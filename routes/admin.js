@@ -20,11 +20,11 @@ var authAdmin = require('./authAdmin.js');
 
 router.use(authAdmin);
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
     res.render('portal');
 });
 
-router.get('/accounts', (req, res, next) => {
+router.get('/accounts', (req, res) => {
     User.find({admin: false}).then((results) => {
         res.render('accounts', {students: results});
     }, (err) => {

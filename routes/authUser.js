@@ -1,4 +1,4 @@
- /**
+/**
  * Created by reinz on 10/3/2016.
  */
 
@@ -8,13 +8,7 @@ var config = require('../config.js');
 // Security
 var jwt = require('jsonwebtoken');
 
-<<<<<<< HEAD
-//mongoose.connect(config.db.development);
-
-var authUser = function (req, res, next) {
-=======
 var authUser = (req, res, next) => {
->>>>>>> b4f7ef3a2a223268fa165124254044651056cfac
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
@@ -24,8 +18,8 @@ var authUser = (req, res, next) => {
         jwt.verify(token, "test", (err, decoded) => {
             if (err) {
                 return res.status(403).json({
-                 success: false, 
-                 message: 'Failed to authenticate token.'
+                    success: false,
+                    message: 'Failed to authenticate token.'
                 });
             } else {
                 // if everything is good, save to request for use in other routes

@@ -52,6 +52,7 @@ app.use('/challenges',challenges);
 app.use('/admin',admin);
 app.use('/assignments',assignments);
 app.use('/discussions',discussions);
+app.use('/challenges',challenges);
 
 
 // catch 404 and forward to error handl({success: false, message: 'Failed to authenticate token.'});er
