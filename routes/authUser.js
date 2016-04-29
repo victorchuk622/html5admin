@@ -5,9 +5,8 @@
 var logger = require('morgan');
 var config = require('../config.js');
 
+// Security
 var jwt = require('jsonwebtoken');
-
-mongoose.connect(config.db.development);
 
 var authUser = function (req, res, next) {
     // check header or url parameters or post parameters for token
