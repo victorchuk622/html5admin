@@ -17,6 +17,8 @@ var mongoose = require('mongoose');
 var rankings = require('./routes/rankings');
 var assignments = require('./routes/assignments')
 var discussions = require('./routes/discussions')
+var authUser = require('./routes/authUser.js');
+var authadmin = require('./routes/authadmin.js');
 var Schema = mongoose.Schema;
 
 var app = express();
