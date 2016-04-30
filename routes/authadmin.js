@@ -8,7 +8,7 @@ var jwt = require('jsonwebtoken');
 
 //mongoose.connect(config.db.development);
 
-var authAdmin = function (req, res, next) {
+var authadmin = function (req, res, next) {
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token']||req.cookies.token;
     //console.log("Cookies: ", req.cookies);
@@ -42,4 +42,4 @@ var authAdmin = function (req, res, next) {
     }
 };
 
-module.exports = authAdmin;
+module.exports = authadmin;

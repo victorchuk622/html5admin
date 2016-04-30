@@ -8,7 +8,7 @@ var router = express.Router();
 var News = require('../models/new');
 var mongoose = require('mongoose');
 var authUser = require('./authUser.js');
-var authAdmin = require('./authAdmin.js');
+var authadmin = require('./authadmin.js');
 
 /* GET all news desc by date /news */
 router.get('/', authUser, (req, res) => {
@@ -19,7 +19,7 @@ router.get('/', authUser, (req, res) => {
 });
 
 /* POST news admin */
-router.post('/add', authAdmin, (req, res) => {
+router.post('/add', authadmin, (req, res) => {
     var news = new News(
         {
             title: req.body.title,

@@ -16,9 +16,9 @@ var logger = require('morgan');
 //var jwt = require('jsonwebtoken');
 //var cookieParser = require('cookie-parser')
 //mongoose.connect(config.db.development);
-var authAdmin = require('./authAdmin.js');
+var authadmin = require('./authadmin.js');
 
-router.use(authAdmin);
+router.use(authadmin);
 
 router.get('/', (req, res) => {
     res.render('portal');
