@@ -5,7 +5,7 @@ var router = express.Router();
 var User = require('../models/user');
 var mongoose = require('mongoose');
 var authUser = require('./authUser.js');
-var authadmin = require('./authadmin.js');
+var authAdmin = require('./authAdmin.js');
 
 /* GET users listing. */
 router.get('/allUser', authUser, (req, res) => {
@@ -22,7 +22,7 @@ router.get('/allUser', authUser, (req, res) => {
 //POST create user by ADMIN
 //--data "id=X&fullnameX=&pw=X&token=X"
 
-router.post('/newUser', authadmin, (req, res) => {
+router.post('/newUser', authAdmin, (req, res) => {
     var user = new User(
         {
             id: req.body.id,
@@ -58,7 +58,7 @@ router.put('/updateUser', authUser, (req, res) => {
 });
 
 //DELETE remove user by ADMIN
-router.delete('/removeUser/:id', authadmin, (req, res) => {
+router.delete('/removeUser/:id', authAdmin, (req, res) => {
     User.find({id: req.param.id}).remove(function (err, results) {
         if (err)
             return res.json({success: false, message: 'Server Error!'});
