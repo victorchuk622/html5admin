@@ -3,11 +3,18 @@ var Schema = mongoose.Schema;
 
 module.exports = mongoose.model('Assignment', new Schema({
     //recordID  default _id
+    id: {type: String, required: true},
     title: {type: String, required: true},
-    create: { type: Date, required: true},
-    deadline: { type: Date, required: true},
-    info:{type: String, required: true},
-    content: [{qType: {type: String, required: true},
-        ans: [{type: String, required: true}],
-        question: {type: String, required: true}}],
+    create: {type: Date, required: true},
+    deadline: {type: Date, required: true},
+    info: {type: String, required: true},
+    content: [{
+        question: {type: String, required: true},
+        questionNo: {type: Integer, required: true},
+        qType: {type: String, required: true},
+        ans: [{
+            content: {type: String, required: true},
+            correct: {type: Boolean, required: true}
+        }],
+    }],
 }));

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-module.exports = mongoose.model('News', new Schema({
+module.exports = mongoose.model('New', new Schema({
     title: {type: String, required: true},
     content: {type: String, required: true},
     create: { type: Date, required: true},
