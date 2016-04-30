@@ -10,49 +10,26 @@ var Rank = require('../models/ranking');
 var mongoose = require('mongoose');
 var authUser = require('./authUser.js');
 
-//update the ranking in the database
-//:scope only accept 'CH1-3', 'CH4-6', 'CH7-9', 'CH10-12', 'Overall'
-router.put('/updateRank/:scope', (req, res) => {
-    var criteria = {};
-    criteria.ranking = req.body.ranking;
-    Rank.find({scope: req.params.scope}).then((results) => {
-        if (results.length > 0) {
-            Rank.update({scope: req.params.scope}, {$set: criteria}).then((result) => {
-                res.json({message: 'update done'});
-            }, (err) => {
-                console.log("Error: " + err.message);
-                res.json(err);
-            });
-        } else {
-            var rank = new Rank({
-                scope: req.params.scope,
-                ranking: req.body.ranking
-            });
-            rank.save().then(() => {
-                res.json({success: true});
-            }, (err) => {
-                res.json({success: false});
-            });
-        }
-    }, (err) => {
-        res.json({
-            success: false,
-            message: 'Server Error!'
-        });
-    });
-});
+router.use(authUser);
 
-//get the rank by scope
-router.get('/getRank/:scope', (req, res) => {
-    Message.find({scope: req.params.scope}).then((err, results) => {
-        if (results.length > 0) {
-            res.json(results);
-        } else {
-            res.json({message: 'Result not found!'});
+router.get('/getRanking/round/:round',(req,res) => {
+    res.json([
+        {
+            "rank":1,
+            "team":"teamkav",
+            "score":100
+        },
+        {
+            "rank":2,
+            "team":"team2",
+            "score":80
+        },
+        {
+            "rank":3,
+            "team":"team3",
+            "score":70
         }
-    }, (err) => {
-        res.json({success: false, message: 'Server Error!'});
-    });
+    ]);
 });
 
 module.exports = router;

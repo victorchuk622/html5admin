@@ -37,7 +37,7 @@ router.get('/getAssignments', (req, res) => {
         },{
             title: 'Assignment 1',
             id:'ass1',
-            done: false,
+            done: true,
             create: '2016-03-15T08:23:45.079Z',
             deadline: '2017-03-15T08:23:45.079Z',
             info:'This is Assignment 1',

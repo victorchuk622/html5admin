@@ -24,7 +24,7 @@ var Schema = mongoose.Schema;
 var app = express();
 var config = require('./config');
 
-global.__base = __dirname + '/';
+//global.__base = __dirname + '/';
 
 app.set('superSecret', config.secret);
 //model required
