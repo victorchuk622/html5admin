@@ -32,6 +32,32 @@ router.get('/accounts', (req, res) => {
     });
 });
 
+router.post('/createStudent', (req, res) =>  {
+    console.log(req.body);
+    User.findOne({id:req.body.id}).then((user) => {
+        var user = new User({
+            id: req.body.id,
+            fullname: req.body.fullname,
+            password: req.body.password
+        });
+        user.save().then(() => {
+            res.redirect('back');
+        }, (err) => {
+            res.json({
+                success: false
+            });
+            console.log('Error Inserting New Data');
+            if (err.name == 'ValidationError') {
+                for (field in err.errors) {
+                    console.log(err.errors[field].message);
+                }
+            }
+        });
+    });
+});
+
+
+
 
 
 module.exports = router;
