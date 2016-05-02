@@ -28,6 +28,16 @@ router.get('/getRanking/round/:round',(req,res) => {
             "rank":3,
             "team":"team3",
             "score":70
+        },
+        {
+            "rank":4,
+            "team":"team4",
+            "score":68
+        },
+        {
+            "rank":5,
+            "team":"team5",
+            "score":67
         }
     ]);
 });
