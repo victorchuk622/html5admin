@@ -40,53 +40,36 @@ router.get('/getAssignments', (req, res) => {
         });
         res.json(assignments);
     });
-    /*
-    var str;
-
-    Assignment.find({}).then((assignments) => {
-        assignments.forEach(assignment){
-            assignment.content.forEach(content){
-                str += content.qType+'$'+content.question+'$$';
-                content.answer.forEach(answer){
-                    if(content.answer.correct)str += '*'+content.answer+'|';
-                    else str += content.answer+'|';
-                }
-                str.slice(0,-1);
-                str+='&'
-            }
-        }
-    });
-    */
-
-/*
-    
-    res.json(
-        [{
-            title: 'Assignment 2',
-            id:'ass2',
-            done: false,
-            create: '2016-03-16T08:23:45.079Z',
-            deadline: '2017-03-16T08:23:45.079Z',
-            info:'This is Assignment 2',
-            content: 'mc$In HTML5, contextmenu and spellcheck are:$$HTML attributes|*Event attributes|Style attributes|HTML elements&oc$In HTML5, which method is used to get the current location of a user?$$getUserPosition()|getPosition()|*getCurrentPosition()&fitb$_____ is used to specify a header for a document or section?$$*<header>'
-
-        },{
-            title: 'Assignment 1',
-            id:'ass1',
-            done: true,
-            create: '2016-03-15T08:23:45.079Z',
-            deadline: '2017-03-15T08:23:45.079Z',
-            info:'This is Assignment 1',
-            content: 'mc$In HTML5, contextmenu and spellcheck are:$$HTML attributes|*Event attributes|Style attributes|HTML elements&oc$In HTML5, which method is used to get the current location of a user?$$getUserPosition()|getPosition()|*getCurrentPosition()&fitb$_____ is used to specify a header for a document or section?$$*<header>'
-        }]
-    )
-*/
-
 });
 
 router.post('/submitAssignment/:assid', (req, res) => {
-    console.log(req.body);
-    res.json({success: true});
+    //console.log(req.body);
+    //var answer=req.body().toObject();
+    var answer=JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": "1", "answer": ["HTML attributes"] },{ "questionNo": "2", "answer": ["HTML attributes","HTML attributes"] }]}');
+    var score=0;
+    console.log(answer.ans);
+
+    Assignment.findOne({id:req.params.assid}).select('content.questionNo content.ans').where('content.ans.correct').equals(true).exec().then((content) => {
+
+        console.log(content);
+        res.json(content);
+        content.forEach(function (content) {
+
+
+
+            /*
+            var target; // the questionNo that you wanna find ans for
+            var targetAns = ans.filter((val, ind, arr)=>{
+                return val.questionNo == target;
+            })
+            */
+
+
+        });
+
+    });
+    //res.json({success: true});
+
 });
 
 router.get('/getResult', (req, res) => {
