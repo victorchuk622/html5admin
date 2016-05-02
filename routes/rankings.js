@@ -13,7 +13,7 @@ var authUser = require('./authUser.js');
 router.use(authUser);
 
 router.get('/getRanking/round/:round',(req,res) => {
-    if(round==1)
+    if(req.params.round==1)
     res.json([
         {
             "rank":1,
@@ -41,7 +41,7 @@ router.get('/getRanking/round/:round',(req,res) => {
             "score":67
         }
     ]);
-    if(round==2)res.json([
+    if(req.params.round==2)res.json([
         {
             "rank":1,
             "team":"teamkav",
