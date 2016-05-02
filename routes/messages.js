@@ -107,9 +107,6 @@ router.get('/getAllMsg/:userID', (req, res) => {
 
 //get all the message of a sender
 router.get('/getMsg/:targetID/:userID',(req, res) => {
-    var payload = jwt.decode(token, "test");
-    console.log(payload.id);
-
     //<new version
     var criteriaA = {};
     criteriaA["userA"] = req.params.targetID;
