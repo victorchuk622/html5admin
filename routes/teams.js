@@ -10,10 +10,10 @@ var mongoose = require('mongoose');
 var authUser = require('./authUser.js');
 var authadmin = require('./authadmin.js');
 
-router.post('/addTeam', authadmin, (req, res) => {
+router.post('/addTeam',  (req, res) => {
     var Team = new Team(
         {
-            teamID: req.body.teamID,
+            //teamID: req.body.teamID,
             teamName: req.body.teamName,
             teamMember: req.body.teamMember  //password is reserved word
         });
@@ -31,3 +31,4 @@ router.get('/myTeam/', authUser, (req, res) => {
        res.json(team);
     });
 });
+module.exports = router;

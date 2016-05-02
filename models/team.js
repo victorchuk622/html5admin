@@ -6,8 +6,8 @@ var Schema = mongoose.Schema;
 
 module.exports = mongoose.model('Team', new Schema({
     //recordID  default _id
-    teamID: String,
+    //teamID: String,
     teamName: String,
-    teamIcon: Blob,
+    //teamIcon: Blob,
     teamMember:[{type: String, required: true}]
 }));

@@ -15,8 +15,9 @@ var challenges = require('./routes/challenges');
 var messages = require('./routes/messages');
 var mongoose = require('mongoose');
 var rankings = require('./routes/rankings');
-var assignments = require('./routes/assignments')
-var discussions = require('./routes/discussions')
+var assignments = require('./routes/assignments');
+var discussions = require('./routes/discussions');
+var teams = require('./routes/teams');
 var authUser = require('./routes/authUser.js');
 var authadmin = require('./routes/authadmin.js');
 var Schema = mongoose.Schema;
@@ -57,6 +58,8 @@ app.use('/admin',admin);
 app.use('/assignments',assignments);
 app.use('/discussions',discussions);
 app.use('/challenges',challenges);
+app.use('/teams',teams);
+
 
 
 // catch 404 and forward to error handl({success: false, message: 'Failed to authenticate token.'});er
