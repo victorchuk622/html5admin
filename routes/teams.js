@@ -11,11 +11,12 @@ var authUser = require('./authUser.js');
 var authadmin = require('./authadmin.js');
 
 router.post('/createTeam', authadmin, (req, res) => {
+
     var createTeam = new Team(
         {
             //teamID: req.body.teamID,
             teamName: req.body.teamName,
-            teamMember: req.body.teamMember  //password is reserved word
+            teamMember: req.body.teamMember.filter(Boolean)
         });
 
     createTeam.save(function (err) {

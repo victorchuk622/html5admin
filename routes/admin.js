@@ -44,7 +44,7 @@ router.get('/arena', (req, res) => {
 });
 
 router.post('/createTeam', (req, res) => {
-    res.redirect('/teams/createTeam');
+    res.redirect(307, '/teams' + req.path);
 });
 
 router.get('/assignments', (req, res) => {
