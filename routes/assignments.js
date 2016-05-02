@@ -5,7 +5,7 @@ var express = require('express');
 var config = require('../config.js');
 var jwt = require('jsonwebtoken');
 var router = express.Router();
-var Assignment = require('../models/question');
+var Assignment = require('../models/assignment');
 var mongoose = require('mongoose');
 var authUser = require('./authUser.js');
 

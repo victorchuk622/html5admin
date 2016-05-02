@@ -48,16 +48,25 @@
     <div class="container table-responsive">
         <table class="table table-condensed">
             <tr>
+                <th>Student ID</th>
                 <th>Student Name</th>
                 <th>Nick Name</th>
                 <th colspan="2">Action</th>
             </tr>
             <% students.forEach(function(student) { %>
             <tr>
+                <td style="vertical-align: middle"><%= student.id %></td>
                 <td style="vertical-align: middle"><%= student.fullname %></td>
                 <td style="vertical-align: middle"><%= student.nickname %></td>
                 <td><a href="./editStudent?id=<%= student.id %>" class="btn btn-default">Change Password</a></td>
-                <td><a href="./deleteStudent?id=<%= student.id %>" class="btn btn-danger dropdown-toggle">Delete Account</a></td>
+                <td><div class="dropdown">
+                        <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown">Delete Account
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="./deleteStudent?id=<%= student.id %>">Delete Account!</a></li>
+                        </ul>
+                    </div>
+                </td>
             </tr>
             <% }); %>
         </table>

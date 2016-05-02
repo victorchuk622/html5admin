@@ -11,7 +11,7 @@ var mongoose = require('mongoose');
 var User = require('../models/user');
 
 var logger = require('morgan');
-//var config = require('../config.js');
+//var config = require('../setting.js');
 
 //var jwt = require('jsonwebtoken');
 //var cookieParser = require('cookie-parser')
@@ -37,6 +37,14 @@ router.get('/accounts', (req, res) => {
     }, (err) => {
         throw err;
     });
+});
+
+router.get('/arena', (req, res) => {
+    res.render('arena');
+});
+
+router.post('/createTeam', (req, res) => {
+    res.redirect('/teams/createTeam');
 });
 
 router.get('/assignments', (req, res) => {

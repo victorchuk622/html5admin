@@ -7,15 +7,22 @@ var mongoose = require('mongoose');
 
 //post
 // --data "questionID=XXX&teamID=XXX&score=XXX"
-router.get('/addQuestion', (req, res) => {
-    res.render('addquestion');
+router.get('/addChallenge', (req, res) => {
+    res.render('addChallenge');
 });
 
-router.get('')
+router.post('/addChallenge',(req, res) => {
+    res.json({success:true});
+});
+
+router.get('/getChallenge',(req, res) => {
 
 
+});
+
+/*
 router.post('/postRecord', function (req, res, next) {
-    var token = req.body.token;
+    //var token = req.body.token;
     if (true) {
         var cha = new Challenge(
             {
@@ -31,7 +38,7 @@ router.post('/postRecord', function (req, res, next) {
         });
     }
 });
-
+*/
 //get single record by _id
 router.get('/getRecord/:cid', function (req, res, next) {
     var token = req.query.token;

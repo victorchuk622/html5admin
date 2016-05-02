@@ -10,15 +10,15 @@ var mongoose = require('mongoose');
 var authUser = require('./authUser.js');
 var authadmin = require('./authadmin.js');
 
-router.post('/addTeam',  (req, res) => {
-    var Team = new Team(
+router.post('/createTeam', authadmin, (req, res) => {
+    var createTeam = new Team(
         {
             //teamID: req.body.teamID,
             teamName: req.body.teamName,
             teamMember: req.body.teamMember  //password is reserved word
         });
 
-    Team.save(function (err) {
+    createTeam.save(function (err) {
         if (err)
             res.json({success: false});
         else
