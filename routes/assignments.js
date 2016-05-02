@@ -18,8 +18,8 @@ router.post('/createAssignment', (req, res) => {
 });
 
 router.get('/getAssignments', (req, res) => {
-    Assignment.find({}).then((assignments) => {
-        assignments = assignments.toObject();
+    Assignment.find({}).lean().exec().then((assignments) => {
+        console.log(typeof assignments, assignments.length);
         assignments.forEach(function(assignment){
             var concateContent = [];
             var str = '';
