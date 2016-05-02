@@ -10,3 +10,4 @@ var mongoose = require('mongoose');
 var authUser = require('./authUser.js');
 
 router.use(authUser);
+

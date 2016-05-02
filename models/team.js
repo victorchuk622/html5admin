@@ -8,5 +8,6 @@ module.exports = mongoose.model('Team', new Schema({
     //recordID  default _id
     teamID: String,
     teamName: String,
+    teamIcon: Blob,
     teamMember:[{type: String, required: true}]
 }));
