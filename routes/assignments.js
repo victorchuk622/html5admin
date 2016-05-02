@@ -45,19 +45,20 @@ router.get('/getAssignments', (req, res) => {
 router.post('/submitAssignment/:assid', (req, res) => {
     //console.log(req.body);
     //var answer=req.body().toObject();
-    var submit=JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": 1, "answer": ["Event attributes"] },{ "questionNo": 2, "answer": ["getPosition()","getCurrentsPosition()"] }]}');
-    var score=0;
-    var result=[];
+    var userSubmission = JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": 1, "answer": ["Event attributes"] },{ "questionNo": 2, "answer": ["getPosition()","getCurrentsPosition()"] }]}');
+    var score = 0;
+    var result = [];
     //console.log(answer.ans);
 
-    Assignment.findOne({id:req.params.assid}).select('content.questionNo content.ans').exec().then((contents) => {
-        contents.content.forEach(function (content) {
-            var submittedAns = submit.ans.filter((val)=>{
+    Assignment.findOne({id:req.params.assid}).select('content.questionNo content.ans').exec().then((assignment) => {
+        assignment.content.forEach((content) => {
+            // to be retrofitted for more efficient answer checking
+            var submittedAns = userSubmission.ans.filter((val)=>{
                 return val.questionNo == content.questionNo;
             });
             console.log(submittedAns);
             var wrong = false;
-            content.ans.forEach(function (ans){
+            content.ans.forEach((ans) => {
                 if(ans.correct){
                     var submittedOneAns = submittedAns[0].answer.filter((val)=>{
                         return val == ans.content;
