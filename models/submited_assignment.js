@@ -5,8 +5,9 @@ module.exports = mongoose.model('Submitted_Assignment', new Schema({
     assignmentID: {type: String, required: true},
     userID: {type: String, required: true},
     score: Number,
+    result:[Number],
     ans: [{
-        questionNo:{type: String, required: true},
+        questionNo:{type: Number, required: true},
         answer:{type: String, required: true},
     }]
 }));

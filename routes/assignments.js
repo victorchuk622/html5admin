@@ -45,30 +45,37 @@ router.get('/getAssignments', (req, res) => {
 router.post('/submitAssignment/:assid', (req, res) => {
     //console.log(req.body);
     //var answer=req.body().toObject();
-    var answer=JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": "1", "answer": ["HTML attributes"] },{ "questionNo": "2", "answer": ["HTML attributes","HTML attributes"] }]}');
+    var submit=JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": 1, "answer": ["Event attributes"] },{ "questionNo": 2, "answer": ["getPosition()","getCurrentsPosition()"] }]}');
     var score=0;
-    console.log(answer.ans);
+    var result=[];
+    //console.log(answer.ans);
 
-    Assignment.findOne({id:req.params.assid}).select('content.questionNo content.ans').where('content.ans.correct').equals(true).exec().then((content) => {
-
-        console.log(content);
-        res.json(content);
-        content.forEach(function (content) {
-
-
-
-            /*
-            var target; // the questionNo that you wanna find ans for
-            var targetAns = ans.filter((val, ind, arr)=>{
-                return val.questionNo == target;
-            })
-            */
-
-
+    Assignment.findOne({id:req.params.assid}).select('content.questionNo content.ans').exec().then((contents) => {
+        contents.content.forEach(function (content) {
+            var submittedAns = submit.ans.filter((val)=>{
+                return val.questionNo == content.questionNo;
+            });
+            console.log(submittedAns);
+            var wrong = false;
+            content.ans.forEach(function (ans){
+                if(ans.correct){
+                    var submittedOneAns = submittedAns[0].answer.filter((val)=>{
+                        return val == ans.content;
+                    });
+                    console.log(submittedOneAns);
+                    if(submittedOneAns.length == 0) wrong = true;
+                }
+            });
+            if(!wrong){
+                score++;
+                result.push(content.questionNo);
+            }
         });
-
+        console.log(score);
+        console.log(result);
+        res.json({success: true});
     });
-    //res.json({success: true});
+
 
 });
 
