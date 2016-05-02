@@ -8,6 +8,9 @@ var authUser = require('./authUser.js');
 var authadmin = require('./authadmin.js');
 
 /* GET users listing. */
+
+
+
 router.get('/allUser', authUser, (req, res) => {
     User.find().select('id fullname admin').sort({id: 1}).exec(function (err, results) {
         if (err)
@@ -18,6 +21,11 @@ router.get('/allUser', authUser, (req, res) => {
             res.json({message: 'Result not found!'});
     });
 });
+
+
+
+
+
 
 //POST create user by ADMIN
 //--data "id=X&fullnameX=&pw=X&token=X"
@@ -58,12 +66,12 @@ router.put('/updateUser', authUser, (req, res) => {
 });
 
 //DELETE remove user by ADMIN
-router.delete('/removeUser/:id', authadmin, (req, res) => {
-    User.find({id: req.param.id}).remove(function (err, results) {
+router.get('/deleteStudent/:id', authadmin, (req, res) => {
+    User.find({id:req.params.id}).remove(function (err, results) {
         if (err)
-            return res.json({success: false, message: 'Server Error!'});
+            res.redirect('back');
         else
-            return res.json({success: true, message: 'Delete Done!'});
+            res.redirect('back');
     });
 });
 

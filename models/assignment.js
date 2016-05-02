@@ -9,7 +9,7 @@ module.exports = mongoose.model('Assignment', new Schema({
     deadline: {type: Date, required: true},
     info: {type: String, required: true},
     content: [{
-        question: {type: String, required: true},
+        question: {type: String, required: true, enum: ['mc', 'oc', 'fitb']},
         questionNo: {type: Number, required: true},
         qType: {type: String, required: true},
         ans: [{

@@ -11,18 +11,35 @@ var authUser = require('./authUser.js');
 
 router.use(authUser);
 
+router.post('/createAssignment', (req, res) => {
+
+
+
+});
+
 router.get('/getAssignments', (req, res) => {
-    /*Assignment.find({}).then((assignments) => {
-        res.status(200).json({
-            success: true,
-            payload: assignments
+    Assignment.find({}).then((assignments) => {
+        assignments = assignments.toObject();
+        assignments.forEach(function(assignment){
+            var concateContent = [];
+            var str = '';
+            assignment.content.forEach(function (content) {
+                str += content.qType + '$' + content.question + '$$';
+                content.ans.forEach(function (ans) {
+                    if (ans.correct)str += '*' + ans.content + '|';
+                    else str += ans.content + '|';
+                });
+                str = str.slice(0, -1);
+                str += '&';
+            });
+            str = str.slice(0, -1);
+            concateContent.push(str);
+            console.log(concateContent);
+            assignment.content=concateContent;
+            console.log(assignment.content);
         });
-    }, (err) => {
-        res.status(500).json({
-            success: false,
-            msg: err
-        })
-    });*/
+        res.json(assignments);
+    });
     /*
     var str;
 
@@ -41,7 +58,7 @@ router.get('/getAssignments', (req, res) => {
     });
     */
 
-
+/*
     
     res.json(
         [{
@@ -63,12 +80,11 @@ router.get('/getAssignments', (req, res) => {
             content: 'mc$In HTML5, contextmenu and spellcheck are:$$HTML attributes|*Event attributes|Style attributes|HTML elements&oc$In HTML5, which method is used to get the current location of a user?$$getUserPosition()|getPosition()|*getCurrentPosition()&fitb$_____ is used to specify a header for a document or section?$$*<header>'
         }]
     )
-
+*/
 
 });
 
 router.post('/submitAssignment/:assid', (req, res) => {
-
     console.log(req.body);
     res.json({success: true});
 });

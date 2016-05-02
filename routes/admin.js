@@ -47,6 +47,9 @@ router.post('/createTeam', (req, res) => {
     res.redirect(307, '/teams' + req.path);
 });
 
+
+
+
 router.get('/assignments', (req, res) => {
 
     res.render('assignments');
@@ -64,9 +67,7 @@ router.post('/createStudent', (req, res) =>  {
         user.save().then(() => {
             res.redirect('back');
         }, (err) => {
-            res.json({
-                success: false
-            });
+            res.redirect('back');
             console.log('Error Inserting New Data');
             if (err.name == 'ValidationError') {
                 for (field in err.errors) {
@@ -75,6 +76,10 @@ router.post('/createStudent', (req, res) =>  {
             }
         });
     });
+});
+
+router.get('/deleteStudent/:id', (req, res) => {
+    res.redirect(307, '/users' + req.path);
 });
 
 
