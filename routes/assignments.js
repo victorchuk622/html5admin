@@ -23,6 +23,25 @@ router.get('/getAssignments', (req, res) => {
             msg: err
         })
     });*/
+    /*
+    var str;
+
+    Assignment.find({}).then((assignments) => {
+        assignments.forEach(assignment){
+            assignment.content.forEach(content){
+                str += content.qType+'$'+content.question+'$$';
+                content.answer.forEach(answer){
+                    if(content.answer.correct)str += '*'+content.answer+'|';
+                    else str += content.answer+'|';
+                }
+                str.slice(0,-1);
+                str+='&'
+            }
+        }
+    });
+    */
+
+
     
     res.json(
         [{

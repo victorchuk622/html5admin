@@ -7,7 +7,7 @@
     <% include navbar %>
     <div class="container responsive">
         <h1><%= title %></h1>
-        <p><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#createStudent">Create Student</button></p>
+        <p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createStudent">Create Student</button></p>
         <!-- Modal -->
         <div class="modal fade" id="createStudent" role="dialog">
             <div class="modal-dialog">
@@ -21,15 +21,15 @@
                         <form role="form" action="createStudent" method="post">
                             <div class="form-group">
                                 <label for="id">id:</label>
-                                <input type="text" class="form-control" id="id" name="id">
+                                <input type="text" class="form-control" id="id" name="id" required autofocus>
                             </div>
                             <div class="form-group">
                                 <label for="fullname">Full Name:</label>
-                                <input type="text" class="form-control" id="fullname" name="fullname">
+                                <input type="text" class="form-control" id="fullname" name="fullname" required>
                             </div>
                             <div class="form-group ">
                                 <label for="password">Password:</label>
-                                <input type="password" class="form-control" id="password" name="password">
+                                <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                             <button type="submit" class="btn btn-default">Create</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -50,10 +50,10 @@
             </tr>
             <% students.forEach(function(student) { %>
             <tr>
-                <td><%= student.fullname %></td>
-                <td><%= student.nickname %></td>
-                <td><a href="./editStudent?id=<%= student.id %>">Change Password</a></td>
-                <td><a href="./deleteStudent?id=<%= student.id %>">Delete Account</a></td>
+                <td style="vertical-align: middle"><%= student.fullname %></td>
+                <td style="vertical-align: middle"><%= student.nickname %></td>
+                <td><a href="./editStudent?id=<%= student.id %>" class="btn btn-default">Change Password</a></td>
+                <td><a href="./deleteStudent?id=<%= student.id %>" class="btn btn-danger">Delete Account</a></td>
             </tr>
             <% }); %>
         </table>

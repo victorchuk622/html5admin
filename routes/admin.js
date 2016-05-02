@@ -20,8 +20,15 @@ var authadmin = require('./authadmin.js');
 
 router.use(authadmin);
 
+
+
 router.get('/', (req, res) => {
     res.render('portal');
+});
+
+router.get('/logout',(req, res) => {
+    res.clearCookie('token');
+    res.redirect('/');
 });
 
 router.get('/accounts', (req, res) => {
@@ -30,6 +37,12 @@ router.get('/accounts', (req, res) => {
     }, (err) => {
         throw err;
     });
+});
+
+router.get('/assignments', (req, res) => {
+
+    res.render('assignments');
+
 });
 
 router.post('/createStudent', (req, res) =>  {
