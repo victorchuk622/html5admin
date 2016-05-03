@@ -56,4 +56,12 @@ router.get('/addChallenge/:teamID', (req, res) => {
     res.render('addChallenge',{teamID:req.params.teamID});
 });
 
+router.get('/progress',(req,res) => {
+
+    res.json({
+        "total":10,
+        "finish":2
+    })
+});
+
 module.exports = router;
