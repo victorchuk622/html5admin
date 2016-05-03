@@ -12,8 +12,7 @@ router.use(authUser);
 //post /postReply --data "questionID=x&userID=xxx&content=xxx"
 router.post('/postReply', (req, res) => {
     console.log(req.body);
-    var criteria = {};
-    criteria = req.body.questionID;
+    var criteria = {questionID:req.body.questionID};
 
     var theContent = {};
     theContent = JSON.parse('{"reply": {"userID": "' + req.body.userID + '", "content": "' + req.body.content + '", "date": "' + Date.now() + '"}}');
