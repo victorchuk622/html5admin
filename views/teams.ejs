@@ -56,9 +56,11 @@
                 <% teams.forEach(function(team) { %>
                 <tr>
                     <td><%= team.teamName %></td>
-                    <% team.teamMember.forEach(function(member) { %>
-                    <td><%= member %></td>
-                    <% }); %>
+                    <td><%= team.teamMember[0]%></td>
+                    <td><%= team.teamMember[1]%></td>
+                    <td><%= team.teamMember[2]%></td>
+                    <td><%= team.teamMember[3]%></td>
+                    <td><%= team.teamMember[4]%></td>
                     <td><a href="./editTeam?id=<%= team._id %>">Edit Team</a></td>
                     <td><a href="./deleteStudent?id=<%= team._id %>">Delete Team</a></td>
                 </tr>
