@@ -26,7 +26,7 @@ function addquestion() {
         <input type="hidden" class="form-control" id="content[`+ questioncount +`][questionNo] " name="content[`+ questioncount +`][questionNo]"
                value="`+ (questioncount + 1) +`">
 
-        <div id="mc-q`+ (questioncount + 1) +`" class="tab-pane fade in active question-answer">
+        <div id="mc-q`+ (questioncount + 1) +`" class="tab-pane fade in active question-answer multiple-choices">
             <input type="hidden" class="form-control" id="content[`+ questioncount +`][qType]" name="content[`+ questioncount +`][qType]"
                    value="mc">
             <div class="input-group">
@@ -64,7 +64,7 @@ function addquestion() {
             <br/>
         </div>
 
-        <div id="fitb-q`+ (questioncount + 1) +`" class="tab-pane fade question-">
+        <div id="fitb-q`+ (questioncount + 1) +`" class="tab-pane fade question- fill-in-the-blanks">
             <input type="hidden" class="form-control" id="content[`+ questioncount +`][qType]" name="content[`+ questioncount +`][qType]"
                    value="fitb">
             <p>
@@ -77,13 +77,20 @@ function addquestion() {
     </div>
 </div>
 `);
-        $("a[href='#fitb-q"+ (questioncount + 1) +"']").on('show.bs.tab', function(e) {
+        /*$("a[href='#fitb-q"+ (questioncount + 1) +"']").on('show.bs.tab', function(e) {
             console.log('fitb-q'+ (questioncount + 1));
         });
         $("a[href='#mc-q"+ (questioncount + 1) +"']").on('show.bs.tab', function(e) {
             console.log('mc-q'+ (questioncount + 1));
+        });*/
+        
+        $('.tab-content').on('click', '.tab-pane ul.nav.nav-tabs li a.multiple-choices', function(evt){
+            
         });
-
+        $('.tab-content').on('click', '.tab-pane ul.nav.nav-tabs li a.fill-in-the-blanks', function(evt){
+            
+        });
+        
         questioncount++;
     }
 };
