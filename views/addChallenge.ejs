@@ -11,7 +11,9 @@
         <li id="li-q1" class="active"><a data-toggle="tab" href="#tab-q1">1</a></li>
         <li><a onclick="addquestion()" href="#">+</a></li>
     </ul>
-    <form role="form">
+    <form role="form" action="/challenges/addChallenge" method="post">
+        <input type="hidden" class="form-control" id="teamID" name="teamID"
+               value="1">
         <div class="tab-content">
             <div id="tab-q1" class="tab-pane fade in active">
                 <h3>Question 1</h3>
@@ -21,13 +23,54 @@
                     <li><a data-toggle="tab" href="#fitb">Fill in the Blank</a></li>
                 </ul>
                 <div class="tab-content">
+                    <label for="content[1][question]">Question</label>
+                    <textarea class="form-control" id="content[1][question]" name="content[1][question]"
+                              placeholder="Question"></textarea>
+                    </fieldset>
+                    <br/>
+                    <input type="hidden" class="form-control" id="content[1][questionNo] " name="content[1][questionNo]"
+                           value="1">
                     <div id="mc" class="tab-pane fade in active">
-                        <p>Multiple Choices</p>
+                        <input type="hidden" class="form-control" id="content[1][qType]" name="content[1][qType]"
+                               value="mc">
+                        <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" id="content[1][ans][1][correct]" name="content[1][ans][1][correct]">
+      </span>
+                            <input type="text" class="form-control" id="content[1][ans][1][content]"
+                                   name="content[1][ans][1][content]">
+                        </div>
+                        <br/>
+                        <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" id="content[1][ans][2][correct]" name="content[1][ans][2][correct]">
+      </span>
+                            <input type="text" class="form-control" id="content[1][ans][2][content]"
+                                   name="content[1][ans][2][content]">
+                        </div>
+
+                        <br/>
+                        <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" id="content[1][ans][3][correct]" name="content[1][ans][3][correct]">
+      </span>
+                            <input type="text" class="form-control" id="content[1][ans][3][content]"
+                                   name="content[1][ans][3][content]">
+                        </div>
+                        <br/>
+                        <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" id="content[1][ans][4][correct]" name="content[1][ans][4][correct]">
+      </span>
+                            <input type="text" class="form-control" id="content[1][ans][4][content]"
+                                   name="content[1][ans][4][content]">
+                        </div>
+                        <br/>
                     </div>
-                    <div id="oc" class="tab-pane fade">
+                    <div id="oc" class="tab-pane fade question-answer">
                         <p>One Choice</p>
                     </div>
-                    <div id="fitb" class="tab-pane fade">
+                    <div id="fitb" class="tab-pane fade question-answer">
                         <p>Fill in the blank</p>
                     </div>
                 </div>
@@ -41,9 +84,10 @@
                 </div>
             </div>
         </div>
+        <button type="submit" class="btn btn-default">Create</button>
     </form>
 </div>
 <% include foot %>
-<script src="/js/addquestion.js"></script>
+<script src="/js/addChallenge.js"></script>
 </body>
 </html>

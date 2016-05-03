@@ -7,11 +7,13 @@ var mongoose = require('mongoose');
 
 //post
 // --data "questionID=XXX&teamID=XXX&score=XXX"
-router.get('/addChallenge', (req, res) => {
-    res.render('addChallenge');
+router.get('/addChallenge/:teamID', (req, res) => {
+    res.render('addChallenge',{teamID:req.params.teamID});
 });
 
 router.post('/addChallenge',(req, res) => {
+    console.log(req.body);
+    console.log(req.body.content);
     res.json({success:true});
 });
 
