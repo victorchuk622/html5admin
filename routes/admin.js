@@ -9,7 +9,7 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 var User = require('../models/user');
-
+var Team = require('../models/team');
 var logger = require('morgan');
 //var config = require('../setting.js');
 
@@ -41,6 +41,12 @@ router.get('/accounts', (req, res) => {
 
 router.get('/arena', (req, res) => {
     res.render('arena');
+});
+
+router.get('/teams', (req, res) => {
+    Team.find().then((results) =>{
+        res.render('teams',{teams: results});
+    });
 });
 
 router.post('/createTeam', (req, res) => {
