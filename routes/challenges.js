@@ -14,13 +14,33 @@ router.get('/addChallenge/:teamID', (req, res) => {
 router.post('/addChallenge',(req, res) => {
     console.log(req.body);
     console.log(req.body.content);
+    console.log(req.body.content[0].ans);
     res.json({success:true});
 });
 
-router.get('/getChallenge',(req, res) => {
-
-
+router.get('/getChallenges/round/:round',(req, res) => {
+    res.json([{"teamID": "2016S101",
+        "teamName": "teamKAV",
+        "date": "2016-03-16T08:23:45.079Z",
+        "done":false,
+        "content":"mc$In HTML5, contextmenu and spellcheck are:$$HTML attributes|*Event attributes|Style attributes|HTML elements&oc$In HTML5, which method is used to get the current location of a user?$$getUserPosition()|getPosition()|*getCurrentPosition()",
+}],[{"teamID": "2",
+        "teamName": "2016S102",
+        "date": "2016-03-17T08:23:45.079Z",
+        "done":false,
+        "content":"mc$In HTML5, contextmenu and spellcheck are:$$HTML attributes|*Event attributes|Style attributes|HTML elements&oc$In HTML5, which method is used to get the current location of a user?$$getUserPosition()|getPosition()|*getCurrentPosition()",
+    }],[{"teamID": "3",
+        "teamName": "2016S103",
+        "date": "2016-03-17T08:23:45.079Z",
+        "done":false,
+        "content":"mc$In HTML5, contextmenu and spellcheck are:$$HTML attributes|*Event attributes|Style attributes|HTML elements&oc$In HTML5, which method is used to get the current location of a user?$$getUserPosition()|getPosition()|*getCurrentPosition()",
+    }]);
 });
+
+
+
+
+
 
 /*
 router.post('/postRecord', function (req, res, next) {

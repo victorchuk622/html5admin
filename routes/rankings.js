@@ -17,7 +17,7 @@ router.get('/getRanking/round/:round',(req,res) => {
     res.json([
         {
             "rank":1,
-            "team":"teamkav",
+            "team":"TeamKav",
             "score":100
         },
         {
@@ -44,7 +44,7 @@ router.get('/getRanking/round/:round',(req,res) => {
     if(req.params.round==2)res.json([
         {
             "rank":1,
-            "team":"teamkav",
+            "team":"TeamKav",
             "score":80
         },
         {

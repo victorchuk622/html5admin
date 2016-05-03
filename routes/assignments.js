@@ -22,7 +22,7 @@ router.get('/getAssignments', (req, res) => {
         console.log(typeof assignments, assignments.length);
         assignments.forEach(function(assignment){
 
-            assignment.done = false;
+            assignment.done= false;
 
             var str = '';
             assignment.content.forEach(function (content) {
@@ -44,28 +44,38 @@ router.get('/getAssignments', (req, res) => {
 });
 
 router.post('/submitAssignment/:assid', (req, res) => {
-    console.log(req.body);
-    //var answer=req.body().toObject();
-    var userSubmission = JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": 1, "answer": ["Event attributes"] },{ "questionNo": 2, "answer": ["getPosition()","getCurrentsPosition()"] }]}');
+    //console.log(req.body);
+    var userSubmission = req.body;
+    //var userSubmission = JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": 1, "answer": "Event attributes" },{ "questionNo": 2, "answer": "getPosition()"},{ "questionNo": 2,"answer":"getCurrentPosition()" }]}');
     var score = 0;
     var result = [];
-    //console.log(answer.ans);
-
     Assignment.findOne({id:req.params.assid}).select('content.questionNo content.ans').exec().then((assignment) => {
         assignment.content.forEach((content) => {
             // to be retrofitted for more efficient answer checking
             var submittedAns = userSubmission.ans.filter((val)=>{
                 return val.questionNo == content.questionNo;
             });
-            console.log(submittedAns);
+            //console.log(submittedAns);
+            //console.log("end");
             var wrong = false;
             content.ans.forEach((ans) => {
                 if(ans.correct){
-                    var submittedOneAns = submittedAns[0].answer.filter((val)=>{
-                        return val == ans.content;
+                    //console.log(ans.content);
+                    var submittedOneAns = submittedAns.filter((val)=>{
+                        return val.answer == ans.content;
                     });
-                    console.log(submittedOneAns);
+                    //console.log(submittedOneAns);
+                    //console.log('end');
                     if(submittedOneAns.length == 0) wrong = true;
+                }
+                if(!ans.correct){
+                    //console.log(ans.content);
+                    var submittedOneAns = submittedAns.filter((val)=>{
+                        return val.answer == ans.content;
+                    });
+                    //console.log(submittedOneAns);
+                    //console.log('end');
+                    if(submittedOneAns.length != 0) wrong = true;
                 }
             });
             if(!wrong){
@@ -73,10 +83,10 @@ router.post('/submitAssignment/:assid', (req, res) => {
                 result.push(content.questionNo);
             }
         });
-        console.log(score);
-        console.log(result);
         res.json({success: true});
     });
+
+
 
 
 });
