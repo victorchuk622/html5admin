@@ -11,6 +11,7 @@ router.use(authUser);
 //posting a reply
 //post /postReply --data "questionID=x&userID=xxx&content=xxx"
 router.post('/postReply', (req, res) => {
+    console.log(req.body);
     var criteria = {};
     criteria = req.body.questionID;
 

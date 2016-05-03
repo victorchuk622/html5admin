@@ -11,19 +11,12 @@
         <li id="li-q1" class="active"><a data-toggle="tab" href="#tab-q1">1</a></li>
         <li><a onclick="addquestion()" href="#">+</a></li>
     </ul>
-    <form role="form" action="/challenges/addChallenge" method="post">
+    <form id="addChallenge" role="form" action="/challenges/addChallenge" method="post">
         <input type="hidden" class="form-control" id="teamID" name="teamID"
                value="1">
         <div class="tab-content">
             <% include tab-q1 %>
-            <div id="tab-q2" class="tab-pane fade">
-                <h3>Question 2</h3>
-                <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-default">Left</button>
-                    <button type="button" class="btn btn-default">Middle</button>
-                    <button type="button" class="btn btn-default">Right</button>
-                </div>
-            </div>
+
         </div>
         <button type="submit" class="btn btn-default">Create</button>
     </form>

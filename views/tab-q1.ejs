@@ -8,53 +8,59 @@
     <div class="tab-content">
         <fieldset class="form-group">
             <br/>
-                    <textarea class="form-control" id="content[1][question]" name="content[1][question]"
+                    <textarea class="form-control" id="content[0][question]" name="content[0][question]"
                               placeholder="Question"></textarea>
         </fieldset>
         <br/>
-        <input type="hidden" class="form-control" id="content[1][questionNo] " name="content[1][questionNo]"
-               value="1">
+        <input type="hidden" class="form-control" id="content[0][questionNo] " name="content[0][questionNo]"
+               value="0">
 
-        <div id="mc" class="tab-pane fade in active">
-            <input type="hidden" class="form-control" id="content[1][qType]" name="content[1][qType]"
+        <div id="mc" class="tab-pane fade in active question-answer">
+            <input type="hidden" class="form-control" id="content[0][qType]" name="content[0][qType]"
                    value="mc">
             <div class="input-group">
       <span class="input-group-addon">
-        <input type="checkbox" id="content[1][ans][1][correct]" name="content[1][ans][1][correct]" value="true">
+        <input type="checkbox" id="content[0][ans][0][correct]" name="content[0][ans][0][correct]" value="true">
       </span>
-                <input type="text" class="form-control" id="content[1][ans][1][content]"
-                       name="content[1][ans][1][content]" placeholder="Answer">
+                <input type="text" class="form-control" id="content[0][ans][0][content]"
+                       name="content[0][ans][0][content]" placeholder="Answer">
             </div>
             <br/>
             <div class="input-group">
       <span class="input-group-addon">
-        <input type="checkbox" id="content[1][ans][2][correct]" name="content[1][ans][2][correct]" value="true">
+        <input type="checkbox" id="content[0][ans][1][correct]" name="content[0][ans][1][correct]" value="true">
       </span>
-                <input type="text" class="form-control" id="content[1][ans][2][content]"
-                       name="content[1][ans][2][content]" placeholder="Answer">
+                <input type="text" class="form-control" id="content[0][ans][1][content]"
+                       name="content[0][ans][1][content]" placeholder="Answer">
             </div>
 
             <br/>
             <div class="input-group">
       <span class="input-group-addon">
-        <input type="checkbox" id="content[1][ans][3][correct]" name="content[1][ans][3][correct]" value="true">
+        <input type="checkbox" id="content[0][ans][2][correct]" name="content[0][ans][2][correct]" value="true">
       </span>
-                <input type="text" class="form-control" id="content[1][ans][3][content]"
-                       name="content[1][ans][3][content]" placeholder="Answer">
+                <input type="text" class="form-control" id="content[0][ans][2][content]"
+                       name="content[0][ans][2][content]" placeholder="Answer">
             </div>
             <br/>
             <div class="input-group">
       <span class="input-group-addon">
-        <input type="checkbox" id="content[1][ans][4][correct]" name="content[1][ans][4][correct]" value="true">
+        <input type="checkbox" id="content[0][ans][3][correct]" name="content[0][ans][3][correct]" value="true">
       </span>
-                <input type="text" class="form-control" id="content[1][ans][4][content]"
-                       name="content[1][ans][4][content]" placeholder="Answer">
+                <input type="text" class="form-control" id="content[0][ans][3][content]"
+                       name="content[0][ans][3][content]" placeholder="Answer">
             </div>
             <br/>
         </div>
 
-        <div id="fitb" class="tab-pane fade question-answer">
-            <p><input type="text" class="form-control" id="content[1][ans][1][content]" placeholder="Answer"></p>
+        <div id="fitb" class="tab-pane fade question-">
+            <input type="hidden" class="form-control" id="content[0][qType]" name="content[0][qType]"
+                   value="fitb">
+            <p>
+                <input type="text" class="form-control" id="content[0][ans][0][content]" placeholder="Answer">
+                <input type="hidden" class="form-control" id="content[0][ans][0][correct]" name="content[0][ans][0][correct]"
+                       value="true">
+            </p>
 
         </div>
     </div>
