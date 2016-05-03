@@ -85,10 +85,10 @@ function addquestion() {
         });*/
         
         $('.tab-content').on('click', '.tab-pane ul.nav.nav-tabs li a.multiple-choices', function(evt){
-            
+            $($(test).attr('href').slice(1))
         });
         $('.tab-content').on('click', '.tab-pane ul.nav.nav-tabs li a.fill-in-the-blanks', function(evt){
-            
+            var targetId = $(test).attr('href').slice(1);
         });
         
         questioncount++;
