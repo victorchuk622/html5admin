@@ -21,6 +21,9 @@ router.get('/getAssignments', (req, res) => {
     Assignment.find({}).lean().exec().then((assignments) => {
         console.log(typeof assignments, assignments.length);
         assignments.forEach(function(assignment){
+
+            assignment.done = false;
+
             var concateContent = [];
             var str = '';
             assignment.content.forEach(function (content) {
