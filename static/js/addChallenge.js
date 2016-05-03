@@ -12,9 +12,9 @@ function addquestion() {
         <div id="tab-q`+ (questioncount + 1) +`" class="tab-pane fade">
 
     <h3>Question `+ (questioncount + 1) +`</h3>
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#mc-q`+ (questioncount + 1) +`">Multiple Choices</a></li>
-        <li><a data-toggle="tab" href="#fitb-q`+ (questioncount + 1) +`">Fill in the Blank</a></li>
+    <ul class="nav nav-tabs question-type">
+        <li class="active"><a data-toggle="tab" class="multiple-choices" href="#mc-q`+ (questioncount + 1) +`">Multiple Choices</a></li>
+        <li><a data-toggle="tab" class="fill-in-the-blanks" href="#fitb-q`+ (questioncount + 1) +`">Fill in the Blank</a></li>
     </ul>
     <div class="tab-content">
         <fieldset class="form-group">
