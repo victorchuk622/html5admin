@@ -64,7 +64,7 @@ router.post('/postReply', (req, res) => {
 
 //get the reply of particular questionID
 router.get('/getReply/:questionID', (req, res) =>{
-    DiscussBoard.find({questionID:req.params.questionID}).exec().then((result)=>{
+    DiscussBoard.findOne({questionID:req.params.questionID}).lean().exec().then((result)=>{
         res.json(result);
     });
 });
