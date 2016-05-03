@@ -64,13 +64,10 @@ router.post('/postReply', (req, res) => {
 
 //get the reply of particular questionID
 router.get('/getReply/:questionID', (req, res) =>{
-    var criteria = {};
-    criteria = req.params.questionID;
-
+    var criteria = {questionID:req.body.questionID};
     DiscussBoard.find(criteria, function (err, results) {
         if (err)
             return res.json({success: false, message: 'Server Error!'});
-
         if (results.length > 0)
             res.json(results);
         else {
