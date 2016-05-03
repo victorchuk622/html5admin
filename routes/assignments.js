@@ -24,7 +24,6 @@ router.get('/getAssignments', (req, res) => {
 
             assignment.done = false;
 
-            var concateContent = [];
             var str = '';
             assignment.content.forEach(function (content) {
                 str += content.qType + '$' + content.question + '$$';
@@ -36,13 +35,11 @@ router.get('/getAssignments', (req, res) => {
                 str += '&';
             });
             str = str.slice(0, -1);
-            concateContent.push(str);
-            console.log(concateContent);
-            assignment.content=concateContent;
+            assignment.content=str;
             console.log(assignment.content);
         });
         res.json(assignments);
-        
+
     });
 });
 
