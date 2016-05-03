@@ -19,17 +19,18 @@ router.post('/addChallenge',(req, res) => {
 });
 
 router.get('/getChallenges/round/:round',(req, res) => {
-    res.json([{"questionID": "2016S101",
+    if(req.params.round==1)
+    res.json([{"questionID": "Q001",
         "teamName": "TeamKAV",
         "date": "2016-03-16T08:23:45.079Z",
         "done":false,
         "content":"mc$In HTML5, contextmenu and spellcheck are:$$HTML attributes|*Event attributes|Style attributes|HTML elements&oc$In HTML5, which method is used to get the current location of a user?$$getUserPosition()|getPosition()|*getCurrentPosition()",
-},{"questionID": "2",
+},{"questionID": "Q002",
         "teamName": "Team 2",
         "date": "2016-03-17T08:23:45.079Z",
         "done":false,
         "content":"mc$In HTML5, contextmenu and spellcheck are:$$HTML attributes|*Event attributes|Style attributes|HTML elements&oc$In HTML5, which method is used to get the current location of a user?$$getUserPosition()|getPosition()|*getCurrentPosition()",
-    },{"questionID": "3",
+    },{"questionID": "Q003",
         "teamName": "Team 3",
         "date": "2016-03-17T08:23:45.079Z",
         "done":false,
