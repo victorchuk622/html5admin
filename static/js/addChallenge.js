@@ -8,14 +8,76 @@ $( "#addChallenge" ).submit(function( event ) {
 function addquestion() {
     if (questioncount < 5) {
         $('<li id="li-q' + (questioncount + 1) + '"><a data-toggle="tab" href="#tab-q' + (questioncount + 1) + '">' + (questioncount + 1) + '</a></li>').insertAfter('#li-q' + questioncount);
-        $('#tab-q' + questioncount).after(
+        $('#tab-q' + questioncount).after(`
+        <div id="tab-q`+ (questioncount + 1) +`" class="tab-pane fade">
 
+    <h3>Question `+ (questioncount + 1) +`</h3>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#mc-q`+ (questioncount + 1) +`">Multiple Choices</a></li>
+        <li><a data-toggle="tab" href="#fitb-q`+ (questioncount + 1) +`">Fill in the Blank</a></li>
+    </ul>
+    <div class="tab-content">
+        <fieldset class="form-group">
+            <br/>
+                    <textarea class="form-control" id="content[`+ questioncount +`][question]" name="content[`+ questioncount +`][question]"
+                              placeholder="Question" required></textarea>
+        </fieldset>
+        <br/>
+        <input type="hidden" class="form-control" id="content[`+ questioncount +`][questionNo] " name="content[`+ questioncount +`][questionNo]"
+               value="`+ (questioncount + 1) +`">
 
+        <div id="mc-q`+ (questioncount + 1) +`" class="tab-pane fade in active question-answer">
+            <input type="hidden" class="form-control" id="content[`+ questioncount +`][qType]" name="content[`+ questioncount +`][qType]"
+                   value="mc">
+            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" id="content[`+ questioncount +`][ans][0][correct]" name="content[`+ questioncount +`][ans][0][correct]" value="true">
+      </span>
+                <input type="text" class="form-control" id="content[`+ questioncount +`][ans][0][content]"
+                       name="content[`+ questioncount +`][ans][0][content]" placeholder="Answer">
+            </div>
+            <br/>
+            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" id="content[`+ questioncount +`][ans][1][correct]" name="content[`+ questioncount +`][ans][1][correct]" value="true">
+      </span>
+                <input type="text" class="form-control" id="content[`+ questioncount +`][ans][1][content]"
+                       name="content[`+ questioncount +`][ans][1][content]" placeholder="Answer">
+            </div>
 
+            <br/>
+            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" id="content[`+ questioncount +`][ans][2][correct]" name="content[`+ questioncount +`][ans][2][correct]" value="true">
+      </span>
+                <input type="text" class="form-control" id="content[`+ questioncount +`][ans][2][content]"
+                       name="content[`+ questioncount +`][ans][2][content]" placeholder="Answer">
+            </div>
+            <br/>
+            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" id="content[`+ questioncount +`][ans][3][correct]" name="content[`+ questioncount +`][ans][3][correct]" value="true">
+      </span>
+                <input type="text" class="form-control" id="content[`+ questioncount +`][ans][3][content]"
+                       name="content[`+ questioncount +`][ans][3][content]" placeholder="Answer">
+            </div>
+            <br/>
+        </div>
 
+        <div id="fitb-q`+ (questioncount + 1) +`" class="tab-pane fade question-">
+            <input type="hidden" class="form-control" id="content[`+ questioncount +`][qType]" name="content[`+ questioncount +`][qType]"
+                   value="fitb">
+            <p>
+                <input type="text" class="form-control" id="content[`+ questioncount +`][ans][0][content]" name="content[`+ questioncount +`][ans][0][content]" placeholder="Answer">
+                <input type="hidden" class="form-control" id="content[`+ questioncount +`][ans][0][correct]" name="content[`+ questioncount +`][ans][0][correct]"
+                       value="true">
+            </p>
 
-
-        );
+        </div>
+    </div>
+</div>
+`);
+        $('#tab-q2').click();
         questioncount++;
     }
 };

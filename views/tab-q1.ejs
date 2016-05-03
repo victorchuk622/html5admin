@@ -2,22 +2,22 @@
 
     <h3>Question 1</h3>
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#mc">Multiple Choices</a></li>
-        <li><a data-toggle="tab" href="#fitb">Fill in the Blank</a></li>
+        <li class="active"><a data-toggle="tab" href="#mc-q1">Multiple Choices</a></li>
+        <li><a data-toggle="tab" href="#fitb-q1">Fill in the Blank</a></li>
     </ul>
     <div class="tab-content">
         <fieldset class="form-group">
             <br/>
                     <textarea class="form-control" id="content[0][question]" name="content[0][question]"
-                              placeholder="Question"></textarea>
+                              placeholder="Question" required></textarea>
         </fieldset>
         <br/>
         <input type="hidden" class="form-control" id="content[0][questionNo] " name="content[0][questionNo]"
-               value="0">
+               value="1">
 
-        <div id="mc" class="tab-pane fade in active question-answer">
+        <div id="mc-q1" class="tab-pane fade in active question-answer">
             <input type="hidden" class="form-control" id="content[0][qType]" name="content[0][qType]"
-                   value="mc">
+                   value="mc-q1">
             <div class="input-group">
       <span class="input-group-addon">
         <input type="checkbox" id="content[0][ans][0][correct]" name="content[0][ans][0][correct]" value="true">
@@ -28,7 +28,7 @@
             <br/>
             <div class="input-group">
       <span class="input-group-addon">
-        <input type="checkbox" id="content[0][ans][1][correct]" name="content[0][ans][1][correct]" value="true">
+        <input type="checkbox" id="content[0][ans][1][correct]" name="content[0][ans][1][correct]" value="true" >
       </span>
                 <input type="text" class="form-control" id="content[0][ans][1][content]"
                        name="content[0][ans][1][content]" placeholder="Answer">
@@ -37,7 +37,7 @@
             <br/>
             <div class="input-group">
       <span class="input-group-addon">
-        <input type="checkbox" id="content[0][ans][2][correct]" name="content[0][ans][2][correct]" value="true">
+        <input type="checkbox" id="content[0][ans][2][correct]" name="content[0][ans][2][correct]" value="true" >
       </span>
                 <input type="text" class="form-control" id="content[0][ans][2][content]"
                        name="content[0][ans][2][content]" placeholder="Answer">
@@ -45,7 +45,7 @@
             <br/>
             <div class="input-group">
       <span class="input-group-addon">
-        <input type="checkbox" id="content[0][ans][3][correct]" name="content[0][ans][3][correct]" value="true">
+        <input type="checkbox" id="content[0][ans][3][correct]" name="content[0][ans][3][correct]" value="true" >
       </span>
                 <input type="text" class="form-control" id="content[0][ans][3][content]"
                        name="content[0][ans][3][content]" placeholder="Answer">
@@ -53,11 +53,11 @@
             <br/>
         </div>
 
-        <div id="fitb" class="tab-pane fade question-">
+        <div id="fitb-q1" class="tab-pane fade question-">
             <input type="hidden" class="form-control" id="content[0][qType]" name="content[0][qType]"
                    value="fitb">
             <p>
-                <input type="text" class="form-control" id="content[0][ans][0][content]" placeholder="Answer">
+                <input type="text" class="form-control" id="content[0][ans][0][content]" name="content[0][ans][0][content]" placeholder="Answer">
                 <input type="hidden" class="form-control" id="content[0][ans][0][correct]" name="content[0][ans][0][correct]"
                        value="true">
             </p>

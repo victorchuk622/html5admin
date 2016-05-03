@@ -51,10 +51,13 @@ router.post('/createTeam', (req, res) => {
 
 
 router.get('/assignments', (req, res) => {
-
     res.render('assignments');
-
 });
+
+router.get('/assignments/addAssignment', (req, res) => {
+    res.render('addAssignment');
+});
+
 
 router.post('/createStudent', (req, res) =>  {
     console.log(req.body);
