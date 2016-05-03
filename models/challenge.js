@@ -7,6 +7,7 @@ module.exports = mongoose.model('Challenge', new Schema({
     //score: Number,
     teamID: String,
     teamName: String,
+    info: { type: String, required: true},
     date: { type: Date, default: Date.now },
     content: [{
         question: {type: String, required: true, enum: ['mc', 'oc', 'fitb']},

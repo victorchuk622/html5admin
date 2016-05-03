@@ -1,12 +1,13 @@
 <div id="tab-q1" class="tab-pane fade in active">
+
     <h3>Question 1</h3>
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#mc">Multiple Choices</a></li>
-        <li><a data-toggle="tab" href="#oc">One Choice</a></li>
         <li><a data-toggle="tab" href="#fitb">Fill in the Blank</a></li>
     </ul>
     <div class="tab-content">
-        <label for="content[1][question]">Question</label>
+        <fieldset class="form-group">
+            <br/>
                     <textarea class="form-control" id="content[1][question]" name="content[1][question]"
                               placeholder="Question"></textarea>
         </fieldset>
@@ -22,7 +23,7 @@
         <input type="checkbox" id="content[1][ans][1][correct]" name="content[1][ans][1][correct]" value="true">
       </span>
                 <input type="text" class="form-control" id="content[1][ans][1][content]"
-                       name="content[1][ans][1][content]">
+                       name="content[1][ans][1][content]" placeholder="Answer">
             </div>
             <br/>
             <div class="input-group">
@@ -30,7 +31,7 @@
         <input type="checkbox" id="content[1][ans][2][correct]" name="content[1][ans][2][correct]" value="true">
       </span>
                 <input type="text" class="form-control" id="content[1][ans][2][content]"
-                       name="content[1][ans][2][content]">
+                       name="content[1][ans][2][content]" placeholder="Answer">
             </div>
 
             <br/>
@@ -39,7 +40,7 @@
         <input type="checkbox" id="content[1][ans][3][correct]" name="content[1][ans][3][correct]" value="true">
       </span>
                 <input type="text" class="form-control" id="content[1][ans][3][content]"
-                       name="content[1][ans][3][content]">
+                       name="content[1][ans][3][content]" placeholder="Answer">
             </div>
             <br/>
             <div class="input-group">
@@ -47,13 +48,14 @@
         <input type="checkbox" id="content[1][ans][4][correct]" name="content[1][ans][4][correct]" value="true">
       </span>
                 <input type="text" class="form-control" id="content[1][ans][4][content]"
-                       name="content[1][ans][4][content]">
+                       name="content[1][ans][4][content]" placeholder="Answer">
             </div>
             <br/>
         </div>
 
         <div id="fitb" class="tab-pane fade question-answer">
-            <p>Fill in the blank</p>
+            <p><input type="text" class="form-control" id="content[1][ans][1][content]" placeholder="Answer"></p>
+
         </div>
     </div>
 </div>
