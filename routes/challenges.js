@@ -37,6 +37,20 @@ router.get('/getChallenges/round/:round',(req, res) => {
     }]);
 });
 
+router.get('/myTeam', (req, res) => {
+    res.json({
+        "teamID":"2016S101",
+        "teamName": "TeamKAV",
+        "teamMember": [
+        "s1112416",
+        "s1126051",
+        "s1112411"
+    ]});
+});
+
+router.get('/addChallenge/:teamID', (req, res) => {
+    res.render('addChallenge',{teamID:req.params.teamID});
+});
 
 
 
