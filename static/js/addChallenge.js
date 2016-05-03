@@ -31,7 +31,7 @@ function addquestion() {
                    value="mc">
             <div class="input-group">
       <span class="input-group-addon">
-        <input type="checkbox" id="content[`+ questioncount +`][ans][0][correct]" name="content[`+ questioncount +`][ans][0][correct]" value="true">
+        <input type="checkbox" id="content[`+ questioncount +`][ans][0][correct]" name="content[`+ questioncount +`][ans][0][correct]" value="true" required>
       </span>
                 <input type="text" class="form-control" id="content[`+ questioncount +`][ans][0][content]"
                        name="content[`+ questioncount +`][ans][0][content]" placeholder="Answer">
@@ -39,7 +39,7 @@ function addquestion() {
             <br/>
             <div class="input-group">
       <span class="input-group-addon">
-        <input type="checkbox" id="content[`+ questioncount +`][ans][1][correct]" name="content[`+ questioncount +`][ans][1][correct]" value="true">
+        <input type="checkbox" id="content[`+ questioncount +`][ans][1][correct]" name="content[`+ questioncount +`][ans][1][correct]" value="true" required>
       </span>
                 <input type="text" class="form-control" id="content[`+ questioncount +`][ans][1][content]"
                        name="content[`+ questioncount +`][ans][1][content]" placeholder="Answer">
@@ -48,7 +48,7 @@ function addquestion() {
             <br/>
             <div class="input-group">
       <span class="input-group-addon">
-        <input type="checkbox" id="content[`+ questioncount +`][ans][2][correct]" name="content[`+ questioncount +`][ans][2][correct]" value="true">
+        <input type="checkbox" id="content[`+ questioncount +`][ans][2][correct]" name="content[`+ questioncount +`][ans][2][correct]" value="true" required>
       </span>
                 <input type="text" class="form-control" id="content[`+ questioncount +`][ans][2][content]"
                        name="content[`+ questioncount +`][ans][2][content]" placeholder="Answer">
@@ -56,7 +56,7 @@ function addquestion() {
             <br/>
             <div class="input-group">
       <span class="input-group-addon">
-        <input type="checkbox" id="content[`+ questioncount +`][ans][3][correct]" name="content[`+ questioncount +`][ans][3][correct]" value="true">
+        <input type="checkbox" id="content[`+ questioncount +`][ans][3][correct]" name="content[`+ questioncount +`][ans][3][correct]" value="true" required>
       </span>
                 <input type="text" class="form-control" id="content[`+ questioncount +`][ans][3][content]"
                        name="content[`+ questioncount +`][ans][3][content]" placeholder="Answer">
@@ -68,7 +68,7 @@ function addquestion() {
             <input type="hidden" class="form-control" id="content[`+ questioncount +`][qType]" name="content[`+ questioncount +`][qType]"
                    value="fitb">
             <p>
-                <input type="text" class="form-control" id="content[`+ questioncount +`][ans][0][content]" name="content[`+ questioncount +`][ans][0][content]" placeholder="Answer">
+                <input type="text" class="form-control" id="content[`+ questioncount +`][ans][0][content]" name="content[`+ questioncount +`][ans][0][content]" placeholder="Answer"  required>
                 <input type="hidden" class="form-control" id="content[`+ questioncount +`][ans][0][correct]" name="content[`+ questioncount +`][ans][0][correct]"
                        value="true">
             </p>
@@ -77,7 +77,13 @@ function addquestion() {
     </div>
 </div>
 `);
-        $('#tab-q2').click();
+        $("a[href='#fitb-q"+ (questioncount + 1) +"']").on('show.bs.tab', function(e) {
+            console.log('fitb-q'+ (questioncount + 1));
+        });
+        $("a[href='#mc-q"+ (questioncount + 1) +"']").on('show.bs.tab', function(e) {
+            console.log('mc-q'+ (questioncount + 1));
+        });
+
         questioncount++;
     }
 };
