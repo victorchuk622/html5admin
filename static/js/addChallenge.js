@@ -5,6 +5,18 @@ $( "#addChallenge" ).submit(function( event ) {
 
 });
 
+$('.tab-content').on('click', '.tab-pane ul.nav.nav-tabs li a', function(evt) {
+    var target = $(evt.target).attr('href');
+    if (target.slice(0, 5) == '#mc-q') {
+        $('#fitb-q'+(target.slice(5)) + ' input:text').removeAttr('required');
+        $(target + ' input:text').attr('required', true);
+    }
+    if (target.slice(0, 7) == '#fitb-q') {
+        $('#mc-q'+(target.slice(7)) +  ' input:text').removeAttr('required');
+        $(target +  ' input:text').attr('required', true);
+    }
+});
+
 function addquestion() {
     if (questioncount < 5) {
         $('<li id="li-q' + (questioncount + 1) + '"><a data-toggle="tab" href="#tab-q' + (questioncount + 1) + '">' + (questioncount + 1) + '</a></li>').insertAfter('#li-q' + questioncount);
@@ -34,7 +46,7 @@ function addquestion() {
         <input type="checkbox" id="content[`+ questioncount +`][ans][0][correct]" name="content[`+ questioncount +`][ans][0][correct]" value="true">
       </span>
                 <input type="text" class="form-control" id="content[`+ questioncount +`][ans][0][content]"
-                       name="content[`+ questioncount +`][ans][0][content]" placeholder="Answer">
+                       name="content[`+ questioncount +`][ans][0][content]" placeholder="Answer" required>
             </div>
             <br/>
             <div class="input-group">
@@ -42,7 +54,7 @@ function addquestion() {
         <input type="checkbox" id="content[`+ questioncount +`][ans][1][correct]" name="content[`+ questioncount +`][ans][1][correct]" value="true">
       </span>
                 <input type="text" class="form-control" id="content[`+ questioncount +`][ans][1][content]"
-                       name="content[`+ questioncount +`][ans][1][content]" placeholder="Answer">
+                       name="content[`+ questioncount +`][ans][1][content]" placeholder="Answer" required>
             </div>
 
             <br/>
@@ -51,7 +63,7 @@ function addquestion() {
         <input type="checkbox" id="content[`+ questioncount +`][ans][2][correct]" name="content[`+ questioncount +`][ans][2][correct]" value="true">
       </span>
                 <input type="text" class="form-control" id="content[`+ questioncount +`][ans][2][content]"
-                       name="content[`+ questioncount +`][ans][2][content]" placeholder="Answer">
+                       name="content[`+ questioncount +`][ans][2][content]" placeholder="Answer" required>
             </div>
             <br/>
             <div class="input-group">
@@ -59,7 +71,7 @@ function addquestion() {
         <input type="checkbox" id="content[`+ questioncount +`][ans][3][correct]" name="content[`+ questioncount +`][ans][3][correct]" value="true">
       </span>
                 <input type="text" class="form-control" id="content[`+ questioncount +`][ans][3][content]"
-                       name="content[`+ questioncount +`][ans][3][content]" placeholder="Answer">
+                       name="content[`+ questioncount +`][ans][3][content]" placeholder="Answer" required>
             </div>
             <br/>
         </div>
@@ -83,12 +95,6 @@ function addquestion() {
         $("a[href='#mc-q"+ (questioncount + 1) +"']").on('show.bs.tab', function(e) {
             console.log('mc-q'+ (questioncount + 1));
         });*/
-        
-        $('.tab-content').on('click', '.tab-pane ul.nav.nav-tabs li a', function(evt){
-            var target = "#tab-" + $(evt.target).attr('href').slice(-2);
-            $(target + " .tab-content .tab-pane input[type=text]").removeAttr('required');
-            $(target + " .tab-content .tab-pane.active input[type=text]").attr('required', true);
-        });
         
         questioncount++;
     }
