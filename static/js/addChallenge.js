@@ -13,8 +13,8 @@ function addquestion() {
 
     <h3>Question `+ (questioncount + 1) +`</h3>
     <ul class="nav nav-tabs question-type">
-        <li class="active"><a data-toggle="tab" class="multiple-choices" href="#mc-q`+ (questioncount + 1) +`">Multiple Choices</a></li>
-        <li><a data-toggle="tab" class="fill-in-the-blanks" href="#fitb-q`+ (questioncount + 1) +`">Fill in the Blank</a></li>
+        <li class="active"><a data-toggle="tab" href="#mc-q`+ (questioncount + 1) +`">Multiple Choices</a></li>
+        <li><a data-toggle="tab" href="#fitb-q`+ (questioncount + 1) +`">Fill in the Blank</a></li>
     </ul>
     <div class="tab-content">
         <fieldset class="form-group">
@@ -26,7 +26,7 @@ function addquestion() {
         <input type="hidden" class="form-control" id="content[`+ questioncount +`][questionNo] " name="content[`+ questioncount +`][questionNo]"
                value="`+ (questioncount + 1) +`">
 
-        <div id="mc-q`+ (questioncount + 1) +`" class="tab-pane fade in active question-answer multiple-choices">
+        <div id="mc-q`+ (questioncount + 1) +`" class="tab-pane fade in active question-answer">
             <input type="hidden" class="form-control" id="content[`+ questioncount +`][qType]" name="content[`+ questioncount +`][qType]"
                    value="mc">
             <div class="input-group">
@@ -64,7 +64,7 @@ function addquestion() {
             <br/>
         </div>
 
-        <div id="fitb-q`+ (questioncount + 1) +`" class="tab-pane fade question- fill-in-the-blanks">
+        <div id="fitb-q`+ (questioncount + 1) +`" class="tab-pane fade question-">
             <input type="hidden" class="form-control" id="content[`+ questioncount +`][qType]" name="content[`+ questioncount +`][qType]"
                    value="fitb">
             <p>
@@ -84,11 +84,10 @@ function addquestion() {
             console.log('mc-q'+ (questioncount + 1));
         });*/
         
-        $('.tab-content').on('click', '.tab-pane ul.nav.nav-tabs li a.multiple-choices', function(evt){
-            $($(test).attr('href').slice(1))
-        });
-        $('.tab-content').on('click', '.tab-pane ul.nav.nav-tabs li a.fill-in-the-blanks', function(evt){
-            var targetId = $(test).attr('href').slice(1);
+        $('.tab-content').on('click', '.tab-pane ul.nav.nav-tabs li a', function(evt){
+            var target = "#tab-" + $(evt.target).attr('href').slice(-2);
+            $(target + " .tab-content .tab-pane input[type=text]").removeAttr('required');
+            $(target + " .tab-content .tab-pane.active input[type=text]").attr('required', true);
         });
         
         questioncount++;
