@@ -3,6 +3,7 @@ var config = require('../config.js');
 var jwt = require('jsonwebtoken');
 var router = express.Router();
 var Challenge = require('../models/challenge');
+var Team = require('../models/team');
 var mongoose = require('mongoose');
 
 //post
@@ -42,14 +43,10 @@ router.get('/getChallenges/round/:round',(req, res) => {
 });
 
 router.get('/myTeam', (req, res) => {
-    res.json({
-        "teamID":"2016S101",
-        "teamName": "TeamKAV",
-        "teamMember": [
-        "s1112416",
-        "s1126051",
-        "s1112411"
-    ]});
+    Team.findOne({teamMember:req.decoded.id}).exec((team)=>{
+        team.teamID = team._id;
+        res.json(team);
+    });
 });
 
 router.get('/progress', (req, res) => {

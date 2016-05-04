@@ -59,7 +59,7 @@ router.post('/submitAssignment/:assid', (req, res) => {
     Assignment.findOne({id:req.params.assid}).select('content.questionNo content.ans').exec().then((assignment) => {
         assignment.content.forEach((content) => {
             var submittedAns = userSubmission.filter((val)=>{
-                return val.questionNo == content.questionNo;
+                return val.question_number == content.questionNo;
             });
             //console.log(submittedAns);
             //console.log("end");
@@ -74,6 +74,7 @@ router.post('/submitAssignment/:assid', (req, res) => {
                     //console.log('end');
                     if(submittedOneAns.length == 0) wrong = true;
                 }
+
                 if(!ans.correct){
                     //console.log(ans.content);
                     var submittedOneAns = submittedAns.filter((val)=>{
@@ -87,30 +88,35 @@ router.post('/submitAssignment/:assid', (req, res) => {
             if(!wrong){
                 score++;
                 result.push(content.questionNo);
+
             }
         });
 
-    });
-
-    var submit = new SubmitedAssignment(
+        var submit = new SubmitedAssignment(
             {
                 assignmentID: req.params.assid,
                 userID: req.decoded.id,
                 score: score,
                 result: result,
                 ans: req.body.toJSON
-        }
-    );
-    console.log(submit);
-    submit.save(function (err) {
-        if (err)
-        {
-            console.log(err);
-            res.json({success: false});
-        }
-        else
-            res.json({success: true});
-    });;
+            }
+        );
+
+        submit.save(function (err) {
+            if (err)
+            {
+                console.log(err);
+                res.json({success: false});
+            }
+            else
+                res.json({success: true});
+        });
+
+    });
+
+
+
+
 
 
 
