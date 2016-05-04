@@ -5,7 +5,7 @@
  * Created by reinz on 10/3/2016.
  */
 var express = require('express');
-
+var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/user');
 var Team = require('../models/team');
@@ -36,15 +36,13 @@ router.get('/assignments', (req, res) => {
     });
 });
 
-router.get('/assignments/addAssignment', (req, res) => {
+router.get('/addAssignment', (req, res) => {
     res.render('addAssignment');
 });
 
 
 
 router.get('/stat-assignments/:id',(req, res) => {
-
-//callback structure problem
 
     SubmitedAssignment.find({assignmentID:assignment.id}).exec().then((submits) => {
         var stat; var total; var data = [0,0,0,0,0,0,0,0,0,0];
