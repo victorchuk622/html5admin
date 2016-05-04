@@ -76,7 +76,7 @@ function addquestion() {
             <br/>
         </div>
 
-        <div id="fitb-q`+ (questioncount + 1) +`" class="tab-pane fade question-">
+        <div id="fitb-q`+ (questioncount + 1) +`" class="tab-pane fade question-answer">
             <input type="hidden" class="form-control" id="content[`+ questioncount +`][qType]" name="content[`+ questioncount +`][qType]"
                    value="fitb">
             <p>

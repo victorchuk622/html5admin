@@ -5,47 +5,57 @@ var router = express.Router();
 var Challenge = require('../models/challenge');
 var Team = require('../models/team');
 var mongoose = require('mongoose');
+var authUser = require('./authUser.js');
 
+router.use(authUser);
 //post
 // --data "questionID=XXX&teamID=XXX&score=XXX"
 router.get('/addChallenge/:teamID', (req, res) => {
-    res.render('addChallenge',{teamID:req.params.teamID});
+    res.render('addChallenge',{teamID:req.params.teamID,token:req.query.token});
 });
 
 router.post('/addChallenge',(req, res) => {
+    var challenge = new Challenge(req.body.toJSON);
     console.log(req.body);
-    console.log(req.body.content);
-    console.log(req.body.content[0].ans);
-    res.json({success:true});
+    var challenge = new Challenge(req.body);
+    challenge.round=1;
+    challenge.save(function (err) {
+        if (err)
+        {
+            console.log(err);
+            res.json(req.body);
+        }
+        else
+            res.json(req.body);
+    });
 });
 
 router.get('/getChallenges/round/:round',(req, res) => {
-    if(req.params.round==1)
-    res.json([{"questionID": "Q001",
-        "teamName": "TeamKAV",
-        "info":"This is question set created by TeamKAV. It is very difficult, be careful!",
-        "date": "2016-03-16T08:23:45.079Z",
-        "done":false,
-        "content":"mc$In HTML5, contextmenu and spellcheck are:$$HTML attributes|*Event attributes|Style attributes|HTML elements&oc$In HTML5, which method is used to get the current location of a user?$$getUserPosition()|getPosition()|*getCurrentPosition()",
-},{"questionID": "Q002",
-        "teamName": "Team 2",
-        "info":"This is question set created by Team2. It is not so difficult.",
-        "date": "2016-03-17T08:23:45.079Z",
-        "done":false,
-        "content":"mc$In HTML5, contextmenu and spellcheck are:$$HTML attributes|*Event attributes|Style attributes|HTML elements&oc$In HTML5, which method is used to get the current location of a user?$$getUserPosition()|getPosition()|*getCurrentPosition()",
-    },{"questionID": "Q003",
-        "teamName": "Team 3",
-        "info":"This is question set created by Team3. It is so easy.",
-        "date": "2016-03-17T08:23:45.079Z",
-        "done":false,
-        "content":"mc$In HTML5, contextmenu and spellcheck are:$$HTML attributes|*Event attributes|Style attributes|HTML elements&oc$In HTML5, which method is used to get the current location of a user?$$getUserPosition()|getPosition()|*getCurrentPosition()",
-    }]);
+    Challenge.find({round:req.params.round}).lean().exec().then((challenges)=>{
+        challenges.forEach(function(challenge){
+            challenge.done= false;
+
+            var str = '';
+            challenge.content.forEach(function (content) {
+                str += content.qType + '$' + content.question + '$$';
+                content.ans.forEach(function (ans) {
+                    if (ans.correct)str += '*' + ans.content + '|';
+                    else str += ans.content + '|';
+                });
+                str = str.slice(0, -1);
+                str += '&';
+            });
+            str = str.slice(0, -1);
+            challenge.content=str;
+        });
+        res.json(challenges);
+    });
 });
 
 router.get('/myTeam', (req, res) => {
-    Team.findOne({teamMember:req.decoded.id}).exec((team)=>{
-        team.teamID = team._id;
-        res.json(team);
+    Team.findOne({teamMember:req.decoded.id}).lean().exec().then((result) =>{
+        result.teamID = result._id;
+        res.json(result);
     });
 });
 

@@ -12,8 +12,15 @@
         <li><a onclick="addquestion()" href="#">+</a></li>
     </ul>
     <form id="addChallenge" role="form" action="/challenges/addChallenge" method="post">
+        <fieldset class="form-group">
+            <br/>
+                    <textarea class="form-control" id="info" name="info"
+                              placeholder="Description" required></textarea>
+        </fieldset>
         <input type="hidden" class="form-control" id="teamID" name="teamID"
                value=<%= teamID%>>
+        <input type="hidden" class="form-control" id="token" name="token"
+               value=<%= token%>>
         <div class="tab-content">
             <% include tab-q1 %>
 

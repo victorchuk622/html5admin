@@ -111,16 +111,7 @@ router.post('/submitAssignment/:assid', (req, res) => {
             else
                 res.json({success: true});
         });
-
     });
-
-
-
-
-
-
-
-
 });
 
 router.get('/getResult', (req, res) => {
