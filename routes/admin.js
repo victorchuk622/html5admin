@@ -29,21 +29,14 @@ router.get('/', (req, res) => {
 
     promises.push(News.find().sort({publish: -1}));
 
-    //promises.push(Assignment.find().select('title id deadline'));
+    promises.push(Assignment.find().select('title id deadline'));
 
-    promises.push(Assignment.find().select('title id deadline').then((assignments)=>{
-        assignments.forEach(function(assignment) {
-            SubmitedAssignment.count({assignmentID:assignment.id}).then((result)=>{
-                assignment.submitted = result;
-            });
-        });
-    }));
-
+    promises.push(SubmitedAssignment.aggregate([{$group:{_id:'$assignmentID', submited: {$sum: 1}}}]).exec());
 
     Promise.all(promises).then((values) => {
 
-        console.log(values[1]);
-        res.render('portal',{news:values[0],assignments:values[1]});
+        console.log(values[2]);
+        res.render('portal',{news:values[0],assignments:values[1],submited:values[2]});
 
     }, (err) => {
         console.log(err);

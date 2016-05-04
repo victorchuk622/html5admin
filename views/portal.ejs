@@ -25,15 +25,19 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><h2 class="panel-title">Assignments</h2></div>
                     <div class="panel-body">
-
-
-                        <%= assignments %>
-
-
-
-
-
-
+                        <% assignments.forEach(function(assignment) { %>
+                        <h4><u><%= assignment.title %></u></h4>
+                        <h5><%= assignment.deadline.getFullYear() + '-' + assignment.deadline.getMonth() + '-' + assignment.deadline.getDay() %>
+                            <% var submit = submited.filter((val)=>{
+                                return val._id == assignment.id;
+                            }); %>
+                            <p>Submit: <%if(submit.length>0){%>
+                                <%= submit[0].submited%>
+                                <%}else{%>
+                                <%='0'%>
+                                <%}%>
+                            </p>
+                            <% }); %>
                         <p><a class="btn btn-default" href="#" role="button">View Assignments</a></p>
                     </div>
                 </div>
