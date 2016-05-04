@@ -19,15 +19,22 @@ router.post('/addChallenge',(req, res) => {
     console.log(req.body);
     var challenge = new Challenge(req.body);
     challenge.round=1;
-    challenge.save(function (err) {
-        if (err)
-        {
-            console.log(err);
-            res.json(req.body);
-        }
-        else
-            res.json(req.body);
+
+    Team.findOne({_id:req.body.teamID}).select('teamName').lean().exec().then((result)=>{
+        //console.log(result.teamName);
+        challenge.teamName = result.teamName;
+        challenge.save();
     });
+
+    /*
+    Challenge.findOne().max().select('questionID').lean().exec().then((result)=>{
+        console.log(result.questionID);
+        challenge.questionID = (result.questionID+1);
+        challenge.save();
+    });
+*/
+    res.json(req.body);
+
 });
 
 router.get('/getChallenges/round/:round',(req, res) => {
@@ -47,6 +54,8 @@ router.get('/getChallenges/round/:round',(req, res) => {
             });
             str = str.slice(0, -1);
             challenge.content=str;
+            challenge.questionID="Q00"+challenge.questionID; //add Q00 to questionID
+
         });
         res.json(challenges);
     });

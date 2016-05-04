@@ -5,6 +5,7 @@ module.exports = mongoose.model('Challenge', new Schema({
     //recordID  default _id
     //questionID: String,  //questions _id
     //score: Number,
+    questionID: { type: Number, default: 1},
     teamID: String,
     teamName: String,
     round: Number,
