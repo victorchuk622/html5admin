@@ -6,6 +6,7 @@ var config = require('../config.js');
 var jwt = require('jsonwebtoken');
 var router = express.Router();
 var Assignment = require('../models/assignment');
+var SubmitedAssignment = require('../models/submited_assignment');
 var mongoose = require('mongoose');
 var authUser = require('./authUser.js');
 
@@ -82,10 +83,17 @@ router.post('/submitAssignment/:assid', (req, res) => {
                 result.push(content.questionNo);
             }
         });
+        var submit = new SubmitedAssignment(
+            {
+                assignmentID: req.params.assid,
+                userID: req.decoded.id,
+                score: score,
+                result: result,
+                ans: req.body
+            }
+        );
         res.json({success: true});
     });
-
-
 
 
 });
