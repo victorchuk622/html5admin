@@ -9,7 +9,7 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 var User = require('../models/user');
-
+var Team = require('../models/team');
 var logger = require('morgan');
 //var config = require('../setting.js');
 
@@ -43,6 +43,12 @@ router.get('/arena', (req, res) => {
     res.render('arena');
 });
 
+router.get('/teams', (req, res) => {
+    Team.find().then((results) =>{
+        res.render('teams',{teams: results});
+    });
+});
+
 router.post('/createTeam', (req, res) => {
     res.redirect(307, '/teams' + req.path);
 });
@@ -51,10 +57,13 @@ router.post('/createTeam', (req, res) => {
 
 
 router.get('/assignments', (req, res) => {
-
     res.render('assignments');
-
 });
+
+router.get('/assignments/addAssignment', (req, res) => {
+    res.render('addAssignment');
+});
+
 
 router.post('/createStudent', (req, res) =>  {
     console.log(req.body);

@@ -51,7 +51,6 @@ router.post('/submitAssignment/:assid', (req, res) => {
     var result = [];
     Assignment.findOne({id:req.params.assid}).select('content.questionNo content.ans').exec().then((assignment) => {
         assignment.content.forEach((content) => {
-            // to be retrofitted for more efficient answer checking
             var submittedAns = userSubmission.ans.filter((val)=>{
                 return val.questionNo == content.questionNo;
             });
