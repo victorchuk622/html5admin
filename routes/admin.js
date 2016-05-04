@@ -5,7 +5,6 @@
  * Created by reinz on 10/3/2016.
  */
 var express = require('express');
-var router = express.Router();
 
 var mongoose = require('mongoose');
 var User = require('../models/user');
@@ -24,6 +23,66 @@ var News = require('../models/new');
 
 router.use(authadmin);
 
+router.get('/assignments', (req, res) => {
+    Assignment.find().exec().then((assignments) => {
+        var submitted = [];
+        assignments.forEach(assignment => {
+            SubmitedAssignment.find({assignmentID:assignment.id}).exec().then((submit) => {
+                submitted.push = 0+submit.length;
+            })
+        })
+        console.log(submitted);
+        res.render('assignments',{assignments:assignments,submitted:submitted});
+    });
+});
+
+router.get('/assignments/addAssignment', (req, res) => {
+    res.render('addAssignment');
+});
+
+
+
+router.get('/stat-assignments/:id',(req, res) => {
+
+//callback structure problem
+
+    SubmitedAssignment.find({assignmentID:assignment.id}).exec().then((submits) => {
+        var stat; var total; var data = [0,0,0,0,0,0,0,0,0,0];
+        stat.labels = ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10"];
+        submits.forEach( submit => {
+            submit.result.forEach( correct => {
+                data[correct]++;
+            })
+        })
+        stat.datasets = [{label: '% of Correct',data:data}];
+    });
+
+
+    var dummy = {
+        labels: ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10"],
+        datasets: [{
+            label: '% of Correct',
+            data: [78.8, 80, 68, 75, 88,55,67, 87, 75, 57]
+        }]
+    };
+
+
+    res.render('stat-assignments',{asstitle:"Assignment 1",data:dummy});
+});
+
+
+
+
+
+//stat related ok
+
+router.get('/stat-assignments-menu/',(req, res) => {
+    Assignment.find().exec().then((assignments) => {
+        res.render('stat-assignments-menu',{assignments:assignments});
+    });
+});
+
+//view related ok
 
 router.get('/', (req, res) => {
     var promises = [];
@@ -52,20 +111,6 @@ router.get('/logout',(req, res) => {
     res.redirect('/');
 });
 
-router.get('/stat-assignments/',(req, res) => {
-
-    var dummy = {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [{
-            label: '% of Correct',
-            data: [12, 19, 3, 5, 2, 3,12, 19, 3, 5, 2, 3]
-        }]
-    };
-
-
-    res.render('stat-assignments',{data:dummy});
-});
-
 router.get('/accounts', (req, res) => {
     User.find({admin: false}).then((results) => {
         res.render('accounts', {students: results});
@@ -74,31 +119,21 @@ router.get('/accounts', (req, res) => {
     });
 });
 
-router.get('/arena', (req, res) => {
-    res.render('arena');
-});
-
 router.get('/teams', (req, res) => {
     Team.find().then((results) =>{
         res.render('teams',{teams: results});
     });
 });
 
+//model related ok
+
+router.get('/deleteAssignment/:id', (req, res) => {
+    res.redirect(307, '/assignments' + req.path);
+});
+
 router.post('/createTeam', (req, res) => {
     res.redirect(307, '/teams' + req.path);
 });
-
-
-
-
-router.get('/assignments', (req, res) => {
-    res.render('assignments');
-});
-
-router.get('/assignments/addAssignment', (req, res) => {
-    res.render('addAssignment');
-});
-
 
 router.post('/createStudent', (req, res) =>  {
     console.log(req.body);
@@ -126,8 +161,12 @@ router.get('/deleteStudent/:id', (req, res) => {
     res.redirect(307, '/users' + req.path);
 });
 
+router.post('/changePassword/:id', (req, res) => {
+    res.redirect(307, '/users' + req.path);
+});
 
-
-
+router.get('/deleteTeam/:id', (req, res) => {
+    res.redirect(307, '/teams' + req.path);
+});
 
 module.exports = router;

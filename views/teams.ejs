@@ -51,25 +51,21 @@
                 <tr>
                     <th>Team Name</th>
                     <th colspan="5">Member</th>
-                    <th colspan="2">Action</th>
+                    <th colspan="1">Action</th>
                 </tr>
                 <% teams.forEach(function(team) { %>
                 <tr>
-                    <td><%= team.teamName %></td>
-                    <td><%= team.teamMember[0]%></td>
-                    <td><%= team.teamMember[1]%></td>
-                    <td><%= team.teamMember[2]%></td>
-                    <td><%= team.teamMember[3]%></td>
-                    <td><%= team.teamMember[4]%></td>
-                    <td><a href="./editTeam?id=<%= team._id %>">Edit Team</a></td>
-                    <td><a href="./deleteStudent?id=<%= team._id %>">Delete Team</a></td>
+                    <td class="col-md-1"><%= team.teamName %></td>
+                    <td class="col-md-1"><%= team.teamMember[0]%></td>
+                    <td class="col-md-1"><%= team.teamMember[1]%></td>
+                    <td class="col-md-1"><%= team.teamMember[2]%></td>
+                    <td class="col-md-1"><%= team.teamMember[3]%></td>
+                    <td class="col-md-1"><%= team.teamMember[4]%></td>
+                    <td class="col-md-1"><a href="./deleteTeam/<%= team._id %>">Delete Team</a></td>
                 </tr>
                 <% }); %>
             </table>
         </div>
-
-
-
     </div>
 </div>
 <% include foot %>

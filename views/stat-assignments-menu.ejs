@@ -1,0 +1,34 @@
+<% var title = 'Assignments Statistic' %>
+<% include head %>
+<!--css insert here-->
+</head>
+<body>
+<div class="container-fluid">
+    <% include navbar %>
+    <div class="container responsive">
+        <h1><%= title %></h1>
+
+        <div class="container table-responsive">
+
+            <div class="table-responsive">
+                <table class="table table-condensed">
+                    <tr>
+                        <th>Title</th>
+                        <th>Info</th>
+                        <th>Action</th>
+                    </tr>
+                    <% assignments.forEach(function(assignment) { %>
+                    <tr>
+                        <td class="col-md-1"><%= assignment.title %></td>
+                        <td class="col-md-1"><%= assignment.info%></td>
+                        <td class="col-md-1"><a href="./stat-assignments/<%= assignment.id %>">View Statistic</a></td>
+                    </tr>
+                    <% }); %>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <% include foot %>
+</body>
+</html>

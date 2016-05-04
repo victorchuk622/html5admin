@@ -10,14 +10,14 @@
         <div class ="row">
             <div class="col-lg-4">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h2 class="panel-title">News</h2></div>
+                    <div class="panel-heading"><h2 class="panel-title">Announcements</h2></div>
                     <div class="panel-body">
                         <% news.forEach(function(news) { %>
                         <h4><u><%= news.title %></u></h4>
                         <h5><%= news.create.getFullYear() + '-' + news.create.getMonth() + '-' + news.create.getDay() %></h5>
                         <p><%= news.content %></p>
                         <% }); %>
-                        <p><a class="btn btn-default" href="#" role="button">View News</a></p>
+                        <p><a class="btn btn-default" href="/admin/news" role="button">View News</a></p>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                                 <%}%>
                             </p>
                             <% }); %>
-                        <p><a class="btn btn-default" href="#" role="button">View Assignments</a></p>
+                        <p><a class="btn btn-default" href="/admin/assignments" role="button">View Assignments</a></p>
                     </div>
                 </div>
 
@@ -63,7 +63,7 @@
                                 <% });%>
                             </table>
 
-                        <p><a class="btn btn-default" href="#" role="button">View Teams</a></p>
+                        <p><a class="btn btn-default" href="/admin/teams" role="button">View Teams</a></p>
                     </div>
                 </div>
             </div>

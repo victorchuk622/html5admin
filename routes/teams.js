@@ -10,26 +10,35 @@ var mongoose = require('mongoose');
 var authUser = require('./authUser.js');
 var authadmin = require('./authadmin.js');
 
-router.post('/createTeam', authadmin, (req, res) => {
-
-    var createTeam = new Team(
-        {
-            //teamID: req.body.teamID,
-            teamName: req.body.teamName,
-            teamMember: req.body.teamMember.filter(Boolean)
-        });
-
-    createTeam.save(function (err) {
-        if (err)
-            res.json({success: false});
-        else
-            res.json({success: true});
-    });
-});
+//Path OK
 
 router.get('/myTeam/', authUser, (req, res) => {
     Team.findOne({teamMember:req}).then((team) => {
-       res.json(team);
+        res.json(team);
     });
 });
+
+router.post('/createTeam', authadmin, (req, res) => {
+    var createTeam = new Team(
+        {
+            teamName: req.body.teamName,
+            teamMember: req.body.teamMember.filter(Boolean)
+        });
+    createTeam.save(function (err) {
+        if (err)
+            res.redirect('back');
+        else
+            res.redirect('back');
+    });
+});
+
+router.get('/deleteTeam/:id', authadmin, (req, res) => {
+    Team.findOne({_id:req.params.id}).remove(function (err, result) {
+        if (err)
+            res.redirect('back');
+        else
+            res.redirect('back');
+    });
+});
+
 module.exports = router;

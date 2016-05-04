@@ -9,25 +9,20 @@ var Assignment = require('../models/assignment');
 var SubmitedAssignment = require('../models/submited_assignment');
 var mongoose = require('mongoose');
 var authUser = require('./authUser.js');
+var authadmin = require('./authadmin.js');
 
-router.use(authUser);
+//missing check done function
 
-router.post('/createAssignment', (req, res) => {
-
-
-
-});
-
-router.get('/getAssignments', (req, res) => {
+router.get('/getAssignments', authUser,  (req, res) => {
     Assignment.find({}).select('-_id').lean().exec().then((assignments) => {
         console.log(typeof assignments, assignments.length);
         assignments.forEach(function(assignment){
 
             /*
-            SubmitedAssignment.findOne({assignmentID:assignments.id,userID:req.decoded.id}).exec.then((submitted) =>{
-                if (submitted.length >0) assignment.done= false;
-                else assignment.done= true;
-            });*/
+             SubmitedAssignment.findOne({assignmentID:assignments.id,userID:req.decoded.id}).exec.then((submitted) =>{
+             if (submitted.length >0) assignment.done= false;
+             else assignment.done= true;
+             });*/
             assignment.done= false;
 
             var str = '';
@@ -49,7 +44,9 @@ router.get('/getAssignments', (req, res) => {
     });
 });
 
-router.post('/submitAssignment/:assid', (req, res) => {
+//path ok
+
+router.post('/submitAssignment/:assid' , authUser, (req, res) => {
     //console.log(req.body);
     var userSubmission = req.body;
     //console.log(req.body);
@@ -114,7 +111,31 @@ router.post('/submitAssignment/:assid', (req, res) => {
     });
 });
 
-router.get('/getResult', (req, res) => {
+router.get('/deleteAssignment/:id', authadmin, (req, res) => {
+    Assignment.find({id:req.params.id}).remove(function (err, result) {
+        if (err)
+            res.redirect('back');
+        else
+            SubmitedAssignment.find({assignmentID:req.params.id}).remove(function (err, result) {
+                if (err)
+                    res.redirect('back');
+                else
+                    res.redirect('back');
+            });
+    });
+});
+
+
+//wait to implement
+
+router.post('/createAssignment', authadmin, (req, res) => {
+
+
+
+
+});
+
+router.get('/getResult' , authUser, (req, res) => {
 
 
 

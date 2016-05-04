@@ -67,7 +67,7 @@ router.put('/updateUser', authUser, (req, res) => {
 
 //DELETE remove user by ADMIN
 router.get('/deleteStudent/:id', authadmin, (req, res) => {
-    User.find({id:req.params.id}).remove(function (err, results) {
+    User.findOne({id:req.params.id}).remove(function (err, result) {
         if (err)
             res.redirect('back');
         else
@@ -75,4 +75,17 @@ router.get('/deleteStudent/:id', authadmin, (req, res) => {
     });
 });
 
+//Change user password by ADMIN
+router.post('/changePassword/:id', authadmin, (req, res) => {
+    User.findOne({id:req.params.id}).exec(function (err, result) {
+        if (err)
+            res.redirect('back');
+        else
+        {
+            result.password = req.body.password;
+            result.save();
+            res.redirect('back');
+        }
+    });
+});
 module.exports = router;
