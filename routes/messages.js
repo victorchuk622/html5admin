@@ -98,8 +98,11 @@ router.get('/getAllMsg/:userID', (req, res) => {
     Message.find({$or: [{'userA': req.params.userID}, {'userB': req.params.userID}]}).sort({update: -1}).exec(function (err, results) {
         if (err)
             return res.json({success: false, message: 'Server Error!'});
-        if (results.length > 0)
+        if (results.length > 0){
+            console.log(results);
             res.json(results);
+        }
+
         else
             res.json({message: 'Result not found!'});
     });
