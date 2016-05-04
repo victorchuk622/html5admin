@@ -1,13 +1,60 @@
-<% var title = 'HTML5Learner Admin Console' %>
+<% var title = 'Admin Console' %>
 <% include head %>
 <!--css insert here-->
 </head>
 <body>
 <div class="container-fluid">
     <% include navbar %>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-</div>
+    <div class="container responsive">
+        <h1><%= title %></h1>
+        <div class ="row">
+            <div class="col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h2 class="panel-title">News</h2></div>
+                    <div class="panel-body">
+                        <% news.forEach(function(news) { %>
+                        <h4><u><%= news.title %></u></h4>
+                        <h5><%= news.create.getFullYear() + '-' + news.create.getMonth() + '-' + news.create.getDay() %></h5>
+                        <p><%= news.content %></p>
+                        <% }); %>
+                        <p><a class="btn btn-default" href="#" role="button">View News</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 Assignment">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h2 class="panel-title">Assignments</h2></div>
+                    <div class="panel-body">
+
+
+                        <%= assignments %>
+
+
+
+
+
+
+                        <p><a class="btn btn-default" href="#" role="button">View Assignments</a></p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4 Team">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h2 class="panel-title">Teams</h2></div>
+                    <div class="panel-body">
+
+
+
+
+
+
+                        <p><a class="btn btn-default" href="#" role="button">View Teams</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <% include foot %>
 </body>
 </html>

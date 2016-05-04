@@ -10,6 +10,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/user');
 var Team = require('../models/team');
+var Assignment = require('../models/assignment')
+var SubmitedAssignment = require('../models/submited_assignment');
 var logger = require('morgan');
 //var config = require('../setting.js');
 
@@ -17,13 +19,36 @@ var logger = require('morgan');
 //var cookieParser = require('cookie-parser')
 //mongoose.connect(config.db.development);
 var authadmin = require('./authadmin.js');
+var News = require('../models/new');
 
 router.use(authadmin);
 
 
-
 router.get('/', (req, res) => {
-    res.render('portal');
+    var promises = [];
+
+    promises.push(News.find().sort({publish: -1}));
+
+    //promises.push(Assignment.find().select('title id deadline'));
+
+    promises.push(Assignment.find().select('title id deadline').then((assignments)=>{
+        assignments.forEach(function(assignment) {
+            SubmitedAssignment.count({assignmentID:assignment.id}).then((result)=>{
+                assignment.submitted = result;
+            });
+        });
+    }));
+
+
+    Promise.all(promises).then((values) => {
+
+        console.log(values[1]);
+        res.render('portal',{news:values[0],assignments:values[1]});
+
+    }, (err) => {
+        console.log(err);
+        res.render('portal');
+    })
 });
 
 router.get('/logout',(req, res) => {
