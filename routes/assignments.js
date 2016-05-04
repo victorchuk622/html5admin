@@ -23,8 +23,11 @@ router.get('/getAssignments', (req, res) => {
         console.log(typeof assignments, assignments.length);
         assignments.forEach(function(assignment){
 
-            assignment.done= false;
-
+            SubmitedAssignment.findOne({assignmentID:assignments.id,userID:req.decoded.id}).exec.then((submitted) =>{
+                if (submitted.length >0) assignment.done= false;
+                else assignment.done= true;
+            });
+            
             var str = '';
             assignment.content.forEach(function (content) {
                 str += content.qType + '$' + content.question + '$$';
@@ -47,13 +50,13 @@ router.get('/getAssignments', (req, res) => {
 router.post('/submitAssignment/:assid', (req, res) => {
     //console.log(req.body);
     var userSubmission = req.body;
-    console.log(req.body);
+    //console.log(req.body);
     //var userSubmission = JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": 1, "answer": "Event attributes" },{ "questionNo": 2, "answer": "getPosition()"},{ "questionNo": 2,"answer":"getCurrentPosition()" }]}');
     var score = 0;
     var result = [];
     Assignment.findOne({id:req.params.assid}).select('content.questionNo content.ans').exec().then((assignment) => {
         assignment.content.forEach((content) => {
-            var submittedAns = userSubmission.ans.filter((val)=>{
+            var submittedAns = userSubmission.filter((val)=>{
                 return val.questionNo == content.questionNo;
             });
             //console.log(submittedAns);
@@ -84,19 +87,30 @@ router.post('/submitAssignment/:assid', (req, res) => {
                 result.push(content.questionNo);
             }
         });
-        var submit = new SubmitedAssignment(
+
+    });
+
+    var submit = new SubmitedAssignment(
             {
                 assignmentID: req.params.assid,
                 userID: req.decoded.id,
                 score: score,
                 result: result,
-                ans: req.body
-            }
-        );
-        submit.save();
-        console.log(submit);
-        res.json({success: true});
-    });
+                ans: req.body.toJSON
+        }
+    );
+    console.log(submit);
+    submit.save(function (err) {
+        if (err)
+        {
+            console.log(err);
+            res.json({success: false});
+        }
+        else
+            res.json({success: true});
+    });;
+
+
 
 
 });
