@@ -23,11 +23,13 @@ router.get('/getAssignments', (req, res) => {
         console.log(typeof assignments, assignments.length);
         assignments.forEach(function(assignment){
 
+            /*
             SubmitedAssignment.findOne({assignmentID:assignments.id,userID:req.decoded.id}).exec.then((submitted) =>{
                 if (submitted.length >0) assignment.done= false;
                 else assignment.done= true;
-            });
-            
+            });*/
+            assignment.done= false;
+
             var str = '';
             assignment.content.forEach(function (content) {
                 str += content.qType + '$' + content.question + '$$';
