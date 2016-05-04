@@ -92,6 +92,7 @@ router.post('/submitAssignment/:assid', (req, res) => {
                 ans: req.body
             }
         );
+        submit.save();
         console.log(submit);
         res.json({success: true});
     });
