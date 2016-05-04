@@ -12,6 +12,7 @@ var User = require('../models/user');
 var Team = require('../models/team');
 var Assignment = require('../models/assignment')
 var SubmitedAssignment = require('../models/submited_assignment');
+var Ranking = require('../models/ranking');
 var logger = require('morgan');
 //var config = require('../setting.js');
 
@@ -33,10 +34,12 @@ router.get('/', (req, res) => {
 
     promises.push(SubmitedAssignment.aggregate([{$group:{_id:'$assignmentID', submited: {$sum: 1}}}]).exec());
 
+    promises.push(Ranking.find().sort({score: -1}));
+
     Promise.all(promises).then((values) => {
 
-        console.log(values[2]);
-        res.render('portal',{news:values[0],assignments:values[1],submited:values[2]});
+        console.log(values[3]);
+        res.render('portal',{news:values[0],assignments:values[1],submited:values[2],ranks:values[3]});
 
     }, (err) => {
         console.log(err);
@@ -47,6 +50,20 @@ router.get('/', (req, res) => {
 router.get('/logout',(req, res) => {
     res.clearCookie('token');
     res.redirect('/');
+});
+
+router.get('/stat-assignments/',(req, res) => {
+
+    var dummy = {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        datasets: [{
+            label: '% of Correct',
+            data: [12, 19, 3, 5, 2, 3,12, 19, 3, 5, 2, 3]
+        }]
+    };
+
+
+    res.render('stat-assignments',{data:dummy});
 });
 
 router.get('/accounts', (req, res) => {

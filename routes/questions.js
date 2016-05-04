@@ -19,21 +19,21 @@ router.post('/newQuestion', function (req, res, next) {
                 console.log(payload.id);
 
                 var qes = new Question(
-                    {
-                        scope: req.body.scope,
-                        title: req.body.title,
-                        content: req.body.content
-                    })
-                //challengeRecords are wait to be push
+            {
+                scope: req.body.scope,
+                title: req.body.title,
+                content: req.body.content
+            })
+        //challengeRecords are wait to be push
 
-                qes.save(function (err) {
-                    if (err)
-                        res.json({success: false});
-                    else
-                        res.json({success: true});
-                });
-            }
+        qes.save(function (err) {
+            if (err)
+                res.json({success: false});
+            else
+                res.json({success: true});
         });
+    }
+});
     }
 });
 

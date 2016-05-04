@@ -6,6 +6,7 @@ var Challenge = require('../models/challenge');
 var Team = require('../models/team');
 var mongoose = require('mongoose');
 var authUser = require('./authUser.js');
+var Ranking = require('../models/ranking');
 
 router.use(authUser);
 //post
