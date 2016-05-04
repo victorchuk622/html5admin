@@ -47,6 +47,7 @@ router.get('/getAssignments', (req, res) => {
 router.post('/submitAssignment/:assid', (req, res) => {
     //console.log(req.body);
     var userSubmission = req.body;
+    console.log(req.body);
     //var userSubmission = JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": 1, "answer": "Event attributes" },{ "questionNo": 2, "answer": "getPosition()"},{ "questionNo": 2,"answer":"getCurrentPosition()" }]}');
     var score = 0;
     var result = [];
