@@ -138,7 +138,45 @@ router.post('/submitChallenge/:id',(req, res) => {
 //OK path
 
 router.get('/getChallenges/round/:round',(req, res) => {
-    Challenge.find({round:req.params.round}).lean().exec().then((challenges)=>{
+    Challenge.find({round:req.params.round}).lean().exec().then((challenges)=> {
+        Team.findOne({teamMember:req.decoded.id}).lean().exec().then((result) =>{
+
+        var promises = [];
+
+
+        challenges.forEach((challenge) => {
+            var submissionCheckPromise = new Promise((resolve, reject) => {
+                SubmitedChallenge.find({
+                    challengeID: challenge.questionID,
+                    userID: result._id
+                }).lean().exec().then((submitted) => {
+                    (submitted.length > 0) ? (challenge.done = true) : (challenge.done = false);
+                    //assignment.id=assignment._id;
+                    var str = '';
+                    challenge.content.forEach((content) => {
+                        str += content.qType + '$' + content.question + '$$';
+                        content.ans.forEach((ans) => {
+                            (ans.correct) ? (str += '*' + ans.content + '|') : (str += ans.content + '|');
+                        });
+                        str = str.slice(0, -1);
+                        str += '&';
+                    });
+                    str = str.slice(0, -1);
+                    challenge.content = str;
+                    resolve();
+                });
+            });
+            promises.push(submissionCheckPromise);
+        });
+        Promise.all(promises).then(() => {
+            res.json(challenges);
+        });
+
+
+    });
+
+
+        /*
         challenges.forEach(function(challenge){
             challenge.done= false;
 
@@ -157,7 +195,7 @@ router.get('/getChallenges/round/:round',(req, res) => {
             challenge.questionID="Q00"+challenge.questionID; //add Q00 to questionID
 
         });
-        res.json(challenges);
+        res.json(challenges);*/
     });
 });
 
