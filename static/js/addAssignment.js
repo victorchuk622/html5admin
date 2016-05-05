@@ -1,5 +1,5 @@
 var questioncount = 1;
-$( "#addChallenge" ).submit(function( event ) {
+$( "#addAssignment" ).submit(function( event ) {
     //event.preventDefault();
     $(":not(.active).question-answer").remove();
 

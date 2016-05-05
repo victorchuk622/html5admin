@@ -1,6 +1,3 @@
-/**
- * Created by reinz on 25/4/2016.
- */
 var express = require('express');
 var config = require('../config.js');
 var jwt = require('jsonwebtoken');
@@ -13,8 +10,36 @@ var authadmin = require('./authadmin.js');
 
 //missing check done function
 
+router.post('/addAssignment', authadmin,(req, res) => {
+
+    var assignment = new Assignment(req.body);
+
+    assignment.id=assignment._id;
+    assignment.deadline = Date.now();
+
+    console.log(req.body);
+
+    //console.log(req.body.teamID);
+    assignment.content.forEach( q => {
+        if(q.qType == 'mc'){
+            var correcta = q.ans.filter((val)=> {
+                return val.correct == true;
+            });
+            if(correcta.length == 1) q.qType = 'oc';
+        }
+        assignment.save().then(() => {
+            res.redirect('/admin/assignments');
+        }, (err) => {
+            console.log(err);
+            res.redirect('/admin/assignments');
+        })
+    });
+});
+
+
+
 router.get('/getAssignments', authUser,  (req, res) => {
-    Assignment.find({}).select('-_id').lean().exec().then((assignments) => {
+    Assignment.find({}).select().lean().exec().then((assignments) => {
         console.log(typeof assignments, assignments.length);
         assignments.forEach(function(assignment){
 
@@ -24,6 +49,8 @@ router.get('/getAssignments', authUser,  (req, res) => {
              else assignment.done= true;
              });*/
             assignment.done= false;
+
+            //assignment.id=assignment._id;
 
             var str = '';
             assignment.content.forEach(function (content) {
@@ -124,8 +151,6 @@ router.get('/deleteAssignment/:id', authadmin, (req, res) => {
             });
     });
 });
-
-
 //wait to implement
 
 router.post('/createAssignment', authadmin, (req, res) => {
