@@ -120,7 +120,7 @@ router.post('/submitChallenge/:id',(req, res) => {
                     teamID: result._id,
                     score: score,
                     result: sresult,
-                    ans: req.body.toJSON
+                    ans: req.body
                 });
                 submit.save().then(() => {
                     res.json({success: true});
