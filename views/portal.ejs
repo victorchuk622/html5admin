@@ -14,7 +14,7 @@
                     <div class="panel-body">
                         <% news.forEach(function(news) { %>
                         <h4><u><%= news.title %></u></h4>
-                        <h5><%= news.create.getFullYear() + '-' + news.create.getMonth() + '-' + news.create.getDay() %></h5>
+                        <h5><%= news.create.getFullYear() + '-' + (news.create.getMonth()+1) + '-' + news.create.getDate() %></h5>
                         <p><%= news.content %></p>
                         <% }); %>
                         <p><a class="btn btn-default" href="/admin/news" role="button">View News</a></p>
@@ -27,7 +27,7 @@
                     <div class="panel-body">
                         <% assignments.forEach(function(assignment) { %>
                         <h4><u><%= assignment.title %></u></h4>
-                        <h5><%= assignment.deadline.getFullYear() + '-' + assignment.deadline.getMonth() + '-' + assignment.deadline.getDay() %>
+                        <h5><%= assignment.deadline.getFullYear() + '-' + (assignment.deadline.getMonth()+1) + '-' + assignment.deadline.getDate() %>
                             <% var submit = submited.filter((val)=>{
                                 return val._id == assignment.id;
                             }); %>
