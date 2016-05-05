@@ -1,0 +1,44 @@
+<% var title = 'Announcments'%>
+<% include head %>
+<!--css insert here-->
+</head>
+<body>
+<div class="container-fluid">
+    <% include navbar %>
+    <div class="container responsive">
+        <h1><%= title %></h1>
+        <p><a href="" type="button" class="btn btn-primary">Add Announcment</a></p>
+    </div>
+
+    <div class="container table-responsive">
+
+        <div class="table-responsive">
+            <table class="table table-condensed">
+                <tr>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Create</th>
+                    <th>Publish</th>
+                    <th>Expire</th>
+                    <th>Author</th>
+                    <th></th>
+                </tr>
+                <% news.forEach(function(result) { %>
+                <tr>
+                    <td class="col-md-1"><%=result.title%></td>
+                    <td class="col-md-1"><%=result.content%></td>
+                    <td class="col-md-1"><%= result.create.getFullYear() + '-' + (result.create.getMonth()+1) + '-' + result.create.getDate()%></td>
+                    <td class="col-md-1"><%= result.publish.getFullYear() + '-' + (result.publish.getMonth()+1) + '-' + result.publish.getDate()%></td>
+                    <td class="col-md-1"><%= result.expire.getFullYear() + '-' + (result.expire.getMonth()+1) + '-' + result.expire.getDate()%></td>
+                    <td class="col-md-1"><%=result.author%></td>
+                    <td class="col-md-1"><a href="./deleteAnnouncment/<%=result._id%>">Delete Announcment</a></td>
+                </tr>
+                <% }); %>
+            </table>
+        </div>
+    </div>
+</div>
+<% include foot %>
+</body>
+</html>
+

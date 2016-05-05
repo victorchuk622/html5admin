@@ -129,6 +129,14 @@ router.get('/logout',(req, res) => {
     res.redirect('/');
 });
 
+router.get('/news',(req, res) => {
+    News.find().sort({publish: -1}).then((results) => {
+        res.render('news', {news:results});
+    }, (err) => {
+        throw err;
+    });
+});
+
 router.get('/accounts', (req, res) => {
     User.find({admin: false}).then((results) => {
         res.render('accounts', {students: results});
