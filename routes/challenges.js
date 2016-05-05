@@ -111,25 +111,19 @@ router.post('/submitChallenge/:id',(req, res) => {
                     result.score += score;
                     result.save();
                 }
-            });
-            var submit = new SubmitedChallenge(
-                {
+                var submit = new SubmitedChallenge({
                     challengeID: req.params.id.slice(3),
                     teamID: result._id,
                     score: score,
                     result: result,
                     ans: req.body.toJSON
-                }
-            );
-
-            submit.save(function (err) {
-                if (err)
-                {
-                    console.log(err);
-                    res.json({success: false});
-                }
-                else
+                });
+                submit.save().then(() => {
                     res.json({success: true});
+                }, (err) => {
+                    console.log(err);
+                        res.json({success: false});
+                });
             });
         });
     });
