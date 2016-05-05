@@ -23,6 +23,10 @@ var News = require('../models/new');
 
 router.use(authadmin);
 
+router.get('/config',(req, res) => {
+    res.render('config');
+});
+
 router.get('/assignments', (req, res) => {
     Assignment.find().exec().then((assignments) => {
         var submitted = [];

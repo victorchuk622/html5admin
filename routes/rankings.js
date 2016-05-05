@@ -14,66 +14,13 @@ var Team = require('../models/team')
 router.use(authUser);
 
 router.get('/getRanking/round/:round',(req,res) => {
-    if(req.params.round==1)
-    res.json([
-        {
-            "rank":1,
-            "team":"TeamKAV",
-            "score":100
-        },
-        {
-            "rank":2,
-            "team":"team2",
-            "score":80
-        },
-        {
-            "rank":3,
-            "team":"team3",
-            "score":70
-        },
-        {
-            "rank":4,
-            "team":"team4",
-            "score":68
-        },
-        {
-            "rank":5,
-            "team":"team5",
-            "score":67
-        }
-    ]);
-    if(req.params.round==2)res.json([
-        {
-            "rank":1,
-            "team":"TeamKAV",
-            "score":80
-        },
-        {
-            "rank":2,
-            "team":"team3",
-            "score":70
-        },
-        {
-            "rank":3,
-            "team":"team4",
-            "score":60
-        },
-        {
-            "rank":4,
-            "team":"team4",
-            "score":50
-        },
-        {
-            "rank":5,
-            "team":"team5",
-            "score":67
-        }
-    ]);
-
+    Ranking.find({round:req.params.round}).sort({score: -1}).exec().then((ranks)=> {
+        res.json(ranks);
+    });
 });
 
 router.get('/statistic/round/:round/teamID/:id',(req,res) => {
-    Ranking.find({round:1}).sort({score: -1}).exec().then((ranks)=>{
+    Ranking.find({round:req.params.round}).sort({score: -1}).exec().then((ranks)=>{
         //console.log(ranks);
         //console.log(req.params.id);
         var target = ranks.filter((val)=> {
