@@ -22,9 +22,10 @@ router.get('/addChallenge/:teamID', (req, res) => {
 router.post('/addChallenge',(req, res) => {
     //var challenge = new Challenge(req.body.toJSON);
     //console.log(req.body);
+    var currentRound = 1;
     var challenge = new Challenge(req.body);
 
-    challenge.round=1;
+    challenge.round=currentRound;
 
     //console.log(req.body.teamID);
 
@@ -56,6 +57,7 @@ router.post('/addChallenge',(req, res) => {
 router.use(authUser);
 
 router.post('/submitChallenge/:id',(req, res) => {
+    var currentRound =1 ;
     console.log(req.body);
     var userSubmission = req.body;
     //console.log(req.body);
@@ -108,7 +110,8 @@ router.post('/submitChallenge/:id',(req, res) => {
                     var rank = new Ranking({
                         teamID: result._id,
                         team: result.teamName,
-                        score: score
+                        score: score,
+                        round: currentRound
                     });
                     rank.save();
                 }else{

@@ -12,8 +12,8 @@ var authadmin = require('./authadmin.js');
 
 //Path OK
 
-router.get('/myTeam/', authUser, (req, res) => {
-    Team.findOne({teamMember:req}).then((team) => {
+router.get('/myTeam', authUser, (req, res) => {
+    Team.findOne({teamMember:req.decoded.id}).then((team) => {
         res.json(team);
     });
 });
