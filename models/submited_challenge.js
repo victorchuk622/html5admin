@@ -9,5 +9,10 @@ module.exports = mongoose.model('Submited_Challenge', new Schema({
     challengeID: String,  //questions _id
     teamID: String,
     score: Number,
+    result: [Number],
+    ans: [{
+        questionNo:{type: Number, required: true},
+        answer:{type: String, required: true},
+    }],
     date: { type: Date, default: Date.now() }
 }));
