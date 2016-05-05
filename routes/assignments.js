@@ -42,11 +42,10 @@ router.get('/getAssignments', authUser,  (req, res) => {
     Assignment.find({}).select().lean().exec().then((assignments) => {
         //console.log(typeof assignments, assignments.length);
         assignments.forEach((assignment) => {
-            SubmitedAssignment.findOne({
-                assignmentID: assignment.id, 
+            SubmitedAssignment.find({
+                assignmentID: assignment._id, 
                 userID: req.decoded.id
             }).lean().exec().then((submitted) => {
-                console.log(submitted);
                 (submitted.length > 0) ? (assignment.done = true) : (assignment.done = false);
                 //assignment.id=assignment._id;
                 var str = '';
