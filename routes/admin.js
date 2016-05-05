@@ -66,6 +66,7 @@ router.get('/stat-assignments/:id',(req, res) => {
     }).exec());
     Promise.all(promises).then((results) => {
         var total;
+        var htotal;
         var particulars = results[1].toObject();
         delete particulars.submit;
         delete particulars.content;
