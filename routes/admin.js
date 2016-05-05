@@ -71,6 +71,7 @@ router.get('/stat-assignments/:id',(req, res) => {
         delete particulars.content;
         console.log(total);
         console.log(particulars);
+        console.log(results[0].length);
         total = results[0].length;
         data = Array(total).fill(0);
         stat.labels = Array(total).fill(0).map((x, i) => {
