@@ -63,8 +63,8 @@ router.get('/getAssignments', authUser,  (req, res) => {
                 assignment.content = str;
                 console.log(assignment.content);
             });
-            res.json(assignments);
         });
+        res.json(assignments);
     });
 });
 
