@@ -29,11 +29,13 @@ router.post('/addChallenge',(req, res) => {
     });
 
 
+    /*
     Challenge.findOne().max().select('questionID').lean().exec().then((result)=>{
         console.log(result.questionID);
         challenge.questionID = result.questionID+1;
         challenge.save();
     });
+    */
 
     res.json(req.body);
 
