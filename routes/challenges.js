@@ -8,12 +8,13 @@ var mongoose = require('mongoose');
 var authUser = require('./authUser.js');
 var Ranking = require('../models/ranking');
 
-router.use(authUser);
+
 //post
 // --data "questionID=XXX&teamID=XXX&score=XXX"
 router.get('/addChallenge/:teamID', (req, res) => {
     res.render('addChallenge',{teamID:req.params.teamID,token:req.query.token});
 });
+
 
 router.post('/addChallenge',(req, res) => {
     var challenge = new Challenge(req.body.toJSON);
@@ -27,16 +28,17 @@ router.post('/addChallenge',(req, res) => {
         challenge.save();
     });
 
-    /*
+
     Challenge.findOne().max().select('questionID').lean().exec().then((result)=>{
         console.log(result.questionID);
-        challenge.questionID = (result.questionID+1);
+        challenge.questionID = result.questionID+1;
         challenge.save();
     });
-*/
+
     res.json(req.body);
 
 });
+router.use(authUser);
 
 router.get('/getChallenges/round/:round',(req, res) => {
     Challenge.find({round:req.params.round}).lean().exec().then((challenges)=>{
