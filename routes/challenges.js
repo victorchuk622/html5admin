@@ -7,12 +7,13 @@ var Team = require('../models/team');
 var mongoose = require('mongoose');
 var authUser = require('./authUser.js');
 var Ranking = require('../models/ranking');
-
+var SubmitedChallenge = require('../models/submited_challenge');
 
 //post
 // --data "questionID=XXX&teamID=XXX&score=XXX"
 
 //OK path not protected
+
 
 router.get('/addChallenge/:teamID', (req, res) => {
     res.render('addChallenge',{teamID:req.params.teamID,token:req.query.token});
@@ -54,6 +55,72 @@ router.post('/addChallenge',(req, res) => {
 
 router.use(authUser);
 
+router.get('/submitChallenges/:id'),(req, res) => {
+    //console.log(req.body);
+    var userSubmission = req.body;
+    //console.log(req.body);
+    //var userSubmission = JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": 1, "answer": "Event attributes" },{ "questionNo": 2, "answer": "getPosition()"},{ "questionNo": 2,"answer":"getCurrentPosition()" }]}');
+    var score = 0;
+    var result = [];
+    Challenge.findOne({id:req.params.id.slice(3)}).select('content.questionNo content.ans').exec().then((challenge) => {
+        challenge.content.forEach((content) => {
+            var submittedAns = userSubmission.filter((val)=>{
+                return val.question_number == content.questionNo;
+            });
+            //console.log(submittedAns);
+            //console.log("end");
+            var wrong = false;
+            content.ans.forEach((ans) => {
+                if(ans.correct){
+                    //console.log(ans.content);
+                    var submittedOneAns = submittedAns.filter((val)=>{
+                        return val.answer == ans.content;
+                    });
+                    //console.log(submittedOneAns);
+                    //console.log('end');
+                    if(submittedOneAns.length == 0) wrong = true;
+                }
+
+                if(!ans.correct){
+                    //console.log(ans.content);
+                    var submittedOneAns = submittedAns.filter((val)=>{
+                        return val.answer == ans.content;
+                    });
+                    //console.log(submittedOneAns);
+                    //console.log('end');
+                    if(submittedOneAns.length != 0) wrong = true;
+                }
+            });
+            if(!wrong){
+                score++;
+                result.push(content.questionNo);
+
+            }
+        });
+
+        Team.findOne({teamMember:req.decoded.id}).lean().exec().then((result) =>{
+            var submit = new SubmitedChallenge(
+                {
+                    challengeID: req.params.id.slice(3),
+                    teamID: result._id,
+                    score: score,
+                    result: result,
+                    ans: req.body.toJSON
+                }
+            );
+
+            submit.save(function (err) {
+                if (err)
+                {
+                    console.log(err);
+                    res.json({success: false});
+                }
+                else
+                    res.json({success: true});
+            });
+        });
+    });
+});
 //OK path
 
 router.get('/getChallenges/round/:round',(req, res) => {
