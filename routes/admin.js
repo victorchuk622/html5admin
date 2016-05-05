@@ -66,8 +66,8 @@ router.get('/stat-assignments/:id',(req, res) => {
         delete particulars.submit;
         delete particulars.content;
         total = results[0].length;
-        data = Array(total).map((s) => {return 0;});
-        stat.labels = Array(total).map((x, i) => {
+        data = Array(total).fill(0);
+        stat.labels = Array(total).fill(0).map((x, i) => {
             return 'Q'+(i+1);
         });
         results[0].forEach((submission) => {
