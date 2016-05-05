@@ -83,9 +83,11 @@ router.post('/submitAssignment/:assid' , authUser, (req, res) => {
     var result = [];
     Assignment.findOne({id:req.params.assid}).select('content.questionNo content.ans').exec().then((assignment) => {
         assignment.content.forEach((content) => {
+            console.log(content);
             var submittedAns = userSubmission.filter((val)=>{
                 return val.question_number == (content.questionNo -1) ;
             });
+            console.log(submittedAns);
             //console.log(submittedAns);
             //console.log("end");
             var wrong = false;
@@ -123,7 +125,7 @@ router.post('/submitAssignment/:assid' , authUser, (req, res) => {
                 userID: req.decoded.id,
                 score: score,
                 result: result,
-                ans: req.body.toJSON
+                ans: req.body
             }
         );
 
