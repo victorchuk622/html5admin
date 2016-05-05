@@ -15,6 +15,9 @@ router.use(authUser);
 
 router.get('/getRanking/round/:round',(req,res) => {
     Ranking.find({round:req.params.round}).sort({score: -1}).exec().then((ranks)=> {
+        for(i=0;i<ranks.length;i++){
+            ranks[0].rank = i+1;
+        }
         res.json(ranks);
     });
 });
