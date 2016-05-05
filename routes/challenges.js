@@ -11,10 +11,12 @@ var Ranking = require('../models/ranking');
 
 //post
 // --data "questionID=XXX&teamID=XXX&score=XXX"
+
+//OK path not protected
+
 router.get('/addChallenge/:teamID', (req, res) => {
     res.render('addChallenge',{teamID:req.params.teamID,token:req.query.token});
 });
-
 
 router.post('/addChallenge',(req, res) => {
     //var challenge = new Challenge(req.body.toJSON);
@@ -36,11 +38,12 @@ router.post('/addChallenge',(req, res) => {
         challenge.questionID += result.questionID;
         challenge.save();
     });
-
-    res.json(req.body);
-
+    res.render('addChallengeResult');
 });
+
 router.use(authUser);
+
+//OK path
 
 router.get('/getChallenges/round/:round',(req, res) => {
     Challenge.find({round:req.params.round}).lean().exec().then((challenges)=>{
@@ -73,16 +76,13 @@ router.get('/myTeam', (req, res) => {
     });
 });
 
+//need implement
+
 router.get('/progress', (req, res) => {
     res.json({
         "total":10,
         "finish":2
     });
 });
-
-router.get('/addChallenge/:teamID', (req, res) => {
-    res.render('addChallenge',{teamID:req.params.teamID});
-});
-
 
 module.exports = router;
