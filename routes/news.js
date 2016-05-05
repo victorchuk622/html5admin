@@ -19,7 +19,7 @@ router.get('/', authUser, (req, res) => {
 });
 
 /* POST news admin */
-router.post('/add', authadmin, (req, res) => {
+router.post('/addNews', authadmin, (req, res) => {
     var news = new News(
         {
             title: req.body.title,
@@ -27,13 +27,15 @@ router.post('/add', authadmin, (req, res) => {
             create: Date.now(),
             publish: req.body.publish,
             expire: req.body.expire,
-            author: req.body.author,
+            author: req.decoded.id,
         }
     );
 
+    console.log(news);
+
     news.save(function (err) {
-        if (err) res.json({success: false});
-        else res.json({success: true});
+        if (err) res.redirect('/admin/news');
+        else res.redirect('/admin/news');
     });
 });
 

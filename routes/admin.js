@@ -133,6 +133,10 @@ router.get('/addNews', (req, res) => {
     res.render('addNews');
 });
 
+router.post('/addNews', (req, res) => {
+    res.redirect(307, '/news' + req.path);
+});
+
 router.get('/messages', (req, res) => {
     res.render('messages');
 });
