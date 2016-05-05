@@ -39,8 +39,9 @@ router.post('/addAssignment', authadmin,(req, res) => {
 
 
 router.get('/getAssignments', authUser,  (req, res) => {
-    Assignment.find({}).select().lean().exec().then((assignments) => {
+    Assignment.find({}).select().lean().exec().then((results) => {
         //console.log(typeof assignments, assignments.length);
+        var assignments = JSON.parse(JSON.stringify(results));
         assignments.forEach((assignment) => {
             SubmitedAssignment.find({
                 assignmentID: assignment._id, 
