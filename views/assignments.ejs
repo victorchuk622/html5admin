@@ -24,8 +24,8 @@
                     <tr>
                         <td class="col-md-1"><%= assignment.title %></td>
                         <td class="col-md-1"><%= assignment.info%></td>
-                        <td class="col-md-1"><%= assignment.create.getFullYear() + '-' + assignment.create.getMonth() + '-' + assignment.create.getDay() + ' '  + assignment.create.getHours() + ':' + assignment.create.getMinutes() + ':' + assignment.create.getSeconds()  %></td>
-                        <td class="col-md-1"><%= assignment.deadline.getFullYear() + '-' + assignment.deadline.getMonth() + '-' + assignment.deadline.getDay() + ' '  + assignment.deadline.getHours() + ':' + assignment.deadline.getMinutes() + ':' + assignment.deadline.getSeconds()  %></td>
+                        <td class="col-md-1"><%= assignment.create.getFullYear() + '-' + (assignment.create.getMonth()+1) + '-' + assignment.create.getDate() + ' '  + assignment.create.getHours() + ':' + assignment.create.getMinutes() + ':' + assignment.create.getSeconds()  %></td>
+                        <td class="col-md-1"><%= assignment.deadline.getFullYear() + '-' + (assignment.deadline.getMonth()+1) + '-' + assignment.deadline.getDate() + ' '  + assignment.deadline.getHours() + ':' + assignment.deadline.getMinutes() + ':' + assignment.deadline.getSeconds()  %></td>
                         <td class="col-md-1"><%= submitted[index]%></td>
                         <td class="col-md-1"><a href="./deleteAssignment/<%= assignment.id %>">Delete Assignment</a></td>
                     </tr>
