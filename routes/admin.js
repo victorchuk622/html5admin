@@ -72,7 +72,7 @@ router.get('/stat-assignments/:id',(req, res) => {
         console.log(total);
         console.log(particulars);
         console.log(results[0].length);
-        total = results[0].length;
+        total = results[1].content.length;
         data = Array(total).fill(0);
         stat.labels = Array(total).fill(0).map((x, i) => {
             return 'Q'+(i+1);
