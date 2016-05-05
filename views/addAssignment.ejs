@@ -8,17 +8,99 @@
     <div class="container responsive">
         <h1><%= title %></h1>
         <div class="container">
-            <h2>Create Questions</h2>
+            <form id="addAssignment" role="form" action="/admin/addAssignment" method="post">
 
+            <fieldset class="form-group">
+                <br/>
+                <input type="text" class="form-control" id="title"
+                       name="title" placeholder="Title"  required>
+                <br/>
+                <input type="text" class="form-control" id="deadline"
+                       name="deadline" placeholder="Deadline"  required>
+                <br/>
+                    <textarea class="form-control" id="info" name="info"
+                              placeholder="Description" required></textarea>
+            </fieldset>
             <ul class="nav nav-tabs">
-                <li id="li-q1" class="active"><a data-toggle="tab" href="#tab-q1">1</a></li>
+                <li id="li-q1" class="active"><a data-toggle="tab" href="#tab-q1">Q 1</a></li>
                 <li><a onclick="addquestion()" href="#">+</a></li>
             </ul>
-            <form id="addChallenge" role="form" action="/challenges/addChallenge" method="post">
-                <input type="hidden" class="form-control" id="teamID" name="teamID"
-                       value="1">
+
+
                 <div class="tab-content">
-                    <% include tab-q1 %>
+
+                    <!--    -->
+
+                    <div id="tab-q1" class="tab-pane fade in active">
+
+                        <h3>Question 1</h3>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#mc-q1">Multiple Choices</a></li>
+                            <li><a data-toggle="tab" href="#fitb-q1">Fill in the Blank</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <fieldset class="form-group">
+                                <br/>
+                    <textarea class="form-control" id="content[0][question]" name="content[0][question]"
+                              placeholder="Question" required></textarea>
+                            </fieldset>
+                            <br/>
+                            <input type="hidden" class="form-control" id="content[0][questionNo] " name="content[0][questionNo]"
+                                   value="1">
+
+                            <div id="mc-q1" class="tab-pane fade in active question-answer">
+                                <input type="hidden" class="form-control" id="content[0][qType]" name="content[0][qType]"
+                                       value="mc">
+                                <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" id="content[0][ans][0][correct]" name="content[0][ans][0][correct]" value="true">
+      </span>
+                                    <input type="text" class="form-control" id="content[0][ans][0][content]"
+                                           name="content[0][ans][0][content]" placeholder="Answer"  required>
+                                </div>
+                                <br/>
+                                <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" id="content[0][ans][1][correct]" name="content[0][ans][1][correct]" value="true" >
+      </span>
+                                    <input type="text" class="form-control" id="content[0][ans][1][content]"
+                                           name="content[0][ans][1][content]" placeholder="Answer"  required>
+                                </div>
+
+                                <br/>
+                                <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" id="content[0][ans][2][correct]" name="content[0][ans][2][correct]" value="true" >
+      </span>
+                                    <input type="text" class="form-control" id="content[0][ans][2][content]"
+                                           name="content[0][ans][2][content]" placeholder="Answer"  required>
+                                </div>
+                                <br/>
+                                <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" id="content[0][ans][3][correct]" name="content[0][ans][3][correct]" value="true" >
+      </span>
+                                    <input type="text" class="form-control" id="content[0][ans][3][content]"
+                                           name="content[0][ans][3][content]" placeholder="Answer"  required>
+                                </div>
+                                <br/>
+                            </div>
+
+                            <div id="fitb-q1" class="tab-pane fade question-answer">
+                                <input type="hidden" class="form-control" id="content[0][qType]" name="content[0][qType]"
+                                       value="fitb">
+                                <p>
+                                    <input type="text" class="form-control" id="content[0][ans][0][content]" name="content[0][ans][0][content]" placeholder="Answer">
+                                    <input type="hidden" class="form-control" id="content[0][ans][0][correct]" name="content[0][ans][0][correct]"
+                                           value="true">
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--    -->
+
 
                 </div>
                 <button type="submit" class="btn btn-default">Create</button>
@@ -27,6 +109,6 @@
     </div>
 </div>
 <% include foot %>
-<script src="/js/addChallenge.js"></script>
+<script src="/js/addAssignment.js"></script>
 </body>
 </html>

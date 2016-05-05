@@ -40,11 +40,18 @@ router.get('/addAssignment', (req, res) => {
     res.render('addAssignment');
 });
 
+router.post('/addAssignment', (req, res) => {
+    console.log(req.body);
+    res.redirect('/admin/assignments');
+});
+
 
 
 router.get('/stat-assignments/:id',(req, res) => {
 
-    SubmitedAssignment.find({assignmentID:assignment.id}).exec().then((submits) => {
+
+
+    SubmitedAssignment.find({assignmentID:req.params.id}).exec().then((submits) => {
         var stat; var total; var data = [0,0,0,0,0,0,0,0,0,0];
         stat.labels = ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10"];
         submits.forEach( submit => {
