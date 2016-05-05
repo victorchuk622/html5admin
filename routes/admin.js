@@ -73,6 +73,7 @@ router.get('/stat-assignments/:id',(req, res) => {
         console.log(particulars);
         console.log(results[0].length);
         total = results[1].content.length;
+        htotal = result[0].length;
         data = Array(total).fill(0);
         stat.labels = Array(total).fill(0).map((x, i) => {
             return 'Q'+(i+1);
@@ -82,7 +83,7 @@ router.get('/stat-assignments/:id',(req, res) => {
                 data[correct-1]++;
             })
         });
-        data = data.map( s => (s/total)*100 );
+        data = data.map( s => (s/htotal)*100 );
         console.log(data);
         stat.datasets.push({
             label: '% of Correct', 
