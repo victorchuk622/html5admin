@@ -99,8 +99,8 @@ router.post('/submitChallenge/:id',(req, res) => {
             }
         });
         Team.findOne({teamMember:req.decoded.id}).lean().exec().then((result) =>{
-            Ranking.findOne({teamID: result._id}).exec().then((result) => {
-                if (!result){
+            Ranking.findOne({teamID: result._id}).exec().then((ranking) => {
+                if (!ranking){
                     var rank = new Ranking({
                         teamID: result._id,
                         team: result.team,
