@@ -61,7 +61,7 @@ router.post('/submitChallenge/:id',(req, res) => {
     //console.log(req.body);
     //var userSubmission = JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": 1, "answer": "Event attributes" },{ "questionNo": 2, "answer": "getPosition()"},{ "questionNo": 2,"answer":"getCurrentPosition()" }]}');
     var score = 0;
-    var result = [];
+    var sresult = [];
     Challenge.findOne({questionID:req.params.id.slice(3)}).select('content.questionNo content.ans').exec().then((challenge) => {
         console.log(challenge.content);
         challenge.content.forEach((content) => {
@@ -94,12 +94,16 @@ router.post('/submitChallenge/:id',(req, res) => {
             });
             if(!wrong){
                 score++;
-                result.push(content.questionNo);
+                sresult.push(content.questionNo);
 
             }
         });
+
+        console.log(score);
         Team.findOne({teamMember:req.decoded.id}).lean().exec().then((result) =>{
+            console.log(result);
             Ranking.findOne({teamID: result._id}).exec().then((ranking) => {
+                console.log(ranking);
                 if (!ranking){
                     var rank = new Ranking({
                         teamID: result._id,
@@ -108,14 +112,14 @@ router.post('/submitChallenge/:id',(req, res) => {
                     });
                     rank.save();
                 }else{
-                    result.score += score;
-                    result.save();
+                    ranking.score += score;
+                    ranking.save();
                 }
                 var submit = new SubmitedChallenge({
                     challengeID: req.params.id.slice(3),
                     teamID: result._id,
                     score: score,
-                    result: result,
+                    result: sresult,
                     ans: req.body.toJSON
                 });
                 submit.save().then(() => {
@@ -126,6 +130,7 @@ router.post('/submitChallenge/:id',(req, res) => {
                 });
             });
         });
+
     });
 });
 
