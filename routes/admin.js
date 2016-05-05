@@ -59,8 +59,8 @@ router.get('/stat-assignments/:id',(req, res) => {
         assignmentID: assignmentId
     }).exec().then((submissions) => {
         total = submissions.length;
-        data = Array.apply(null, Array(total)).map(s => 0);
-        stat.labels = Array.apply(null, Array(total)).map(function(x, i){
+        data = Array(total).map(s => 0);
+        stat.labels = Array(total).map(function(x, i){
             return 'Q'+(i+1);
         });
         submissions.forEach((submission) => {
