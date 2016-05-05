@@ -1,6 +1,7 @@
 <% var title = 'Add Assignment' %>
 <% include head %>
 <!--css insert here-->
+<link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container-fluid">
@@ -15,9 +16,21 @@
                 <input type="text" class="form-control" id="title"
                        name="title" placeholder="Title"  required>
                 <br/>
-                <input type="text" class="form-control" id="deadline"
-                       name="deadline" placeholder="Deadline"  required>
-                <br/>
+
+                <div class="row">
+                    <div class='col-sm-6'>
+                        <div class="form-group">
+                            <div class='input-group date' id='datetimepicker1'>
+                               <input type='text' placeholder="Deadline" name="deadline" class="form-control"/ >
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                     <textarea class="form-control" id="info" name="info"
                               placeholder="Description" required></textarea>
             </fieldset>
@@ -109,6 +122,8 @@
     </div>
 </div>
 <% include foot %>
+<script src="/js/moment.min.js"></script>
+<script src="/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/js/addAssignment.js"></script>
 </body>
 </html>

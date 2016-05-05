@@ -15,7 +15,7 @@ router.post('/addAssignment', authadmin,(req, res) => {
     var assignment = new Assignment(req.body);
 
     assignment.id=assignment._id;
-    assignment.deadline = Date.now();
+    //assignment.deadline = Date.now();
 
     console.log(req.body);
 

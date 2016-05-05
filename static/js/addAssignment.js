@@ -1,4 +1,8 @@
 var questioncount = 1;
+$(function () {
+    $('#datetimepicker1').datetimepicker();
+});
+
 $( "#addAssignment" ).submit(function( event ) {
     //event.preventDefault();
     $(":not(.active).question-answer").remove();

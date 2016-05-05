@@ -6,7 +6,7 @@ module.exports = mongoose.model('Assignment', new Schema({
     id: String,
     title: {type: String, required: true},
     create: {type: Date, required: true , default:Date.now()},
-    deadline: {type: Date},
+    deadline: {type: Date, required: true},
     info: {type: String, required: true},
     submit: Number,
     content: [{
