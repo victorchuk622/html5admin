@@ -40,34 +40,30 @@ router.post('/addAssignment', authadmin,(req, res) => {
 
 router.get('/getAssignments', authUser,  (req, res) => {
     Assignment.find({}).select().lean().exec().then((assignments) => {
-        console.log(typeof assignments, assignments.length);
-        assignments.forEach(function(assignment){
-
-            /*
-             SubmitedAssignment.findOne({assignmentID:assignments.id,userID:req.decoded.id}).exec.then((submitted) =>{
-             if (submitted.length >0) assignment.done= false;
-             else assignment.done= true;
-             });*/
-            assignment.done= false;
-
-            //assignment.id=assignment._id;
-
-            var str = '';
-            assignment.content.forEach(function (content) {
-                str += content.qType + '$' + content.question + '$$';
-                content.ans.forEach(function (ans) {
-                    if (ans.correct)str += '*' + ans.content + '|';
-                    else str += ans.content + '|';
+        //console.log(typeof assignments, assignments.length);
+        assignments.forEach((assignment) => {
+            SubmitedAssignment.findOne({
+                assignmentID: assignment.id, 
+                userID: req.decoded.id
+            }).exec().then((submitted) => {
+                (submitted.length > 0) ? (assignment.done = true) : (assignment.done = false);
+                //assignment.id=assignment._id;
+                var str = '';
+                assignment.content.forEach((content) => {
+                    str += content.qType + '$' + content.question + '$$';
+                    content.ans.forEach((ans) => {
+                        if (ans.correct)str += '*' + ans.content + '|';
+                        else str += ans.content + '|';
+                    });
+                    str = str.slice(0, -1);
+                    str += '&';
                 });
                 str = str.slice(0, -1);
-                str += '&';
+                assignment.content = str;
+                console.log(assignment.content);
             });
-            str = str.slice(0, -1);
-            assignment.content=str;
-            console.log(assignment.content);
+            res.json(assignments);
         });
-        res.json(assignments);
-
     });
 });
 
