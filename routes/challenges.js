@@ -98,7 +98,23 @@ router.get('/submitChallenges/:id',(req, res) => {
             }
         });
 
+
+
         Team.findOne({teamMember:req.decoded.id}).lean().exec().then((result) =>{
+
+            Ranking.findOne({teamID: result._id}).exec.then(function (err, result) {
+                if (err)
+                    rank = new Ranking({
+                        teamID: result._id,
+                        team: result.team,
+                        score: score
+                    })
+                else
+                    result.score += score
+                result.save();
+            });
+
+
             var submit = new SubmitedChallenge(
                 {
                     challengeID: req.params.id.slice(3),
