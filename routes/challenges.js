@@ -25,19 +25,30 @@ router.post('/addChallenge',(req, res) => {
 
     challenge.round=1;
 
-    console.log(req.body.teamID);
+    //console.log(req.body.teamID);
+
+    challenge.content.forEach( q => {
+        if(q.qType == 'mc'){
+            var correcta = q.ans.filter((val)=> {
+                return val.correct == true;
+            });
+            if(correcta.length == 1) q.qType = 'oc';
+        }
+        challenge.save();
+    });
 
     Team.findOne({_id:req.body.teamID}).select('teamName').lean().exec().then((result)=>{
-        console.log(result);
+        //console.log(result);
         challenge.teamName = result.teamName;
         challenge.save();
     });
 
     Challenge.findOne().sort('-questionID').lean().exec().then((result)=>{
-        console.log(result);
+        //console.log(result);
         challenge.questionID += result.questionID;
         challenge.save();
     });
+
     res.render('addChallengeResult');
 });
 
