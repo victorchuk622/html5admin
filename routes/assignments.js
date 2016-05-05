@@ -45,7 +45,8 @@ router.get('/getAssignments', authUser,  (req, res) => {
             SubmitedAssignment.findOne({
                 assignmentID: assignment.id, 
                 userID: req.decoded.id
-            }).exec().then((submitted) => {
+            }).lean().exec().then((submitted) => {
+                console.log(submitted);
                 (submitted.length > 0) ? (assignment.done = true) : (assignment.done = false);
                 //assignment.id=assignment._id;
                 var str = '';
