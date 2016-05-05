@@ -39,32 +39,36 @@ router.post('/addAssignment', authadmin,(req, res) => {
 
 
 router.get('/getAssignments', authUser,  (req, res) => {
-    Assignment.find({}).select().lean().exec().then((results) => {
+    Assignment.find({}).select().lean().exec().then((assignments) => {
         //console.log(typeof assignments, assignments.length);
-        var assignments = JSON.parse(JSON.stringify(results));
+        var promises = [];
         assignments.forEach((assignment) => {
-            SubmitedAssignment.find({
-                assignmentID: assignment._id, 
-                userID: req.decoded.id
-            }).lean().exec().then((submitted) => {
-                (submitted.length > 0) ? (assignment.done = true) : (assignment.done = false);
-                //assignment.id=assignment._id;
-                var str = '';
-                assignment.content.forEach((content) => {
-                    str += content.qType + '$' + content.question + '$$';
-                    content.ans.forEach((ans) => {
-                        if (ans.correct)str += '*' + ans.content + '|';
-                        else str += ans.content + '|';
+            var submissionCheckPromise = new Promise((resolve, reject) => {
+                SubmitedAssignment.find({
+                    assignmentID: assignment._id, 
+                    userID: req.decoded.id
+                }).lean().exec().then((submitted) => {
+                    (submitted.length > 0) ? (assignment.done = true) : (assignment.done = false);
+                    //assignment.id=assignment._id;
+                    var str = '';
+                    assignment.content.forEach((content) => {
+                        str += content.qType + '$' + content.question + '$$';
+                        content.ans.forEach((ans) => {
+                            (ans.correct) ? (str += '*' + ans.content + '|') : (str += ans.content + '|');
+                        });
+                        str = str.slice(0, -1);
+                        str += '&';
                     });
                     str = str.slice(0, -1);
-                    str += '&';
+                    assignment.content = str;
+                    resolve();
                 });
-                str = str.slice(0, -1);
-                assignment.content = str;
-                console.log(assignment.content);
             });
+            promises.push(submissionCheckPromise);
         });
-        res.json(assignments);
+        Promise.all(promises).then(() => {
+            res.json(assignments);
+        });
     });
 });
 
