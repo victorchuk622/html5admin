@@ -157,6 +157,7 @@ router.get('/getChallenges/round/:round',(req, res) => {
                     });
                     str = str.slice(0, -1);
                     challenge.content = str;
+                    challenge.questionID="Q00"+challenge.questionID; //add Q00 to questionID
                     resolve();
                 });
             });
