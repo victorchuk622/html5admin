@@ -123,7 +123,7 @@ router.post('/submitAssignment/:assid' , authUser, (req, res) => {
                 userID: req.decoded.id,
                 score: score,
                 result: result,
-                ans: req.body
+                ans: req.body.toJSON
             }
         );
 
