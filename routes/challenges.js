@@ -103,7 +103,7 @@ router.post('/submitChallenge/:id',(req, res) => {
                 if (!ranking){
                     var rank = new Ranking({
                         teamID: result._id,
-                        team: result.team,
+                        team: result.teamName,
                         score: score
                     });
                     rank.save();
