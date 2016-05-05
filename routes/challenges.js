@@ -62,7 +62,7 @@ router.post('/submitChallenge/:id',(req, res) => {
     //var userSubmission = JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": 1, "answer": "Event attributes" },{ "questionNo": 2, "answer": "getPosition()"},{ "questionNo": 2,"answer":"getCurrentPosition()" }]}');
     var score = 0;
     var result = [];
-    Challenge.findOne({id:req.params.id.slice(3)}).select('content.questionNo content.ans').exec().then((challenge) => {
+    Challenge.findOne({questionID:req.params.id.slice(3)}).select('content.questionNo content.ans').exec().then((challenge) => {
         challenge.content.forEach((content) => {
             var submittedAns = userSubmission.filter((val)=>{
                 return val.question_number == content.questionNo;
