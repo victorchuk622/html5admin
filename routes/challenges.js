@@ -139,18 +139,25 @@ router.post('/submitChallenge/:id',(req, res) => {
 router.get('/getChallenges/round/:round',(req, res) => {
     Challenge.find({round:req.params.round}).lean().exec().then((challenges)=> {
         Team.findOne({teamMember:req.decoded.id}).lean().exec().then((result) =>{
-
         var promises = [];
-
-
         challenges.forEach((challenge) => {
             var submissionCheckPromise = new Promise((resolve, reject) => {
-                SubmitedChallenge.find({
-                    challengeID: challenge.questionID,
-                    teamID: result._id
-                }).lean().exec().then((submitted) => {
-                    (submitted.length > 0) ? (challenge.done = true) : (challenge.done = false);
-                    (challenge.teamID == result._id) ? (challenge.done = true) : (challenge.done = false);
+                var challengeSubmissionQuery;
+                if (!!result){
+                    challengeSubmissionQuery = SubmitedChallenge.find({
+                        challengeID: challenge.questionID,
+                        teamID: result._id
+                    }).lean().exec();
+                }else{
+                    challengeSubmissionQuery = new Promise((resolve) => {
+                        resolve();
+                    });
+                }
+                challengeSubmissionQuery.then((submitted) => {
+                    if (!!result){
+                        (submitted.length > 0) ? (challenge.done = true) : (challenge.done = false);
+                        (challenge.teamID == result._id) ? (challenge.done = true) : (challenge.done = false);
+                    }
                     //assignment.id=assignment._id;
                     var str = '';
                     challenge.content.forEach((content) => {
