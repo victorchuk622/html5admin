@@ -63,9 +63,10 @@ router.post('/submitChallenge/:id',(req, res) => {
     var score = 0;
     var result = [];
     Challenge.findOne({questionID:req.params.id.slice(3)}).select('content.questionNo content.ans').exec().then((challenge) => {
+        console.log(challenge.content);
         challenge.content.forEach((content) => {
             var submittedAns = userSubmission.filter((val)=>{
-                return val.question_number == content.questionNo;
+                return val.question_number == (content.questionNo-1);
             });
             //console.log(submittedAns);
             //console.log("end");
