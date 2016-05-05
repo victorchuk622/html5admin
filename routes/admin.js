@@ -41,8 +41,7 @@ router.get('/addAssignment', (req, res) => {
 });
 
 router.post('/addAssignment', (req, res) => {
-    console.log(req.body);
-    res.redirect('/admin/assignments');
+    res.redirect(307, '/assignments' + req.path);
 });
 
 
