@@ -75,7 +75,7 @@ router.get('/getAssignments', authUser,  (req, res) => {
 //path ok
 
 router.post('/submitAssignment/:assid' , authUser, (req, res) => {
-    //console.log(req.body);
+    console.log(req.body);
     var userSubmission = req.body;
     //console.log(req.body);
     //var userSubmission = JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": 1, "answer": "Event attributes" },{ "questionNo": 2, "answer": "getPosition()"},{ "questionNo": 2,"answer":"getCurrentPosition()" }]}');
