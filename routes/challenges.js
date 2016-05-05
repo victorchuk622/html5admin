@@ -142,7 +142,7 @@ router.get('/getChallenges/round/:round',(req, res) => {
             var submissionCheckPromise = new Promise((resolve, reject) => {
                 SubmitedChallenge.find({
                     challengeID: challenge.questionID,
-                    userID: result._id
+                    teamID: result._id
                 }).lean().exec().then((submitted) => {
                     (submitted.length > 0) ? (challenge.done = true) : (challenge.done = false);
                     //assignment.id=assignment._id;
