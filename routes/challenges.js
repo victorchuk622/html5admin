@@ -55,7 +55,7 @@ router.post('/addChallenge',(req, res) => {
 
 router.use(authUser);
 
-router.get('/submitChallenges/:id'),(req, res) => {
+router.get('/submitChallenges/:id',(req, res) => {
     //console.log(req.body);
     var userSubmission = req.body;
     //console.log(req.body);
@@ -121,6 +121,7 @@ router.get('/submitChallenges/:id'),(req, res) => {
         });
     });
 });
+
 //OK path
 
 router.get('/getChallenges/round/:round',(req, res) => {
