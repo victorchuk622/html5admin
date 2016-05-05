@@ -48,31 +48,35 @@ router.post('/addAssignment', (req, res) => {
 
 
 router.get('/stat-assignments/:id',(req, res) => {
-
-
-
-    SubmitedAssignment.find({assignmentID:req.params.id}).exec().then((submits) => {
-        var stat; var total; var data = [0,0,0,0,0,0,0,0,0,0];
-        stat.labels = ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10"];
-        submits.forEach( submit => {
-            submit.result.forEach( correct => {
+    var stat = {
+        labels: ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10"],
+        datasets: []
+    }; 
+    var assignmentId = req.params.id;
+    SubmitedAssignment.find({assignmentID: assignmentId}).exec().then((submissions) => {
+        var total; 
+        var data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        submissions.forEach((submission) => {
+            submission.result.forEach((correct) => {
                 data[correct]++;
             })
         })
-        stat.datasets = [{label: '% of Correct',data:data}];
+        stat.datasets.push({
+            label: '% of Correct', 
+            data: data
+        });
+        res.render('stat-assignments',{
+            asstitle: "Assignment " + assignmentId, 
+            data: stat
+        });
     });
-
-
-    var dummy = {
+    /*var dummy = {
         labels: ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10"],
         datasets: [{
             label: '% of Correct',
             data: [78.8, 80, 68, 75, 88,55,67, 87, 75, 57]
         }]
-    };
-
-
-    res.render('stat-assignments',{asstitle:"Assignment 1",data:dummy});
+    };*/
 });
 
 
