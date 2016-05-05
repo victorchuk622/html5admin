@@ -129,6 +129,14 @@ router.get('/logout',(req, res) => {
     res.redirect('/');
 });
 
+router.get('/addNews', (req, res) => {
+    res.render('addNews');
+});
+
+router.get('/messages', (req, res) => {
+    res.render('messages');
+});
+
 router.get('/news',(req, res) => {
     News.find().sort({publish: -1}).then((results) => {
         res.render('news', {news:results});
