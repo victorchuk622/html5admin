@@ -9,7 +9,7 @@ module.exports = mongoose.model('Submitted_Assignment', new Schema({
     full: Number,
     result:[Number],
     ans: [{
-        questionNo:{type: Number, required: true},
+        question_no:{type: Number, required: true},
         answer:{type: String, required: true},
     }]
 }));
