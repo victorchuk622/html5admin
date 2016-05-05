@@ -27,7 +27,7 @@
                     <div class="panel-body">
                         <% assignments.forEach(function(assignment) { %>
                         <h4><u><%= assignment.title %></u></h4>
-                        <h5><%= assignment.deadline.getFullYear() + '-' + (assignment.deadline.getMonth()+1) + '-' + assignment.deadline.getDate() %>
+                        <h5>Deadline: <%= assignment.deadline.getFullYear() + '-' + (assignment.deadline.getMonth()+1) + '-' + assignment.deadline.getDate() %>
                             <% var submit = submited.filter((val)=>{
                                 return val._id == assignment.id;
                             }); %>
