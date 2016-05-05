@@ -47,26 +47,34 @@ router.post('/addAssignment', (req, res) => {
 
 
 router.get('/stat-assignments/:id',(req, res) => {
-    var total;
+    var data;
     var stat = {
-        labels:[],
+        labels: [],
         datasets: []
     };
-    var data = [];
     var assignmentId = req.params.id;
-    SubmitedAssignment.find({
+    var promises = [];
+    promises.push(SubmitedAssignment.find({
         assignmentID: assignmentId
-    }).exec().then((submissions) => {
-        total = submissions.length;
+    }).exec());
+    promises.push(Assignment.findOne({
+        id: assignmentId
+    }).exec());
+    Promise.all(promises).then((results) => {
+        var total;
+        var particulars = results[1].toObject();
+        delete particulars.submit;
+        delete particulars.content;
+        total = results[0].length;
         data = Array(total).map(s => 0);
         stat.labels = Array(total).map(function(x, i){
             return 'Q'+(i+1);
         });
-        submissions.forEach((submission) => {
+        results[0].forEach((submission) => {
             submission.result.forEach((correct) => {
                 data[correct-1]++;
             })
-        })
+        });
         data = data.map( s => (s/total)*100 );
         console.log(data);
         stat.datasets.push({
@@ -74,7 +82,7 @@ router.get('/stat-assignments/:id',(req, res) => {
             data: data
         });
         res.render('stat-assignments',{
-            asstitle: "Assignment " + assignmentId, 
+            particulars: particulars, 
             data: stat
         });
     });
