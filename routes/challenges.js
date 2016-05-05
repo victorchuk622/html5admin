@@ -150,7 +150,7 @@ router.get('/getChallenges/round/:round',(req, res) => {
                     teamID: result._id
                 }).lean().exec().then((submitted) => {
                     (submitted.length > 0) ? (challenge.done = true) : (challenge.done = false);
-                    (submitted.teamID == challenge.teamID) ? (challenge.done = true) : (challenge.done = false);
+                    (challenge.teamID == result._id) ? (challenge.done = true) : (challenge.done = false);
                     //assignment.id=assignment._id;
                     var str = '';
                     challenge.content.forEach((content) => {
