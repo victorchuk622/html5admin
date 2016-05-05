@@ -14,7 +14,7 @@ var Team = require('../models/team')
 router.use(authUser);
 
 router.get('/getRanking/round/:round',(req,res) => {
-    Ranking.find({round:parseInt(req.params.round)}).sort({score: -1}).exec().then((ranks)=> {
+    Ranking.find({round:parseInt(req.params.round)}).sort({score: -1}).lean().exec().then((ranks)=> {
         console.log(ranks);
         for(i=0;i<ranks.length;i++){
             ranks[0].rank = i+1;
@@ -24,7 +24,7 @@ router.get('/getRanking/round/:round',(req,res) => {
 });
 
 router.get('/statistic/round/:round/teamID/:id',(req,res) => {
-    Ranking.find({round:parseInt(req.params.round)}).sort({score: -1}).exec().then((ranks)=>{
+    Ranking.find({round:parseInt(req.params.round)}).sort({score: -1}).lean().exec().then((ranks)=>{
         //console.log(ranks);
         //console.log(req.params.id);
         var target = ranks.filter((val)=> {
