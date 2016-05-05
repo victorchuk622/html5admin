@@ -53,7 +53,9 @@ router.get('/stat-assignments/:id',(req, res) => {
         datasets: []
     }; 
     var assignmentId = req.params.id;
-    SubmitedAssignment.find({assignmentID: assignmentId}).exec().then((submissions) => {
+    SubmitedAssignment.find({
+        assignmentID: assignmentId
+    }).exec().then((submissions) => {
         var total; 
         var data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         submissions.forEach((submission) => {
