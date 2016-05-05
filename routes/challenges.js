@@ -55,8 +55,8 @@ router.post('/addChallenge',(req, res) => {
 
 router.use(authUser);
 
-router.get('/submitChallenges/:id',(req, res) => {
-    //console.log(req.body);
+router.post('/submitChallenge/:id',(req, res) => {
+    console.log(req.body);
     var userSubmission = req.body;
     //console.log(req.body);
     //var userSubmission = JSON.parse('{"userID": "s1126051","ans": [{ "questionNo": 1, "answer": "Event attributes" },{ "questionNo": 2, "answer": "getPosition()"},{ "questionNo": 2,"answer":"getCurrentPosition()" }]}');
