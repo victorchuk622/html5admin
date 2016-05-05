@@ -17,25 +17,25 @@ router.get('/addChallenge/:teamID', (req, res) => {
 
 
 router.post('/addChallenge',(req, res) => {
-    var challenge = new Challenge(req.body.toJSON);
-    console.log(req.body);
+    //var challenge = new Challenge(req.body.toJSON);
+    //console.log(req.body);
     var challenge = new Challenge(req.body);
+
     challenge.round=1;
 
+    console.log(req.body.teamID);
+
     Team.findOne({_id:req.body.teamID}).select('teamName').lean().exec().then((result)=>{
-        //console.log(result.teamName);
+        console.log(result);
         challenge.teamName = result.teamName;
         challenge.save();
     });
 
-
-    /*
-    Challenge.findOne().max().select('questionID').lean().exec().then((result)=>{
-        console.log(result.questionID);
-        challenge.questionID = result.questionID+1;
+    Challenge.findOne().sort('-questionID').lean().exec().then((result)=>{
+        console.log(result);
+        challenge.questionID += result.questionID;
         challenge.save();
     });
-    */
 
     res.json(req.body);
 
